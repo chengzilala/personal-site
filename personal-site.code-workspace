@@ -1,0 +1,8 @@
+{
+  // Open this project alone: File > Open Workspace... > pick this file
+  // "path": "." makes this folder the only root, so the project's own .trae/ (rules + skills) takes effect
+  "folders": [
+    { "path": "." }
+  ],
+  "settings": {}
+}

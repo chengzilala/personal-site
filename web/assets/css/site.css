@@ -1,0 +1,568 @@
+/* =========================================================
+   personal-site · 极简大图 · 手机优先
+   命名前缀：ps-   |   配色走 CSS 变量，暗色自动跟随系统
+   ========================================================= */
+
+:root {
+  --bg:        #faf9f7;
+  --fg:        #16130f;
+  --muted:     #6b6459;
+  --line:      #e6e2db;
+  --ph-bg:     #efebe4;   /* 占位块底色 */
+  --ph-fg:     #a49b8d;
+
+  --maxw:      1100px;
+  --gutter:    20px;      /* 手机外边距 */
+  --radius:    12px;
+  --gap:       14px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:      #0f0f11;
+    --fg:      #ece9e4;
+    --muted:   #9a938a;
+    --line:    #26262a;
+    --ph-bg:   #1a1a1e;
+    --ph-fg:   #5f5950;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+               system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  /* 兜底：绝不出现横向滚动条。
+     用 clip 而不是 hidden —— hidden 会让 body 变成滚动容器，破坏下面的吸顶导航；
+     支持 clip 的浏览器走 clip，老浏览器退回 hidden。 */
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; }
+
+/* ================= 顶部吸顶导航 ================= */
+
+.ps-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+.ps-topbar__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.ps-topbar__brand {
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ps-topbar__links {
+  display: flex;
+  gap: clamp(16px, 4vw, 28px);
+  font-size: 14px;
+}
+
+.ps-topbar__links a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.ps-topbar__links a:hover { color: var(--fg); }
+
+/* 当前所在页面 */
+.ps-topbar__links a[aria-current="page"] {
+  color: var(--fg);
+  font-weight: 700;
+}
+
+/* ================= 首屏 ================= */
+
+/* 与页脚同色（#393939）通栏铺开：首尾呼应 */
+.ps-hero {
+  background: #393939;
+  color: #ffffff;
+}
+
+/* 手机：照片在上、文字在下（大图优先） */
+.ps-hero__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: clamp(28px, 7vw, 64px) var(--gutter) clamp(40px, 8vw, 72px);
+  display: grid;
+  gap: clamp(24px, 5vw, 48px);
+}
+
+.ps-hero__photo {
+  margin: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.ps-hero__photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ps-hero__name {
+  margin: 0 0 12px;
+  font-size: clamp(30px, 8vw, 48px);
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+
+.ps-hero__tagline {
+  margin: 0;
+  max-width: 34em;
+  font-size: clamp(15px, 4vw, 17px);
+  color: #cccccc;
+}
+
+/* 首屏一行简介（阮一峰式：一行灰字，无标签、无装饰） */
+.ps-hero__meta {
+  margin: clamp(18px, 4vw, 26px) 0 0;
+  max-width: 40em;
+  font-size: clamp(14px, 3.6vw, 16px);
+  color: #999999;
+}
+
+/* ================= 板块通用 ================= */
+
+.ps-section {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: clamp(48px, 10vw, 96px) var(--gutter);
+  border-top: 1px solid var(--line);
+}
+
+/* 页面首个板块：上面就是导航栏/首屏，不再重复画一条分隔线 */
+.ps-section--flush { border-top: 0; }
+
+.ps-section__head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
+.ps-section__title {
+  margin: 0;
+  font-size: clamp(22px, 5.5vw, 30px);
+  font-weight: 700;
+}
+
+.ps-section__sub {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  color: var(--muted);
+}
+
+.ps-intro {
+  margin: 0 0 clamp(22px, 5vw, 36px);
+  max-width: 38em;
+  font-size: clamp(15px, 4vw, 17px);
+  color: var(--muted);
+}
+
+/* ================= 照片墙 ================= */
+
+/* 手机 2 列 → 平板 3 列 → 桌面 4 列；大图优先 */
+.ps-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gap);
+}
+
+.ps-photo {
+  margin: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.ps-photo--wide { grid-column: 1 / -1; }
+
+/* 图片未放入时，用占位块撑住版面（不会出现破图） */
+.ps-ph {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  aspect-ratio: 1 / 1;
+  background: var(--ph-bg);
+  color: var(--ph-fg);
+  font-size: 13px;
+  text-align: center;
+  padding: 12px;
+}
+
+.ps-photo--wide .ps-ph { aspect-ratio: 16 / 10; }
+
+.ps-ph code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  opacity: 0.8;
+  word-break: break-all;
+}
+
+/* 放入真实图片后，加了这个 class 就自适应 */
+.ps-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ================= 作品卡 ================= */
+
+.ps-works {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;              /* 卡片各自按内容高，不被拉平 */
+  gap: clamp(18px, 4vw, 28px);
+}
+
+.ps-card {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.ps-card:hover { transform: translateY(-3px); border-color: var(--muted); }
+
+.ps-card__media { background: var(--ph-bg); }
+.ps-card__media .ps-ph { aspect-ratio: 16 / 9; }
+
+/* 图片可点击跳转：整块图片是链接，悬停给一点反馈 */
+.ps-card__media-link { display: block; }
+.ps-card__media-link img { transition: opacity 0.2s ease; }
+.ps-card__media-link:hover img { opacity: 0.88; }
+
+/* 放入真实作品图后：撑满卡片宽度、按原比例自适应（不被 height 属性拉长） */
+.ps-card__media img { display: block; width: 100%; height: auto; }
+
+/* 二维码卡：保持与相邻卡同高（16:9），二维码居中完整显示、不裁切 */
+.ps-card__media--qr { aspect-ratio: 16 / 9; }
+.ps-card__media--qr .ps-card__media-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.ps-card__media--qr img { width: auto; height: 100%; max-width: 100%; }
+.ps-card__media--qr .ps-ph { aspect-ratio: auto; height: 100%; }
+
+.ps-card__body { padding: 18px 20px 22px; }
+
+.ps-card__title { margin: 0 0 6px; font-size: 19px; font-weight: 700; }
+
+.ps-card__desc { margin: 0 0 14px; font-size: 15px; color: var(--muted); }
+
+.ps-card__link {
+  font-size: 14px;
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 2px;
+  transition: border-color 0.2s;
+}
+
+.ps-card__link:hover { border-color: var(--fg); }
+
+/* ================= 页脚（= 课件最后一页，配色/顺序/粗细照搬） =================
+   排版沿用末页比例（主标题≈副行的 1.7 倍），整体取常规页脚的较小尺度 */
+
+.ps-footer {
+  background: #393939;          /* 课件灰：整块只有一个底色 */
+  color: #f2f1ee;               /* 米白（兜底字色） */
+  padding: clamp(24px, 5vw, 48px) 0 clamp(24px, 4.5vw, 44px);
+  font-size: 13px;
+}
+
+/* 内容整体居中 */
+.ps-footer__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  text-align: center;
+}
+
+/* 第 1 行：最后，祝你成为超人。 */
+.ps-footer__line1 {
+  margin: 0;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: clamp(20px, 3.2vw, 32px);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+/* 第 2 行：在我的语境中有两层意思 */
+.ps-footer__line2 {
+  margin: clamp(14px, 2.6vw, 24px) 0 0;
+  color: #888888;
+  font-weight: 700;
+  font-size: clamp(13px, 1.9vw, 19px);
+  line-height: 1.3;
+}
+
+/* 第 3 行：在生活中游刃有余的人 */
+.ps-footer__line3 {
+  margin: clamp(6px, 1.2vw, 10px) 0 0;
+  color: #cccccc;
+  font-weight: 700;
+  font-size: clamp(13px, 1.85vw, 18px);
+  line-height: 1.3;
+}
+
+/* 第 4 行：尼采那句 */
+.ps-footer__line4 {
+  margin: clamp(6px, 1.2vw, 10px) 0 0;
+  color: #999999;
+  font-weight: 700;
+  font-size: clamp(13px, 1.85vw, 18px);
+  line-height: 1.3;
+}
+
+/* 站点信息（幻灯片末页没有，属必要附加） */
+.ps-footer__meta {
+  margin: clamp(16px, 3vw, 30px) 0 0;
+  color: #a9a9a9;
+}
+
+/* ================= 断点：平板 / 桌面 ================= */
+
+@media (min-width: 700px) {
+  :root { --gutter: 32px; --gap: 18px; }
+  /* 首屏：沿用课件第 1 页布局——照片在左、文字在右 */
+  .ps-hero__inner {
+    grid-template-columns: minmax(200px, 320px) minmax(0, 1fr);
+    align-items: center;
+  }
+  .ps-gallery { grid-template-columns: repeat(3, 1fr); }
+  .ps-works   { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1100px) {
+  :root { --gutter: 40px; --gap: 22px; }
+  .ps-gallery { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ================= 入场动效（克制） ================= */
+
+.ps-reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.ps-reveal.is-in { opacity: 1; transform: none; }
+
+/* 用户系统里关了动效，就完全不播 */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .ps-reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* =========================================================
+   文章模块 —— 首页列表 / 文章列表页 / 正文页
+   （页面由 tools/sync_articles.py 从 Obsidian 同步生成）
+   ========================================================= */
+
+/* ---------- 首页「文章」列表 ---------- */
+
+.ps-articles { border-top: 1px solid var(--line); }
+
+.ps-article-row {
+  display: block;
+  padding: clamp(16px, 3.6vw, 22px) 0;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+}
+
+.ps-article-row__date {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.ps-article-row__title {
+  margin: 7px 0 5px;
+  font-size: clamp(17px, 4.4vw, 19px);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.ps-article-row__summary {
+  margin: 0;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.ps-article-row:hover .ps-article-row__title { opacity: 0.72; }
+
+.ps-articles__more { margin: clamp(18px, 4vw, 26px) 0 0; font-size: 14px; }
+
+.ps-articles__more a {
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 2px;
+}
+
+.ps-articles__more a:hover { border-color: var(--fg); }
+
+/* ---------- 文章列表页 ---------- */
+
+.ps-list {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: clamp(32px, 7vw, 64px) var(--gutter) clamp(40px, 8vw, 72px);
+}
+
+.ps-list__title { margin: 0 0 6px; font-size: clamp(26px, 6vw, 34px); }
+
+.ps-list__sub { margin: 0 0 clamp(20px, 4vw, 32px); font-size: 14px; color: var(--muted); }
+
+.ps-list__items { margin: 0; padding: 0; list-style: none; }
+
+.ps-item { border-top: 1px solid var(--line); }
+
+.ps-item__link { display: block; padding: clamp(18px, 4vw, 24px) 0; text-decoration: none; }
+
+.ps-item__date { display: block; font-size: 12px; letter-spacing: 0.08em; color: var(--muted); }
+
+.ps-item__title {
+  margin: 7px 0 6px;
+  font-size: clamp(17px, 4.6vw, 21px);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.ps-item__summary { margin: 0; font-size: 15px; color: var(--muted); }
+
+.ps-item__link:hover .ps-item__title { opacity: 0.72; }
+
+/* ---------- 正文页 ---------- */
+
+.ps-post {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: clamp(28px, 6vw, 56px) var(--gutter) clamp(24px, 5vw, 40px);
+}
+
+.ps-post__head { margin-bottom: clamp(22px, 5vw, 34px); }
+
+.ps-post__title {
+  margin: 0 0 10px;
+  font-size: clamp(25px, 6.2vw, 36px);
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+}
+
+.ps-post__meta { margin: 0; font-size: 13px; letter-spacing: 0.06em; color: var(--muted); }
+
+.ps-post__body { font-size: clamp(16px, 4.2vw, 17.5px); line-height: 1.95; }
+
+.ps-post__body > p { margin: 0 0 1.05em; }
+
+.ps-post__body h2,
+.ps-post__body h3,
+.ps-post__body h4 {
+  margin: 1.9em 0 0.6em;
+  line-height: 1.4;
+}
+
+.ps-post__body h2 { font-size: clamp(19px, 4.6vw, 23px); }
+.ps-post__body h3 { font-size: clamp(17px, 4.2vw, 20px); }
+
+.ps-post__body hr { margin: 2em 0; border: 0; border-top: 1px solid var(--line); }
+
+.ps-post__body blockquote {
+  margin: 1.4em 0;
+  padding: 2px 0 2px 16px;
+  border-left: 3px solid var(--line);
+  color: var(--muted);
+}
+
+.ps-post__body blockquote p { margin: 0 0 0.5em; }
+
+.ps-post__body img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0.4em 0 1.2em;
+  border-radius: var(--radius);
+}
+
+.ps-post__body figure { margin: 0 0 1.4em; }
+.ps-post__body figure img { margin: 0; }
+
+.ps-post__body ul,
+.ps-post__body ol { margin: 0 0 1.2em; padding-left: 1.3em; }
+
+.ps-post__body li { margin: 0.3em 0; }
+
+.ps-post__body a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+}
+
+.ps-post__body code {
+  padding: 2px 5px;
+  border-radius: 5px;
+  background: var(--ph-bg);
+  font-size: 0.92em;
+}
+
+.ps-post__body pre {
+  margin: 0 0 1.2em;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  background: var(--ph-bg);
+  overflow-x: auto;
+}
+
+.ps-post__body pre code { padding: 0; background: none; }
+
+.ps-article-foot {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: clamp(18px, 4vw, 24px) var(--gutter) clamp(40px, 8vw, 64px);
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.ps-article-foot a { color: var(--muted); text-decoration: none; }
+.ps-article-foot a:hover { color: var(--fg); }
