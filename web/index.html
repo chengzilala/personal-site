@@ -3,23 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>张诚 · Chester</title>
+<title>i雅俗共赏 · Chester</title>
 <meta name="description" content="张诚（Chester）的个人网站：我的生活方式与我的作品。">
 <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
-
-<!-- ================= 顶部吸顶导航 ================= -->
-<nav class="ps-topbar" aria-label="主导航">
-  <div class="ps-topbar__inner">
-    <a class="ps-topbar__brand" href="index.html">张诚 · Chester</a>
-    <div class="ps-topbar__links">
-      <a href="index.html" aria-current="page">首页</a>
-      <a href="works.html">作品</a>
-      <a href="articles/index.html">文章</a>
-    </div>
-  </div>
-</nav>
 
 <!-- ================= 首屏 ================= -->
 <header class="ps-hero">
@@ -40,6 +28,18 @@
 
   </div>
 </header>
+
+<!-- ================= 导航（初始在首屏下方，滚动时吸顶） ================= -->
+<nav class="ps-topbar" aria-label="主导航">
+  <div class="ps-topbar__inner">
+    <a class="ps-topbar__brand" href="index.html">i雅俗共赏</a>
+    <div class="ps-topbar__links">
+      <a href="index.html" aria-current="page">首页</a>
+      <a href="works.html">作品</a>
+      <a href="articles/index.html">文章</a>
+    </div>
+  </div>
+</nav>
 
 <main>
 
@@ -75,6 +75,67 @@
     </div>
   </section>
 
+  <!-- ================= 作品 ================= -->
+  <section class="ps-section ps-section--flush" id="works">
+    <div class="ps-section__head ps-reveal">
+      <h2 class="ps-section__title">作品</h2>
+      <p class="ps-section__sub">Works</p>
+    </div>
+
+    <div class="ps-works">
+
+      <article class="ps-card ps-reveal">
+        <div class="ps-card__media">
+          <a class="ps-card__media-link"
+             href="https://wereadapp-32km31c.maozi.io"
+             target="_blank" rel="noopener"
+             aria-label="访问微信悦读官网">
+            <img src="assets/img/works/weread-enhancer.jpg"
+                 alt="微信悦读插件宣传图：让微信读书网页版更好读"
+                 width="1400" height="560" loading="lazy">
+          </a>
+        </div>
+        <div class="ps-card__body">
+          <h3 class="ps-card__title">微信悦读</h3>
+          <p class="ps-card__desc">微信读书网页版的阅读增强浏览器插件：屏占比、自动阅读、笔记增强、阅读统计与阅读洞察。已上架 Microsoft Edge 加载项商店。</p>
+          <a class="ps-card__link" href="https://wereadapp-32km31c.maozi.io" target="_blank" rel="noopener">访问官网 →</a>
+        </div>
+      </article>
+
+      <article class="ps-card ps-reveal">
+        <div class="ps-card__media ps-card__media--qr">
+          <a class="ps-card__media-link"
+             href="articles/index.html"
+             aria-label="阅读公众号 i雅俗共赏 的文章">
+            <img src="assets/img/works/wechat-qr.jpg"
+                 alt="公众号 i雅俗共赏 的二维码"
+                 width="430" height="430" loading="lazy">
+          </a>
+        </div>
+        <div class="ps-card__body">
+          <h3 class="ps-card__title">公众号 · i雅俗共赏</h3>
+          <p class="ps-card__desc">俗到极致即为雅，雅得过头便是俗——是谓雅俗共赏。在这里记录生活与思考，点开即可直接阅读文章。</p>
+          <a class="ps-card__link" href="articles/index.html">读文章 →</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ================= 文章 ================= -->
+  <section class="ps-section ps-section--flush" id="articles">
+    <div class="ps-section__head ps-reveal">
+      <h2 class="ps-section__title">文章</h2>
+      <p class="ps-section__sub">Writing</p>
+    </div>
+
+    <!-- 列表由 assets/js/articles-data.js + site.js 自动渲染
+         （数据来自 Obsidian，用「同步文章.command」一键更新） -->
+    <div class="ps-articles" id="ps-articles-list" data-limit="4"></div>
+
+    <p class="ps-articles__more"><a href="articles/index.html">全部文章 →</a></p>
+  </section>
+
 </main>
 
 <footer class="ps-footer">
@@ -83,10 +144,11 @@
     <p class="ps-footer__line2">在我的语境中有两层意思</p>
     <p class="ps-footer__line3">在生活中游刃有余的人</p>
     <p class="ps-footer__line4">「人应该是被超越的某种东西。」—— 尼采</p>
-    <p class="ps-footer__meta">公众号 · i雅俗共赏　／　© 2026 张诚</p>
+    <p class="ps-footer__meta">俗到极致即为雅，雅得过头便是俗——是谓i雅俗共赏。<span class="ps-footer__meta-sep">／</span>© 2026 张诚</p>
   </div>
 </footer>
 
+<script src="assets/js/articles-data.js"></script>
 <script src="assets/js/site.js"></script>
 </body>
 </html>

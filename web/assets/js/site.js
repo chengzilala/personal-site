@@ -16,6 +16,21 @@ function renderArticles() {
     row.className = 'ps-article-row ps-reveal';
     row.href = item.url;
 
+    // 缩略图：数据里的路径是相对 articles/ 目录的，首页在根目录，要去掉开头的 ../
+    if (item.cover) {
+      var thumb = document.createElement('div');
+      thumb.className = 'ps-article-row__thumb';
+      var img = document.createElement('img');
+      img.src = item.cover.replace(/^\.\.\//, '');
+      img.alt = '';
+      img.loading = 'lazy';
+      thumb.appendChild(img);
+      row.appendChild(thumb);
+    }
+
+    var text = document.createElement('div');
+    text.className = 'ps-article-row__text';
+
     var date = document.createElement('time');
     date.className = 'ps-article-row__date';
     date.textContent = item.date;
@@ -24,17 +39,17 @@ function renderArticles() {
     title.className = 'ps-article-row__title';
     title.textContent = item.title;
 
+    text.appendChild(date);
+    text.appendChild(title);
+
     if (item.summary) {
       var summary = document.createElement('p');
       summary.className = 'ps-article-row__summary';
       summary.textContent = item.summary;
-      row.appendChild(date);
-      row.appendChild(title);
-      row.appendChild(summary);
-    } else {
-      row.appendChild(date);
-      row.appendChild(title);
+      text.appendChild(summary);
     }
+
+    row.appendChild(text);
     host.appendChild(row);
   });
 }
