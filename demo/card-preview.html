@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>名片嵌入 · 预览（本地用，不上线）</title>
+<style>
+  body {
+    margin: 0; padding: 40px 20px; background: #f4f4f5;
+    font-family: "PingFang SC", system-ui, -apple-system, sans-serif;
+    color: #333;
+  }
+  h1 { font-size: 18px; margin: 0 0 6px; }
+  p.note { margin: 0 0 28px; font-size: 13px; color: #888; }
+  .wrap { max-width: 760px; margin: 0 auto 40px; }
+  .label { font-size: 12px; color: #999; margin: 0 0 8px; }
+  /* 模拟「对方网站的区块」：一张白卡片，里面放 iframe */
+  .host-block { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  iframe { width: 100%; border: 0; display: block; height: 360px; }
+</style>
+</head>
+<body>
+
+<h1>名片嵌入预览</h1>
+<p class="note">本地预览用，不会上线。真实嵌入代码见页面底部。</p>
+
+<div class="wrap">
+  <p class="label">宽容器（约 720px，模拟桌面）</p>
+  <div class="host-block">
+    <iframe class="pc-embed" src="../web/card.html" title="张诚 · Chester 名片" loading="lazy"></iframe>
+  </div>
+</div>
+
+<div class="wrap" style="max-width:420px">
+  <p class="label">窄容器（约 380px，模拟手机）</p>
+  <div class="host-block">
+    <iframe class="pc-embed" src="../web/card.html" title="张诚 · Chester 名片" loading="lazy"></iframe>
+  </div>
+</div>
+
+<div class="wrap">
+  <p class="label">嵌入代码（整段贴到对方网站即可）</p>
+  <pre style="background:#27272a;color:#e4e4e7;padding:16px;border-radius:10px;overflow:auto;font-size:12px;line-height:1.6">&lt;iframe id="ps-card"
+        src="https://personalsite-32km31c.maozi.io/card.html"
+        title="张诚 · Chester 名片"
+        style="width:100%;border:0;display:block;height:360px"
+        loading="lazy"&gt;&lt;/iframe&gt;
+&lt;script&gt;
+(function () {
+  var box = document.getElementById('ps-card');
+  window.addEventListener('message', function (e) {
+    if (e.data &amp;&amp; e.data.type === 'ps-card-height' &amp;&amp; box) {
+      box.style.height = e.data.height + 'px';
+    }
+  });
+})();
+&lt;/script&gt;</pre>
+</div>
+
+<script>
+/* 预览用：按消息来源只调整对应的那个 iframe，避免两个框互相打架 */
+(function () {
+  window.addEventListener('message', function (e) {
+    if (!e.data || e.data.type !== 'ps-card-height') return;
+    var frames = document.querySelectorAll('iframe.pc-embed');
+    for (var i = 0; i < frames.length; i++) {
+      if (frames[i].contentWindow === e.source) { frames[i].style.height = e.data.height + 'px'; }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

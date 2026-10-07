@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>张诚 · Chester ｜ 名片</title>
+<!--
+  ============================================================
+  个人名片（用于被别的网站用 iframe 嵌入）
+  ------------------------------------------------------------
+  · 这是一个「独立、自包含」的页面：不依赖站内任何 CSS/JS，
+    单独打开也能看，嵌到别的网站里也不会被对方的样式影响。
+  · 要改内容，只改下面「名片内容」那几行文字 / 图片路径即可。
+  · 页面高度会自动报给外层网站（见文件末尾脚本），
+    所以嵌入时不用手写高度，内容变了高度也会跟着变。
+  ============================================================
+-->
+<style>
+  /* 外层背景透明：嵌入后透出对方网站的背景，圆角处才自然 */
+  html, body { margin: 0; padding: 0; background: transparent; }
+
+  .pc-card {
+    box-sizing: border-box;
+    display: grid;
+    background: #393939;
+    color: #ffffff;
+    text-decoration: none;      /* 整张卡可点击，但不要下划线 */
+    border-radius: 14px;
+    padding: clamp(18px, 3.4vw, 36px);
+    gap: clamp(16px, 2.6vw, 32px);
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+                 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    transition: background 0.18s ease;
+  }
+  /* 悬停 / 键盘聚焦：给一点"可以点"的反馈 */
+  .pc-card:hover { background: #454545; }
+  .pc-card:focus-visible { outline: 2px solid #8ab4f8; outline-offset: 3px; }
+
+  /* ---------- 照片 ---------- */
+  .pc-photo {
+    margin: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;        /* 手机：横一点，做成名片不像长图 */
+  }
+  .pc-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 32%;   /* 裁切时把脸留在画面里 */
+  }
+
+  /* ---------- 文字 ---------- */
+  .pc-name {
+    margin: 0 0 10px;
+    font-size: clamp(26px, 5.6vw, 44px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+  }
+  .pc-tagline {
+    margin: 0;
+    max-width: 34em;
+    font-size: clamp(15px, 2.6vw, 18px);
+    color: #cccccc;
+  }
+  .pc-meta {
+    margin: clamp(14px, 2.4vw, 24px) 0 0;
+    max-width: 40em;
+    font-size: clamp(13px, 2.2vw, 16px);
+    color: #999999;
+  }
+
+  /* ---------- 宽一点时：照片在左、文字在右（与站内首屏一致） ---------- */
+  @media (min-width: 560px) {
+    .pc-card {
+      grid-template-columns: minmax(0, 34%) minmax(0, 1fr);
+      align-items: center;
+    }
+    .pc-photo { aspect-ratio: 3 / 4; }   /* 竖版，和站内首屏一致 */
+    .pc-text  { min-width: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== 名片内容（要改就改这里） ====================
+     点击整张名片 → 跳回个人网站 https://personalsite-32km31c.maozi.io/
+     target="_top" 是为了嵌在别人网站里时，也能"跳出 iframe"整页跳转。
+===================================================================== -->
+<a class="pc-card" href="https://personalsite-32km31c.maozi.io/"
+   target="_top" rel="noopener"
+   aria-label="张诚 · Chester —— 打开我的个人网站">
+
+  <figure class="pc-photo">
+    <img src="assets/img/photos/portrait.jpg" alt="张诚的照片"
+         width="768" height="1024" loading="lazy">
+  </figure>
+
+  <div class="pc-text">
+    <h1 class="pc-name">张诚 · Chester</h1>
+    <p class="pc-tagline">我想成为更好的自己。</p>
+    <p class="pc-meta">计算机 · IT PM · 文化创业 · 阅读 · 运动 · 写作 · 公众号「i雅俗共赏」</p>
+  </div>
+
+</a>
+<!-- ================================================================== -->
+
+<script>
+/* 把这张名片的身高报给外层网站，嵌入的 iframe 会自动跟着长高变矮。
+   外层怎么接，见 usage/Running.md「把名片嵌到别的网站」。 */
+(function () {
+  function send() {
+    var h = Math.ceil(document.documentElement.getBoundingClientRect().height);
+    try { parent.postMessage({ type: 'ps-card-height', height: h }, '*'); } catch (e) {}
+  }
+  window.addEventListener('load', send);
+  window.addEventListener('resize', send);
+  if (window.ResizeObserver) { new ResizeObserver(send).observe(document.body); }
+  send();
+})();
+</script>
+
+</body>
+</html>
