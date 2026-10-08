@@ -226,6 +226,8 @@ a { color: inherit; }
   margin: 0;
   border-radius: var(--radius);
   overflow: hidden;
+  /* 统一比例：横竖照片进来都裁成同一形状，一排看上去齐整 */
+  aspect-ratio: 4 / 3;
 }
 
 .ps-photo--wide { grid-column: 1 / -1; }
@@ -279,21 +281,35 @@ a { color: inherit; }
 
 .ps-card:hover { transform: translateY(-3px); border-color: var(--muted); }
 
-.ps-card__media { background: var(--ph-bg); }
+/* 作品图区：统一四周留白，两张图都放进同一个居中正方形画面框，按原比例缩放 */
+.ps-card__media {
+  background: var(--ph-bg);
+  padding: clamp(16px, 2.4vw, 26px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .ps-card__media .ps-ph { aspect-ratio: 16 / 9; }
 
-/* 图片可点击跳转：整块图片是链接，悬停给一点反馈 */
-.ps-card__media-link { display: block; }
+/* 图片可点击跳转：整块图片是链接，悬停给一点反馈
+   画面框以方图（二维码）为标准：宽高一致、居中，两张图视觉尺寸接近 */
+.ps-card__media-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 240px);
+  aspect-ratio: 1 / 1;
+}
 .ps-card__media-link img { transition: opacity 0.2s ease; }
 .ps-card__media-link:hover img { opacity: 0.88; }
 
-/* 放入真实作品图后：按原比例自适应；高度设上限（约为原先的一半），图片不裁切、居中 */
+/* 放入真实作品图后：在画面框内按原比例自适应，不裁切、居中 */
 .ps-card__media img {
   display: block;
   width: auto;
   height: auto;
   max-width: 100%;
-  max-height: clamp(200px, 26vw, 280px);
+  max-height: 100%;
   margin: 0 auto;
 }
 
@@ -390,13 +406,11 @@ a { color: inherit; }
     grid-template-columns: minmax(200px, 320px) minmax(0, 1fr);
     align-items: center;
   }
-  .ps-gallery { grid-template-columns: repeat(3, 1fr); }
   .ps-works   { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (min-width: 1100px) {
   :root { --gutter: 40px; --gap: 22px; }
-  .ps-gallery { grid-template-columns: repeat(4, 1fr); }
 }
 
 /* ================= 入场动效（克制） ================= */

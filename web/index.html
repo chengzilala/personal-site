@@ -43,38 +43,6 @@
 
 <main>
 
-  <!-- ================= 生活方式 ================= -->
-  <section class="ps-section ps-section--flush" id="life">
-    <div class="ps-section__head ps-reveal">
-      <h2 class="ps-section__title">生活方式</h2>
-      <p class="ps-section__sub">About&nbsp;My&nbsp;Life</p>
-    </div>
-
-    <p class="ps-intro ps-reveal">
-      这里放 1–3 句自我介绍。比如：我在做什么、喜欢什么、日子怎么过。
-      写少一点，让照片说话。
-    </p>
-
-    <!-- 照片墙：把照片放进 web/assets/img/photos/ ，再把下面的占位块换成 <img> -->
-    <div class="ps-gallery">
-
-      <figure class="ps-photo ps-photo--wide ps-reveal">
-        <div class="ps-ph">
-          <span>主照片 · 放这里</span>
-          <code>web/assets/img/photos/</code>
-        </div>
-      </figure>
-
-      <figure class="ps-photo ps-reveal"><div class="ps-ph"><span>照片</span></div></figure>
-      <figure class="ps-photo ps-reveal"><div class="ps-ph"><span>照片</span></div></figure>
-      <figure class="ps-photo ps-reveal"><div class="ps-ph"><span>照片</span></div></figure>
-      <figure class="ps-photo ps-reveal"><div class="ps-ph"><span>照片</span></div></figure>
-      <figure class="ps-photo ps-reveal"><div class="ps-ph"><span>照片</span></div></figure>
-      <figure class="ps-photo ps-reveal"><div class="ps-ph"><span>照片</span></div></figure>
-
-    </div>
-  </section>
-
   <!-- ================= 作品 ================= -->
   <section class="ps-section ps-section--flush" id="works">
     <div class="ps-section__head ps-reveal">
@@ -134,6 +102,39 @@
     <div class="ps-articles" id="ps-articles-list" data-limit="4"></div>
 
     <p class="ps-articles__more"><a href="articles/index.html">全部文章 →</a></p>
+  </section>
+
+  <!-- ================= 生活方式 ================= -->
+  <section class="ps-section ps-section--flush" id="life">
+    <div class="ps-section__head ps-reveal">
+      <h2 class="ps-section__title">生活方式</h2>
+      <p class="ps-section__sub">About&nbsp;My&nbsp;Life</p>
+    </div>
+
+    <!-- 照片墙：照片在 web/assets/img/photos/ 里，换图就换下面的文件名 -->
+    <div class="ps-gallery">
+
+      <figure class="ps-photo ps-reveal">
+        <img src="assets/img/photos/life-1.jpg" alt="张诚的生活照"
+             width="976" height="804" loading="lazy">
+      </figure>
+
+      <figure class="ps-photo ps-reveal">
+        <img src="assets/img/photos/life-2.jpg" alt="张诚的生活照"
+             width="768" height="1024" loading="lazy">
+      </figure>
+
+      <figure class="ps-photo ps-reveal">
+        <img src="assets/img/photos/life-3.jpg" alt="张诚的生活照"
+             width="768" height="1024" loading="lazy">
+      </figure>
+
+      <figure class="ps-photo ps-reveal">
+        <img src="assets/img/photos/life-4.jpg" alt="张诚的生活照"
+             width="1024" height="768" loading="lazy">
+      </figure>
+
+    </div>
   </section>
 
 </main>
