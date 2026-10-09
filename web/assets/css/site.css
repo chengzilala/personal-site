@@ -232,6 +232,36 @@ a { color: inherit; }
 
 .ps-photo--wide { grid-column: 1 / -1; }
 
+/* 「关于我」联系方式：两张二维码并排，等高对齐、完整不裁切 */
+.ps-contacts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(18px, 5vw, 36px);
+  /* 二维码不用铺满整行，居中收一点更精致 */
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.ps-contact {
+  margin: 0;
+  text-align: center;
+}
+
+.ps-contact img {
+  display: block;
+  width: 100%;
+  height: clamp(190px, 46vw, 320px);
+  /* contain：二维码完整显示，不裁切也不拉伸 */
+  object-fit: contain;
+}
+
+.ps-contact figcaption {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
 /* 图片未放入时，用占位块撑住版面（不会出现破图） */
 .ps-ph {
   display: flex;
