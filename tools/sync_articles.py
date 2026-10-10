@@ -573,6 +573,7 @@ TOPBAR_TPL = """<nav class="ps-topbar" aria-label="主导航">
     <a class="ps-topbar__brand" href="{home}">{brand}</a>
     <div class="ps-topbar__links">
       <a href="{home}"{cur_home}>首页</a>
+      <a href="{about}">关于我</a>
       <a href="{works}"{cur_works}>作品</a>
       <a href="{articles}"{cur_articles}>文章</a>
     </div>
@@ -642,6 +643,7 @@ def topbar_html(prefix, current):
     return TOPBAR_TPL.format(
         brand=html_lib.escape(SITE_BRAND),
         home=prefix + "index.html",
+        about=prefix + "about.html",
         works=prefix + "works.html",
         articles="index.html",
         cur_home=mark("home"),
