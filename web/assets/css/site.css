@@ -172,6 +172,42 @@ a { color: inherit; }
   color: #999999;
 }
 
+/* 首屏自我介绍：标签 + 内容的紧凑清单（阅读 / 跑步 / 产品 / 爱好 / 公众号 / 分享） */
+.ps-hero__facts {
+  margin: clamp(18px, 4vw, 26px) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+  max-width: 40em;
+  font-size: clamp(14px, 3.6vw, 16px);
+}
+
+.ps-hero__facts li {
+  display: grid;
+  grid-template-columns: 4.8em minmax(0, 1fr);
+  gap: 10px;
+}
+
+.ps-hero__fact-k { color: #999999; }
+.ps-hero__fact-v { color: #cccccc; }
+
+/* 「更多 →」：跳到「关于我」页 */
+.ps-hero__more {
+  margin: clamp(20px, 4.5vw, 28px) 0 0;
+  font-size: clamp(14px, 3.6vw, 16px);
+}
+
+.ps-hero__more a {
+  color: #cccccc;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  padding-bottom: 2px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.ps-hero__more a:hover { color: #ffffff; border-color: #ffffff; }
+
 /* ================= 板块通用 ================= */
 
 .ps-section {
@@ -261,6 +297,70 @@ a { color: inherit; }
   color: var(--muted);
   letter-spacing: 0.04em;
 }
+
+/* 「关于我」数字亮点：顶部显眼陈列原稿数字（2×2 → 桌面 4 列） */
+.ps-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(14px, 4vw, 22px);
+  margin: 0 0 clamp(26px, 6vw, 44px);
+  padding: 0;
+  list-style: none;
+}
+
+.ps-stat {
+  padding: clamp(14px, 3.4vw, 20px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.ps-stat__num {
+  display: block;
+  font-size: clamp(24px, 7vw, 36px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.ps-stat__unit {
+  margin-left: 3px;
+  font-size: 0.45em;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.ps-stat__label {
+  display: block;
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* 「关于我」自我介绍正文：沿用正文排版尺度，宽度限在易读区间 */
+.ps-prose {
+  max-width: 40em;
+  margin: 0 0 clamp(28px, 6vw, 44px);
+  font-size: clamp(16px, 4.2vw, 17.5px);
+  line-height: 1.95;
+}
+
+.ps-prose__lead {
+  margin: 0 0 0.4em;
+  font-size: clamp(18px, 4.6vw, 21px);
+  font-weight: 700;
+}
+
+.ps-prose > p { margin: 0 0 1.05em; }
+
+.ps-prose h3 {
+  margin: 1.9em 0 0.6em;
+  font-size: clamp(18px, 4.4vw, 21px);
+  line-height: 1.4;
+}
+
+.ps-prose strong { font-weight: 700; }
 
 /* 图片未放入时，用占位块撑住版面（不会出现破图） */
 .ps-ph {
@@ -446,6 +546,9 @@ a { color: inherit; }
     align-items: center;
   }
   .ps-works   { grid-template-columns: repeat(2, 1fr); }
+  /* 数字亮点：桌面排成一行；数字收小一点，避免长数字（1:42:00）挤出格子 */
+  .ps-stats     { grid-template-columns: repeat(4, 1fr); }
+  .ps-stat__num { font-size: clamp(22px, 3.6vw, 30px); }
 }
 
 @media (min-width: 1100px) {
