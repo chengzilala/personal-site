@@ -46,7 +46,8 @@
 - 首个作品：**微信悦读**（微信读书网页版阅读增强插件）——卡片图 `web/assets/img/works/weread-enhancer.jpg`（宣传图），链接指向官网 `https://wereadapp-32km31c.maozi.io`（`target="_blank"` 新窗口打开）。
 - 图片缺失时用占位色块，不留破图。
 - 第二张卡：**公众号 · i雅俗共赏**——卡片图 `web/assets/img/works/wechat-qr.jpg`（二维码），点击进入站内文章列表 `articles/index.html`。
-- **首页也展示作品**：首页「作品」板块与作品页内容一致（两张卡），首页即可看到作品。
+- 第三张卡：**高驰跑步看板**——卡片图 `web/assets/img/works/coros-run.jpg`（深色封面图），链接指向 `https://coros-run-d0g0acnksda36ca62-1256686574.tcloudbaseapp.com`（`target="_blank"` 新窗口打开）。
+- **首页也展示作品**：首页「作品」板块与作品页内容一致（三张卡），首页即可看到作品。
 - **卡片图高度**：作品图高度设上限（约为原比例撑满时的一半，桌面约 280px、手机约 200px），图片**按原比例缩放、不裁切、居中**，二维码完整可扫；卡片整体不再过高。
 
 ### 3.3 响应式（P0）

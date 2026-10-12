@@ -359,6 +359,15 @@ a { color: inherit; }
 
 .ps-card__link:hover { border-color: var(--fg); }
 
+/* 多入口链接组（官网 / H5）：竖排、各自独立下划线 */
+.ps-card__links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
 /* ================= 页脚（= 课件最后一页，配色/顺序/粗细照搬） =================
    排版沿用末页比例（主标题≈副行的 1.7 倍），整体取常规页脚的较小尺度 */
 
