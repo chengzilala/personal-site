@@ -17,7 +17,7 @@
   /* 文章大标题用系统衬线（参考图观感）；不引外部字体 */
   --font-serif: Georgia, "Songti SC", "STSong", "Noto Serif CJK SC", serif;
 
-  --maxw:      1100px;
+  --maxw:      1320px;
   --gutter:    20px;      /* 手机外边距 */
   --radius:    12px;
   --gap:       14px;
