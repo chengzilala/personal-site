@@ -73,6 +73,13 @@ a { color: inherit; }
   background: var(--bg);
 }
 
+/* 内页（关于我 / 作品 / 文章列表 / 正文）：顶栏是 body 的第一个元素，
+   在它下面加一条细线，与下方内容区分开。
+   首页顶栏位于深灰首屏之下（body 首元素是 ps-hero），故不加线——:first-child 自动排除首页 */
+.ps-topbar:first-child {
+  border-bottom: 1px solid var(--line);
+}
+
 .ps-topbar__inner {
   max-width: var(--maxw);
   margin: 0 auto;
@@ -413,15 +420,16 @@ a { color: inherit; }
 }
 
 /* ================= 作品卡（图左文右 · 参考 kanbenzhi.com） =================
-   卡片结构：左侧方形图块 + 右侧文字列
-   文字列自上而下：小标签(点缀色) → 大标题 → 英文斜体副题 → 一行说明
-   → 细分隔线 → 底部一行（小圆点+说明 ／ 链接）
-   排布：桌面两列网格，窄屏单列，卡片始终保持「图左文右」横向形态 */
+   卡片 = 一张奶油「纸」：左方图块 + 右文字列，图与底同色、图形直接浮在纸上。
+   右列自上而下：小标签(点缀红) → 大标题 → 英文斜体副题 → 一行说明
+   → 细分隔线 → 底部一行（小圆点+状态 ／ 链接）。文案从简。
+   排布：桌面两列网格、窄屏单列，卡片始终保持「图左文右」横向形态。
+   注：卡片用固定纸色/墨色，不随系统暗色反转——保证插画与文字永远是同一张奶油纸。 */
 
 .ps-works {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(14px, 2.6vw, 20px);
+  gap: clamp(14px, 2.4vw, 22px);
 }
 
 @media (min-width: 760px) {
@@ -431,53 +439,56 @@ a { color: inherit; }
 .ps-card {
   margin: 0;
   display: grid;
-  /* 第二列用 minmax(0,1fr)：允许文字列被压缩到比内容更窄，链接才会换行而不是撑破卡片 */
-  grid-template-columns: 40% minmax(0, 1fr);
+  /* 第二列用 minmax(0,1fr)：允许文字列被压缩，不会撑破卡片 */
+  grid-template-columns: 42% minmax(0, 1fr);
   overflow: hidden;
-  /* v0.54：去描边、去圆角，改暖白底 + 悬停轻抬 & 投影（借鉴参考站卡片） */
-  background: var(--white);
+  background: #f2eee2;
+  color: #14120d;
   border-radius: 0;
   transition: transform 0.28s ease, box-shadow 0.28s ease;
 }
 
 .ps-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 36px -24px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 22px 40px -26px rgba(0, 0, 0, 0.5);
 }
 
-/* 左侧图块：铺满整格、按比例裁切填充；图片本身可点击跳转 */
+/* 左侧方形图块：与卡片同底，简洁图形居中；图块本身可点击跳转 */
 .ps-card__media {
   display: block;
-  background: var(--ph-bg);
+  background: #f2eee2;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
 }
 .ps-card__media img {
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   transition: opacity 0.2s ease;
 }
-.ps-card__media:hover img { opacity: 0.9; }
+.ps-card__media:hover img { opacity: 0.88; }
 
 /* 右侧文字列：撑满高度，底部一行用 margin-top:auto 沉底 */
 .ps-card__body {
-  padding: clamp(14px, 2vw, 20px);
+  padding: clamp(16px, 2.2vw, 28px);
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
-/* 小标签：全站唯一点缀色用在这里 */
+/* 小标签：点缀红 */
 .ps-card__tag {
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--accent);
+  letter-spacing: 0.08em;
+  color: #e1462b;
 }
 
 .ps-card__title {
-  margin: 0 0 2px;
-  font-size: clamp(20px, 2.4vw, 26px);
+  margin: 0 0 4px;
+  font-size: clamp(21px, 2.5vw, 27px);
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.15;
@@ -485,24 +496,24 @@ a { color: inherit; }
 
 /* 英文副题：斜体、浅色 */
 .ps-card__sub {
-  margin: 0 0 10px;
+  margin: 0 0 12px;
   font-size: 14px;
   font-style: italic;
-  color: var(--muted);
+  color: #857d71;
 }
 
 .ps-card__desc {
   margin: 0;
   font-size: 14px;
   line-height: 1.6;
-  color: var(--muted);
+  color: #857d71;
 }
 
-/* 底部一行：细分隔线之上，左「小圆点+说明」右「链接」；空间不够就换行，绝不出格 */
+/* 底部一行：细分隔线之上，左「小圆点+状态」右「链接」；空间不够就换行，绝不出格 */
 .ps-card__foot {
   margin-top: auto;
   padding-top: 12px;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid #d4cbb8;
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
@@ -516,35 +527,27 @@ a { color: inherit; }
   align-items: center;
   gap: 6px;
   min-width: 0;
-  color: var(--muted);
+  color: #857d71;
 }
 .ps-card__meta::before {
   content: "";
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--accent);
+  background: #e1462b;
   flex: none;
-}
-
-/* 链接组（官网 / H5 等多个入口）：靠右排、可换行 */
-.ps-card__links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 6px 14px;
-  min-width: 0;
 }
 
 .ps-card__link {
   text-decoration: none;
-  color: var(--fg);
-  border-bottom: 1px solid var(--line);
+  color: #14120d;
+  border-bottom: 1px solid #d4cbb8;
   padding-bottom: 1px;
+  white-space: nowrap;
   transition: border-color 0.2s;
 }
 
-.ps-card__link:hover { border-color: var(--fg); }
+.ps-card__link:hover { border-color: #14120d; }
 
 /* ================= 页脚（= 课件最后一页，配色/顺序/粗细照搬） =================
    排版沿用末页比例（主标题≈副行的 1.7 倍），整体取常规页脚的较小尺度 */

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="高驰跑步看板 · 进步曲线">
+  <title>高驰跑步看板 · 进步曲线</title>
+  <path d="M60 318 L150 262 L212 292 L286 186 L340 112"
+        fill="none" stroke="#14120d" stroke-width="3"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#14120d">
+    <circle cx="60" cy="318" r="8"/>
+    <circle cx="150" cy="262" r="8"/>
+    <circle cx="212" cy="292" r="8"/>
+    <circle cx="286" cy="186" r="8"/>
+  </g>
+  <circle cx="340" cy="112" r="38" fill="#e1462b"/>
+</svg>
