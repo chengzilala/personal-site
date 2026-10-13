@@ -174,39 +174,31 @@ a { color: inherit; }
 
 /* 首屏自我介绍：标签 + 内容的紧凑清单（阅读 / 跑步 / 产品 / 爱好 / 公众号 / 分享） */
 .ps-hero__facts {
-  margin: clamp(18px, 4vw, 26px) 0 0;
+  margin: clamp(20px, 4.4vw, 30px) 0 0;
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 8px;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: clamp(16px, 3vw, 22px);
+  row-gap: 11px;
   max-width: 40em;
-  font-size: clamp(14px, 3.6vw, 16px);
+  font-size: clamp(14px, 3.6vw, 16.5px);
 }
 
-.ps-hero__facts li {
-  display: grid;
-  grid-template-columns: 4.8em minmax(0, 1fr);
-  gap: 10px;
+/* li 不参与布局，让标签/内容直接落到同一个两列网格上——标签列全站等宽、内容列严格对齐 */
+.ps-hero__facts li { display: contents; }
+
+.ps-hero__fact-k {
+  font-size: 0.95em;
+  color: #a6a6a6;
+  letter-spacing: 0.08em;
 }
 
-.ps-hero__fact-k { color: #999999; }
-.ps-hero__fact-v { color: #cccccc; }
-
-/* 「更多 →」：跳到「关于我」页 */
-.ps-hero__more {
-  margin: clamp(20px, 4.5vw, 28px) 0 0;
-  font-size: clamp(14px, 3.6vw, 16px);
+.ps-hero__fact-v {
+  color: #d6d6d6;
+  line-height: 1.7;
 }
-
-.ps-hero__more a {
-  color: #cccccc;
-  text-decoration: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
-  padding-bottom: 2px;
-  transition: color 0.2s ease, border-color 0.2s ease;
-}
-
-.ps-hero__more a:hover { color: #ffffff; border-color: #ffffff; }
 
 /* ================= 板块通用 ================= */
 
