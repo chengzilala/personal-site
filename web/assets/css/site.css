@@ -4,18 +4,22 @@
    ========================================================= */
 
 :root {
-  --bg:        #faf9f7;
-  --fg:        #16130f;
-  --muted:     #6b6459;
-  --line:      #e6e2db;
-  --ph-bg:     #efebe4;   /* 占位块底色 */
+  /* v0.54 借鉴 kanbenzhi.com 的「纸感」暖色系：奶油纸底 + 暖近黑字 + 同族点缀红 */
+  --bg:        #f2eee2;   /* 纸底（原近白 #faf9f7） */
+  --fg:        #14120d;   /* 暖近黑 */
+  --muted:     #857d71;
+  --line:      #d4cbb8;   /* 纸感细线（原 #e6e2db） */
+  --white:     #fffdf8;   /* 暖白：作品卡底 */
+  --ph-bg:     #ebe5d4;   /* 占位块底色 */
   --ph-fg:     #a49b8d;
-  --accent:    #d8412a;   /* 全站唯一点缀色：作品卡小标签 / 最新文章高亮 / 文章标签 */
-  --accent-soft: rgba(216, 65, 42, 0.07);   /* 最新一篇的浅底 */
-  --hover-bg:  rgba(0, 0, 0, 0.03);         /* 列表行悬停底 */
+  --accent:    #e1462b;   /* 全站唯一点缀色：作品区通栏底 / 标签 / 最新文章高亮 */
+  --accent-soft: rgba(225, 70, 43, 0.08);   /* 最新一篇的浅底 */
+  --hover-bg:  rgba(20, 18, 13, 0.035);     /* 列表行悬停底 */
 
-  /* 文章大标题用系统衬线（参考图观感）；不引外部字体 */
+  /* 系统衬线（借鉴参考站的正文/收尾观感）；不引外部字体 */
   --font-serif: Georgia, "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+  /* 系统等宽：做一个「编辑风眉标」（大写字距的小标题）；不引外部字体 */
+  --font-mono: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, monospace;
 
   --maxw:      1320px;
   --gutter:    20px;      /* 手机外边距 */
@@ -25,14 +29,15 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg:      #0f0f11;
-    --fg:      #ece9e4;
-    --muted:   #9a938a;
-    --line:    #26262a;
-    --ph-bg:   #1a1a1e;
-    --ph-fg:   #5f5950;
-    --accent-soft: rgba(216, 65, 42, 0.16);
-    --hover-bg:    rgba(255, 255, 255, 0.045);
+    --bg:      #17150f;   /* 暖近黑（纸感的暗色版） */
+    --fg:      #f2eee2;
+    --muted:   #a89f90;
+    --line:    #322d24;
+    --white:   #221f18;   /* 暖白卡 → 暖深卡 */
+    --ph-bg:   #221f18;
+    --ph-fg:   #6b6459;
+    --accent-soft: rgba(225, 70, 43, 0.18);
+    --hover-bg:    rgba(255, 255, 255, 0.05);
   }
 }
 
@@ -128,7 +133,7 @@ a { color: inherit; }
 
 /* ================= 首屏 ================= */
 
-/* 与页脚同色（#393939）通栏铺开：首尾呼应 */
+/* 与页脚同色通栏铺开：首尾呼应（保持改版前的深灰底，不随纸感改版） */
 .ps-hero {
   background: #393939;
   color: #ffffff;
@@ -224,6 +229,14 @@ a { color: inherit; }
 /* 不画长分隔线的板块（首页各板块、页面首个板块） */
 .ps-section--flush { border-top: 0; }
 
+/* v0.54 借鉴参考站的「整块红底通栏」：作品区铺满点缀红、白卡浮在上面 */
+.ps-band {
+  background: var(--accent);
+  color: var(--white);
+}
+.ps-band .ps-section__sub { color: rgba(255, 255, 255, 0.72); }
+.ps-band .ps-section__title { color: var(--white); }
+
 .ps-section__head {
   display: flex;
   align-items: baseline;
@@ -238,11 +251,15 @@ a { color: inherit; }
   font-weight: 700;
 }
 
+/* v0.54：板块英文副题 → 「编辑风眉标」（等宽大写 + 点缀红） */
 .ps-section__sub {
   margin: 0;
-  font-size: 12px;
-  letter-spacing: 0.24em;
-  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
 }
 
 .ps-intro {
@@ -416,14 +433,17 @@ a { color: inherit; }
   display: grid;
   /* 第二列用 minmax(0,1fr)：允许文字列被压缩到比内容更窄，链接才会换行而不是撑破卡片 */
   grid-template-columns: 40% minmax(0, 1fr);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
   overflow: hidden;
-  background: var(--bg);
-  transition: transform 0.25s ease, border-color 0.25s ease;
+  /* v0.54：去描边、去圆角，改暖白底 + 悬停轻抬 & 投影（借鉴参考站卡片） */
+  background: var(--white);
+  border-radius: 0;
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
 }
 
-.ps-card:hover { transform: translateY(-3px); border-color: var(--muted); }
+.ps-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 36px -24px rgba(0, 0, 0, 0.35);
+}
 
 /* 左侧图块：铺满整格、按比例裁切填充；图片本身可点击跳转 */
 .ps-card__media {
@@ -530,9 +550,9 @@ a { color: inherit; }
    排版沿用末页比例（主标题≈副行的 1.7 倍），整体取常规页脚的较小尺度 */
 
 .ps-footer {
-  background: #393939;          /* 课件灰：整块只有一个底色 */
-  color: #f2f1ee;               /* 米白（兜底字色） */
-  padding: clamp(24px, 5vw, 48px) 0 clamp(24px, 4.5vw, 44px);
+  background: #14120d;          /* v0.54：深墨底（原课件灰 #393939） */
+  color: #f2eee2;               /* 纸色字（兜底） */
+  padding: clamp(32px, 6vw, 64px) 0 clamp(28px, 5vw, 54px);
   font-size: 13px;
 }
 
@@ -544,13 +564,14 @@ a { color: inherit; }
   text-align: center;
 }
 
-/* 第 1 行：最后，祝你成为超人。 */
+/* 第 1 行：最后，祝你成为超人。（v0.54 改衬线） */
 .ps-footer__line1 {
   margin: 0;
   color: #ffffff;
+  font-family: var(--font-serif);
   font-weight: 700;
-  font-size: clamp(20px, 3.2vw, 32px);
-  line-height: 1.15;
+  font-size: clamp(22px, 3.6vw, 36px);
+  line-height: 1.2;
   letter-spacing: -0.01em;
 }
 
@@ -598,9 +619,12 @@ a { color: inherit; }
 
 @media (min-width: 700px) {
   :root { --gutter: 32px; --gap: 18px; }
-  /* 首屏：沿用课件第 1 页布局——照片在左、文字在右 */
+  /* 首屏：照片在左、文字在右；整组（照片+文字）在页面里左右居中
+     文字列按内容宽度收在 660px（= facts 的 40em），不再用 1fr 撑满，
+     这样「照片+文字」是一块整体、两边留白对称，而不是全挤在左边 */
   .ps-hero__inner {
-    grid-template-columns: minmax(200px, 320px) minmax(0, 1fr);
+    grid-template-columns: minmax(200px, 320px) minmax(0, 660px);
+    justify-content: center;
     align-items: center;
   }
   .ps-works   { grid-template-columns: repeat(2, 1fr); }
@@ -666,8 +690,10 @@ a { color: inherit; }
 .ps-item__tag {
   grid-area: tag;
   min-width: 0;
-  font-size: clamp(12px, 3.2vw, 13.5px);
-  letter-spacing: 0.02em;
+  font-family: var(--font-mono);
+  font-size: clamp(11px, 2.9vw, 11.5px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--muted);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -691,6 +717,9 @@ a { color: inherit; }
 }
 
 .ps-item__link:hover { background: var(--hover-bg); }
+
+/* 悬停：标题变点缀橙（与「最新一篇」标题同色），跟手反馈 */
+.ps-item__link:hover .ps-item__title { color: var(--accent); }
 
 /* 最新一篇：浅底高亮 + 标题用点缀色（与参考图一致） */
 .ps-item--latest .ps-item__link { background: var(--accent-soft); }
@@ -726,18 +755,22 @@ a { color: inherit; }
 }
 
 .ps-list__title {
-  margin: 0 0 12px;
+  margin: 0 0 clamp(24px, 5vw, 44px);
   font-size: clamp(44px, 12vw, 92px);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.04em;
 }
 
+/* v0.54：列表页副行 → 「编辑风眉标」，移到标题上方 */
 .ps-list__sub {
-  margin: 0 0 clamp(24px, 5vw, 44px);
-  font-size: clamp(13px, 3.4vw, 15px);
-  letter-spacing: 0.02em;
-  color: var(--muted);
+  margin: 0 0 clamp(10px, 2.4vw, 16px);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
 }
 
 /* ---------- 正文页 ---------- */

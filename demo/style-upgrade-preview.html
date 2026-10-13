@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>样式借鉴预览 · 参考 kanbenzhi.com（本地用，不上线）</title>
+<style>
+  /* =========================================================
+     本地预览 Demo：把 kanbenzhi.com 的「纸感编辑风」借鉴到本站
+     仅用于确认方向，不上线。类名前缀统一 ps-
+     ========================================================= */
+
+  :root{
+    /* —— 借鉴核心①：暖色纸感配色（把近白底换成奶油纸底）—— */
+    --paper:      #f2eee2;
+    --paper-alt:  #ebe5d4;
+    --panel:      #f7f3e8;
+    --white:      #fffdf8;   /* 暖白卡片 */
+    --ink:        #14120d;   /* 暖近黑 */
+    --soft:       #514c42;
+    --mute:       #857d71;
+    --red:        #e1462b;   /* 点缀红（与本站现用 #d8412a 几乎同族） */
+    --red-soft:   #efd8ce;
+    --rule:       #d4cbb8;
+    --rule-dark:  rgba(20,18,13,.44);
+
+    --mono:  ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, monospace;
+    --sans:  "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --serif: Georgia, "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+
+    --wrap:  1200px;
+    --gutter:20px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:clip;           /* 绝不出现横向滚动 */
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+
+  .ps-wrap{ width:min(var(--wrap), 100% - 40px); margin:0 auto; }
+
+  /* 小号等宽「眉标」——借鉴②：编辑风 mono 大写眉题 */
+  .ps-eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--red);
+  }
+
+  /* ---------- Demo 顶栏（仅预览用） ---------- */
+  .ps-demo-note{
+    background:#14120d; color:#f2eee2;
+    font-family:var(--mono); font-size:12px; letter-spacing:.02em;
+    padding:10px 20px;
+  }
+  .ps-demo-note b{ color:#ff9d86; font-weight:700; }
+  .ps-demo-note span{ color:#9a938a; }
+
+  /* ---------- 站点顶栏 ---------- */
+  .ps-topbar{
+    border-bottom:1px solid var(--rule);
+    background:var(--paper);
+    position:sticky; top:0; z-index:50;
+  }
+  .ps-topbar__inner{
+    display:flex; align-items:center; justify-content:space-between; gap:20px;
+    min-height:64px;
+  }
+  .ps-topbar__brand{ font-weight:900; letter-spacing:-.01em; font-size:clamp(17px,4.5vw,20px); }
+  .ps-topbar__links{ display:flex; gap:clamp(16px,4vw,30px); font-size:clamp(14px,3.8vw,15px); }
+  .ps-topbar__links a{ color:var(--soft); transition:color .18s; }
+  .ps-topbar__links a:hover{ color:var(--ink); }
+  .ps-topbar__links a[aria-current="page"]{ color:var(--ink); font-weight:700; }
+
+  /* ---------- 首屏 ---------- */
+  .ps-hero{ border-bottom:1px solid var(--rule); padding:clamp(40px,8vw,84px) 0 clamp(36px,7vw,72px); }
+  .ps-hero__eyebrow{ margin:0 0 22px; }
+  .ps-hero__title{
+    margin:0;
+    font-family:var(--sans);
+    font-weight:900;
+    font-size:clamp(40px,11vw,104px);
+    line-height:1;
+    letter-spacing:-.04em;
+  }
+  .ps-hero__sub{
+    margin:14px 0 0;
+    font-style:italic;
+    font-size:clamp(18px,4.4vw,24px);
+    color:var(--soft);
+    letter-spacing:-.005em;
+  }
+  .ps-hero__manifesto{
+    margin:26px 0 0;
+    max-width:52ch;
+    font-size:clamp(16px,4.2vw,18px);
+    line-height:1.8;
+    color:var(--soft);
+  }
+  .ps-hero__manifesto strong{ color:var(--ink); }
+
+  /* 六行事实清单：走「左细标签 / 右内容」的编辑排版 */
+  .ps-facts{
+    list-style:none; margin:30px 0 0; padding:22px 0 0;
+    border-top:1px solid var(--rule);
+    display:grid; grid-template-columns:max-content minmax(0,1fr);
+    column-gap:clamp(20px,4vw,34px); row-gap:12px;
+    max-width:44em; font-size:clamp(14px,3.7vw,16px);
+  }
+  .ps-facts li{ display:contents; }
+  .ps-facts__k{
+    font-family:var(--mono); font-size:11px; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--mute); padding-top:.45em; white-space:nowrap;
+  }
+  .ps-facts__v{ color:var(--ink); line-height:1.75; }
+
+  .ps-hero__actions{ display:flex; flex-wrap:wrap; gap:12px; margin-top:32px; }
+
+  /* 借鉴⑥：方角描边按钮（无圆角、无阴影） */
+  .ps-btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    min-height:46px; padding:0 20px;
+    border:1px solid var(--ink); background:transparent; color:var(--ink);
+    font-weight:700; font-size:14.5px; letter-spacing:.02em;
+    transition:background-color .16s, color .16s, border-color .16s, transform .16s;
+  }
+  .ps-btn:hover{ background:rgba(20,18,13,.06); }
+  .ps-btn:active{ transform:translateY(1px); }
+  .ps-btn--primary{ background:var(--ink); border-color:var(--ink); color:var(--paper); }
+  .ps-btn--primary:hover{ background:var(--red); border-color:var(--red); color:var(--paper); }
+
+  /* ---------- 板块通用 ---------- */
+  .ps-section__head{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:26px; }
+  .ps-section__kicker{ margin:0; }
+  .ps-section__title{
+    margin:0; font-weight:900; letter-spacing:-.035em; line-height:1.05;
+    font-size:clamp(30px,7vw,56px);
+  }
+
+  /* ---------- 借鉴③：整块「红底通栏」作品区 ---------- */
+  .ps-works-band{ background:var(--red); color:var(--paper); padding:clamp(40px,7vw,76px) 0 clamp(44px,8vw,88px); }
+  .ps-works-band .ps-section__kicker{ color:var(--red-soft); }
+  .ps-works-band .ps-section__title{ color:var(--white); }
+
+  .ps-works{
+    display:grid; grid-template-columns:1fr; gap:clamp(14px,2.4vw,24px);
+  }
+  @media (min-width:820px){ .ps-works{ grid-template-columns:repeat(2,1fr); } }
+
+  /* 借鉴④：暖白卡「图左文右」+ 悬停轻抬 + 投影 */
+  .ps-card{
+    display:grid; grid-template-columns:minmax(120px,40%) minmax(0,1fr);
+    background:var(--white); color:var(--ink);
+    overflow:hidden;
+    transition:transform .28s ease, box-shadow .28s ease;
+  }
+  .ps-card:hover{ transform:translateY(-4px); box-shadow:0 20px 36px -24px rgba(0,0,0,.35); }
+  .ps-card__media{ display:block; background:var(--paper-alt); overflow:hidden; }
+  .ps-card__media img{ width:100%; height:100%; object-fit:cover; }
+
+  .ps-card__body{ display:flex; flex-direction:column; padding:clamp(14px,2vw,22px) clamp(16px,2.4vw,26px); }
+  .ps-card__meta{
+    font-size:13px; font-weight:700; letter-spacing:.06em;
+    color:var(--red); margin:0 0 10px;
+  }
+  .ps-card__title{
+    margin:0; font-weight:900; letter-spacing:-.015em; line-height:1.2;
+    font-size:clamp(20px,2.4vw,28px);
+  }
+  .ps-card__latin{ margin:8px 0 14px; font-style:italic; font-size:14px; color:var(--mute); }
+  .ps-card__desc{ margin:0 0 16px; font-size:14.5px; line-height:1.65; color:var(--soft); }
+  /* 借鉴⑤：底部「状态行」——细线之上，红点+说明，右侧版本/入口 */
+  .ps-card__status{
+    margin-top:auto; padding-top:14px; border-top:1px solid var(--rule);
+    display:flex; flex-wrap:wrap; align-items:center; gap:6px 12px;
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--soft);
+  }
+  .ps-card__status::before{
+    content:""; width:7px; height:7px; border-radius:50%; background:var(--red); flex:none;
+  }
+  .ps-card__links{ margin-left:auto; display:flex; flex-wrap:wrap; gap:6px 14px; text-transform:none; letter-spacing:.02em; font-family:var(--sans); font-size:12.5px; }
+  .ps-card__links a{ border-bottom:1px solid var(--rule); padding-bottom:1px; transition:border-color .18s; }
+  .ps-card__links a:hover{ border-color:var(--ink); }
+
+  /* ---------- 文章区（纸底，编辑风行列表） ---------- */
+  .ps-writing{ padding:clamp(44px,8vw,88px) 0; border-bottom:1px solid var(--rule); }
+  .ps-list{ list-style:none; margin:0; padding:0; border-top:1px solid var(--ink); }
+  .ps-item{ border-bottom:1px solid var(--rule); }
+  .ps-item__link{
+    display:grid; grid-template-columns:minmax(0,1fr) auto;
+    grid-template-areas:"tag date" "title title";
+    align-items:center; column-gap:14px; row-gap:8px;
+    padding:clamp(16px,4vw,22px) 0;
+    transition:padding-left .18s, color .18s;
+  }
+  .ps-item__link:hover{ padding-left:8px; }
+  .ps-item__tag{ grid-area:tag; font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--mute); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .ps-item__title{ grid-area:title; font-size:clamp(19px,4.8vw,27px); font-weight:600; letter-spacing:-.01em; line-height:1.35; }
+  .ps-item__date{ grid-area:date; font-family:var(--mono); font-size:12px; color:var(--mute); white-space:nowrap; }
+  .ps-item--latest .ps-item__title{ color:var(--red); font-weight:700; }
+  .ps-item--latest .ps-item__link:hover{ padding-left:0; }
+  @media (min-width:720px){
+    .ps-item__link{ grid-template-columns:minmax(120px,190px) minmax(0,1fr) auto; grid-template-areas:"tag title date"; align-items:baseline; column-gap:clamp(20px,4vw,44px); }
+  }
+  .ps-writing__more{ margin:22px 0 0; font-size:14px; }
+  .ps-writing__more a{ border-bottom:1px solid var(--rule); padding-bottom:2px; }
+  .ps-writing__more a:hover{ border-color:var(--ink); }
+
+  /* ---------- 借鉴⑦：深墨底「关于/页脚」+ 衬线正文 ---------- */
+  .ps-foot{ background:var(--ink); color:var(--paper); padding:clamp(48px,8vw,96px) 0; }
+  .ps-foot__quote{ margin:0; font-family:var(--serif); font-size:clamp(20px,3.2vw,30px); line-height:1.6; color:var(--paper); }
+  .ps-foot__small{ margin:clamp(18px,3vw,28px) 0 0; font-size:13px; letter-spacing:.03em; color:#9a938a; }
+</style>
+</head>
+<body>
+
+<!-- Demo 说明条（仅本地预览，不进正式站） -->
+<div class="ps-demo-note">
+  <b>样式借鉴预览</b> · 参考 kanbenzhi.com 的「纸感编辑风」 · <span>本地 Demo，不上线；确认后再改进正式站</span>
+</div>
+
+<!-- 顶栏 -->
+<nav class="ps-topbar" aria-label="主导航">
+  <div class="ps-wrap ps-topbar__inner">
+    <a class="ps-topbar__brand" href="#">i雅俗共赏</a>
+    <div class="ps-topbar__links">
+      <a href="#" aria-current="page">首页</a>
+      <a href="#">关于我</a>
+      <a href="#">作品</a>
+      <a href="#">文章</a>
+    </div>
+  </div>
+</nav>
+
+<!-- 首屏 -->
+<header class="ps-hero">
+  <div class="ps-wrap">
+    <p class="ps-eyebrow ps-hero__eyebrow">Personal Site · 个人网站</p>
+    <h1 class="ps-hero__title">Chester Lee</h1>
+    <p class="ps-hero__sub">i 雅俗共赏 —— 记录生活、作品与思考</p>
+    <p class="ps-hero__manifesto">
+      INTJ · 现居深圳 · <strong>信息化 PM × 独立开发者（AI 产品）</strong>。
+      用大图与少量文字，说清我是谁、在做什么。
+    </p>
+
+    <ul class="ps-facts">
+      <li><span class="ps-facts__k">阅读</span><span class="ps-facts__v">微信读书 1400 小时 · 3 年 2000+ 小时</span></li>
+      <li><span class="ps-facts__k">跑步</span><span class="ps-facts__v">2025 年 2000 公里 · 10 场半马 · PB 1:42:00</span></li>
+      <li><span class="ps-facts__k">产品</span><span class="ps-facts__v">一款 AI 阅读知识管理工具、一款 AI 跑步教练</span></li>
+      <li><span class="ps-facts__k">爱好</span><span class="ps-facts__v">阅读 · 跑步 · 传统文化 · AI</span></li>
+      <li><span class="ps-facts__k">公众号</span><span class="ps-facts__v">i雅俗共赏</span></li>
+      <li><span class="ps-facts__k">分享</span><span class="ps-facts__v">在深圳读书分享 &amp; AI 共创</span></li>
+    </ul>
+
+    <div class="ps-hero__actions">
+      <a class="ps-btn ps-btn--primary" href="#works">查看作品</a>
+      <a class="ps-btn" href="#writing">读文章</a>
+    </div>
+  </div>
+</header>
+
+<!-- 作品（红底通栏） -->
+<section class="ps-works-band" id="works">
+  <div class="ps-wrap">
+    <div class="ps-section__head">
+      <p class="ps-eyebrow ps-section__kicker">Works · 作品</p>
+      <h2 class="ps-section__title">作品</h2>
+    </div>
+
+    <div class="ps-works">
+
+      <article class="ps-card">
+        <a class="ps-card__media" href="https://reader.chesterlee.cn" target="_blank" rel="noopener" aria-label="访问微信悦读官网">
+          <img src="../web/assets/img/works/weread-enhancer.jpg" alt="微信悦读插件宣传图" loading="lazy">
+        </a>
+        <div class="ps-card__body">
+          <p class="ps-card__meta">浏览器插件</p>
+          <h3 class="ps-card__title">微信悦读</h3>
+          <p class="ps-card__latin">WeRead Enhancer</p>
+          <p class="ps-card__desc">让微信读书网页版更好读：屏占比、自动阅读、笔记增强与阅读统计。</p>
+          <div class="ps-card__status">
+            已上架 Edge 商店
+            <span class="ps-card__links">
+              <a href="https://reader.chesterlee.cn" target="_blank" rel="noopener">官网 →</a>
+              <a href="https://reader.chesterlee.cn/app/" target="_blank" rel="noopener">H5 版 →</a>
+            </span>
+          </div>
+        </div>
+      </article>
+
+      <article class="ps-card">
+        <a class="ps-card__media" href="#writing" aria-label="阅读公众号文章">
+          <img src="../web/assets/img/works/wechat-qr.jpg" alt="公众号 i雅俗共赏 二维码" loading="lazy">
+        </a>
+        <div class="ps-card__body">
+          <p class="ps-card__meta">公众号</p>
+          <h3 class="ps-card__title">i雅俗共赏</h3>
+          <p class="ps-card__latin">WeChat Official Account</p>
+          <p class="ps-card__desc">俗到极致即为雅，雅得过头便是俗——记录生活与思考。</p>
+          <div class="ps-card__status">
+            扫码或点开即可阅读
+            <span class="ps-card__links"><a href="#writing">读文章 →</a></span>
+          </div>
+        </div>
+      </article>
+
+      <article class="ps-card">
+        <a class="ps-card__media" href="https://coros-run-d0g0acnksda36ca62-1256686574.tcloudbaseapp.com" target="_blank" rel="noopener" aria-label="访问高驰跑步看板">
+          <img src="../web/assets/img/works/coros-run.jpg" alt="高驰跑步看板封面图" loading="lazy">
+        </a>
+        <div class="ps-card__body">
+          <p class="ps-card__meta">跑步数据看板</p>
+          <h3 class="ps-card__title">高驰跑步看板</h3>
+          <p class="ps-card__latin">COROS Run Dashboard</p>
+          <p class="ps-card__desc">跑量 / 配速 / 心率趋势、训练负荷与五区配速，附 AI 中文复盘。</p>
+          <div class="ps-card__status">
+            邮箱登录 · 只看本人数据
+            <span class="ps-card__links"><a href="https://coros-run-d0g0acnksda36ca62-1256686574.tcloudbaseapp.com" target="_blank" rel="noopener">打开看板 →</a></span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- 文章 -->
+<section class="ps-writing" id="writing">
+  <div class="ps-wrap">
+    <div class="ps-section__head">
+      <p class="ps-eyebrow ps-section__kicker">Writing · 文章</p>
+      <h2 class="ps-section__title">文章</h2>
+    </div>
+
+    <ul class="ps-list">
+      <li class="ps-item ps-item--latest">
+        <a class="ps-item__link" href="#">
+          <span class="ps-item__tag">读书复盘</span>
+          <span class="ps-item__title">最稳定的铁饭碗，就是你自己：《低风险创业》阅读复盘</span>
+          <span class="ps-item__date">2026-09-22</span>
+        </a>
+      </li>
+      <li class="ps-item">
+        <a class="ps-item__link" href="#">
+          <span class="ps-item__tag">读书 · 成长</span>
+          <span class="ps-item__title">读了1000小时书，我才明白：读书救不了我</span>
+          <span class="ps-item__date">2026-09-08</span>
+        </a>
+      </li>
+      <li class="ps-item">
+        <a class="ps-item__link" href="#">
+          <span class="ps-item__tag">早起 · 习惯</span>
+          <span class="ps-item__title">早起问题反思｜《研究表明，依靠意志力改掉坏习惯是徒劳无功的》</span>
+          <span class="ps-item__date">2026-09-05</span>
+        </a>
+      </li>
+      <li class="ps-item">
+        <a class="ps-item__link" href="#">
+          <span class="ps-item__tag">旅行 · 成长</span>
+          <span class="ps-item__title">我人生第一次看见大海，却高兴不起来</span>
+          <span class="ps-item__date">2026-08-25</span>
+        </a>
+      </li>
+    </ul>
+
+    <p class="ps-writing__more"><a href="#">全部文章 →</a></p>
+  </div>
+</section>
+
+<!-- 页脚（深墨底 + 衬线） -->
+<footer class="ps-foot">
+  <div class="ps-wrap">
+    <p class="ps-foot__quote">最后，祝你成为超人。<br>在生活中游刃有余的人。</p>
+    <p class="ps-foot__small">「人应该是被超越的某种东西。」—— 尼采　　／　　© 2026 Chester</p>
+  </div>
+</footer>
+
+</body>
+</html>

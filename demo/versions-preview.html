@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>样式方案对比 · 4 个版本（参考 kanbenzhi.com · 本地预览不上线）</title>
+<style>
+  /* =========================================================
+     本地对比 Demo：4 个「纸感」方向，同一套内容，只变样式/布局
+     A 纸感全套（已上线 v0.54）/ B 克制纸感 / C 杂志编辑 / D 深首尾
+     ========================================================= */
+  :root{
+    --paper:#f2eee2; --paper-alt:#ebe5d4; --white:#fffdf8;
+    --ink:#14120d; --soft:#514c42; --mute:#857d71;
+    --red:#e1462b; --red-soft:#efd8ce; --rule:#d4cbb8;
+    --mono: ui-monospace,"SFMono-Regular","SF Mono",Menlo,Consolas,monospace;
+    --sans: "PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --serif: Georgia,"Songti SC","STSong","Noto Serif CJK SC",serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:#dcd6c8; color:var(--ink);
+    font-family:var(--sans); font-size:16px; line-height:1.7;
+    -webkit-font-smoothing:antialiased; overflow-x:clip;
+  }
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
+  .m-wrap{ width:min(1080px, 100% - 40px); margin:0 auto; }
+
+  /* 顶部说明 + 版本索引 */
+  .idx{ background:#14120d; color:#f2eee2; padding:22px 20px; }
+  .idx__in{ width:min(1080px,100% - 40px); margin:0 auto; }
+  .idx h1{ margin:0 0 6px; font-size:20px; letter-spacing:-.01em; }
+  .idx p{ margin:0; color:#9a938a; font-size:13px; }
+  .idx__nav{ display:flex; flex-wrap:wrap; gap:10px 20px; margin-top:14px; font-family:var(--mono); font-size:12.5px; }
+  .idx__nav a{ color:#ff9d86; border-bottom:1px solid rgba(255,157,134,.4); padding-bottom:1px; }
+
+  /* 每个版本的外壳 */
+  .v{ margin:0 0 clamp(44px,8vw,90px); }
+  .v__bar{
+    background:#14120d; color:#f2eee2; padding:13px 20px;
+    font-family:var(--mono); font-size:13px; letter-spacing:.03em;
+    position:sticky; top:0; z-index:20;
+  }
+  .v__bar b{ color:#ff9d86; }
+  .v__bar em{ font-style:normal; color:#9a938a; }
+  .mock{ background:var(--paper); color:var(--ink); overflow:hidden; }
+
+  /* ===== 首屏 ===== */
+  .m-hero{ padding:clamp(32px,6.5vw,68px) 0 clamp(28px,5.5vw,56px); }
+  .m-hero--paper{ background:var(--paper); }
+  .m-hero--ink{ background:var(--ink); color:var(--paper); }
+  .m-eyebrow{ margin:0 0 18px; font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--red); }
+  .m-name{ margin:0; font-weight:900; font-size:clamp(38px,10vw,92px); line-height:1; letter-spacing:-.04em; }
+  .m-sub{ margin:12px 0 0; font-style:italic; font-size:clamp(17px,4.2vw,22px); color:var(--soft); }
+  .m-mani{ margin:22px 0 0; max-width:48ch; font-size:clamp(15px,4vw,17px); color:var(--soft); }
+  .m-mani strong{ color:var(--fg2,var(--ink)); }
+  .m-facts{ list-style:none; margin:26px 0 0; padding:20px 0 0; border-top:1px solid var(--rule);
+            display:grid; grid-template-columns:max-content minmax(0,1fr); gap:10px clamp(20px,4vw,34px);
+            max-width:42em; font-size:clamp(13.5px,3.6vw,15.5px); }
+  .m-facts li{ display:contents; }
+  .m-fk{ font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--mute); padding-top:.42em; white-space:nowrap; }
+  .m-fv{ color:var(--ink); line-height:1.7; }
+  .m-btns{ display:flex; flex-wrap:wrap; gap:12px; margin-top:28px; }
+  .m-btn{ display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:0 20px;
+          border:1px solid currentColor; background:transparent; color:inherit; font-weight:700; font-size:14px; letter-spacing:.02em; }
+  .m-btn--primary{ background:var(--ink); border-color:var(--ink); color:var(--paper); }
+  .m-btn--primary:hover{ background:var(--red); border-color:var(--red); color:#fff; }
+  /* 深底首屏的覆盖 */
+  .m-hero--ink .m-eyebrow{ color:#ff9d86; }
+  .m-hero--ink .m-sub,.m-hero--ink .m-mani{ color:rgba(242,238,226,.72); }
+  .m-hero--ink .m-facts{ border-top-color:rgba(242,238,226,.2); }
+  .m-hero--ink .m-fk{ color:rgba(242,238,226,.55); }
+  .m-hero--ink .m-fv{ color:var(--paper); }
+  .m-hero--ink .m-btn{ border-color:rgba(242,238,226,.5); color:var(--paper); }
+  .m-hero--ink .m-btn--primary{ background:var(--paper); border-color:var(--paper); color:var(--ink); }
+  .m-hero--ink .m-btn--primary:hover{ background:var(--red); border-color:var(--red); color:#fff; }
+
+  /* ===== 板块标题 ===== */
+  .m-head{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin-bottom:24px; }
+  .m-kicker{ margin:0; font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--red); }
+  .m-h2{ margin:0; font-weight:900; font-size:clamp(28px,6.5vw,52px); letter-spacing:-.035em; line-height:1.05; }
+
+  /* ===== 作品区 ===== */
+  .m-works{ padding:clamp(34px,6.5vw,68px) 0; }
+  .m-works--paper{ background:var(--paper); }
+  .m-works--band{ background:var(--red); color:var(--white); }
+  .m-works--band .m-kicker{ color:rgba(255,255,255,.75); }
+  .m-works--band .m-h2{ color:var(--white); }
+  .m-grid{ display:grid; grid-template-columns:1fr; gap:clamp(14px,2.4vw,22px); }
+  @media(min-width:760px){ .m-grid{ grid-template-columns:repeat(2,1fr); } }
+  .m-card{ display:grid; grid-template-columns:minmax(118px,40%) minmax(0,1fr); background:var(--white); color:var(--ink); overflow:hidden; }
+  .m-card--bordered{ border:1px solid var(--rule); }
+  .m-card--hover{ transition:transform .28s ease, box-shadow .28s ease; }
+  .m-card--hover:hover{ transform:translateY(-4px); box-shadow:0 20px 36px -24px rgba(0,0,0,.35); }
+  .m-card__media{ display:block; background:var(--paper-alt); overflow:hidden; }
+  .m-card__media img{ width:100%; height:100%; object-fit:cover; }
+  .m-card__body{ display:flex; flex-direction:column; padding:clamp(14px,2vw,22px) clamp(16px,2.4vw,24px); }
+  .m-meta{ margin:0 0 9px; font-size:12.5px; font-weight:700; letter-spacing:.06em; color:var(--red); }
+  .m-ct{ margin:0; font-weight:900; font-size:clamp(19px,2.3vw,26px); letter-spacing:-.015em; line-height:1.2; }
+  .m-latin{ margin:7px 0 12px; font-style:italic; font-size:13.5px; color:var(--mute); }
+  .m-desc{ margin:0 0 14px; font-size:14px; line-height:1.6; color:var(--soft); }
+  .m-status{ margin-top:auto; padding-top:12px; border-top:1px solid var(--rule); display:flex; flex-wrap:wrap; align-items:center; gap:6px 10px;
+             font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--soft); }
+  .m-status::before{ content:""; width:7px; height:7px; border-radius:50%; background:var(--red); flex:none; }
+  .m-links{ margin-left:auto; font-family:var(--sans); font-size:12.5px; letter-spacing:0; text-transform:none; }
+
+  /* 版本 C：作品 → 编辑行长条 */
+  .m-rows{ border-top:1px solid var(--ink); }
+  .m-row{ display:flex; gap:clamp(14px,3vw,26px); align-items:center; padding:clamp(16px,3vw,22px) 0; border-bottom:1px solid var(--rule); }
+  .m-row__img{ flex:none; width:clamp(64px,17vw,176px); aspect-ratio:1; object-fit:cover; background:var(--paper-alt); }
+  .m-row__body{ flex:1; min-width:0; }
+  .m-row__ct{ margin:0 0 4px; font-weight:900; font-size:clamp(20px,4.6vw,30px); letter-spacing:-.02em; line-height:1.15; }
+  .m-row__ds{ margin:0; font-size:14px; color:var(--soft); }
+  .m-row__mt{ flex:none; font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--mute); }
+  @media(max-width:640px){ .m-row__mt{ display:none; } }
+  .m-row:hover .m-row__ct{ color:var(--red); }
+
+  /* ===== 文章 ===== */
+  .m-articles{ padding:clamp(34px,6.5vw,68px) 0; background:var(--paper); }
+  .m-list{ list-style:none; margin:0; padding:0; border-top:1px solid var(--ink); }
+  .m-ai{ border-bottom:1px solid var(--rule); }
+  .m-ai a{ display:grid; grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"t d" "ti ti";
+           gap:6px 12px; padding:16px 0; transition:padding-left .18s; }
+  .m-ai a:hover{ padding-left:8px; }
+  @media(min-width:680px){
+    .m-ai a{ grid-template-columns:minmax(110px,180px) minmax(0,1fr) auto; grid-template-areas:"t ti d"; align-items:baseline; gap:0 clamp(18px,4vw,40px); }
+    .m-ai a:hover{ padding-left:0; }
+  }
+  .m-ai__t{ grid-area:t; font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--mute); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .m-ai__ti{ grid-area:ti; font-size:clamp(17px,4.4vw,24px); font-weight:600; letter-spacing:-.01em; line-height:1.35; }
+  .m-ai__d{ grid-area:d; font-family:var(--mono); font-size:12px; color:var(--mute); white-space:nowrap; }
+  .m-ai--latest .m-ai__ti{ color:var(--red); font-weight:700; }
+
+  /* ===== 页脚 ===== */
+  .m-foot{ background:var(--ink); color:var(--paper); padding:clamp(40px,7vw,78px) 0; }
+  .m-foot__q{ margin:0; font-family:var(--serif); font-size:clamp(20px,4vw,32px); line-height:1.5; }
+  .m-foot__s{ margin:18px 0 0; font-size:13px; color:#9a938a; }
+
+  .note{ background:#14120d; color:#9a938a; font-size:12.5px; padding:14px 20px; text-align:center; }
+  .note a{ color:#ff9d86; }
+</style>
+</head>
+<body>
+
+<!-- 索引 -->
+<header class="idx">
+  <div class="idx__in">
+    <h1>样式方案对比 · 4 个方向</h1>
+    <p>同一套内容，只变配色 / 首屏 / 作品区布局 / 页脚。参考 kanbenzhi.com 的「纸感编辑风」。本地预览，不上线。</p>
+    <nav class="idx__nav">
+      <a href="#a">A · 纸感全套（已上线）</a>
+      <a href="#b">B · 克制纸感</a>
+      <a href="#c">C · 杂志编辑</a>
+      <a href="#d">D · 深首尾</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================ 版本 A ============================ -->
+<section class="v" id="a">
+  <div class="v__bar"><b>版本 A · 纸感全套</b>　<em>纸底 + 红底通栏作品区 + 方角卡（悬停投影）+ 深墨页脚 —— 即当前已上线 v0.54，冲击最强</em></div>
+  <div class="mock">
+    <header class="m-hero m-hero--paper">
+      <div class="m-wrap">
+        <p class="m-eyebrow">Personal Site · 个人网站</p>
+        <h1 class="m-name">Chester Lee</h1>
+        <p class="m-sub">i 雅俗共赏 —— 记录生活、作品与思考</p>
+        <p class="m-mani">INTJ · 现居深圳 · <strong>信息化 PM × 独立开发者（AI 产品）</strong>。用大图与少量文字，说清我是谁、在做什么。</p>
+        <ul class="m-facts">
+          <li><span class="m-fk">阅读</span><span class="m-fv">微信读书 1400 小时 · 3 年 2000+ 小时</span></li>
+          <li><span class="m-fk">跑步</span><span class="m-fv">2025 年 2000 公里 · 10 场半马 · PB 1:42:00</span></li>
+          <li><span class="m-fk">产品</span><span class="m-fv">一款 AI 阅读知识管理工具、一款 AI 跑步教练</span></li>
+          <li><span class="m-fk">爱好</span><span class="m-fv">阅读 · 跑步 · 传统文化 · AI</span></li>
+          <li><span class="m-fk">公众号</span><span class="m-fv">i雅俗共赏</span></li>
+          <li><span class="m-fk">分享</span><span class="m-fv">在深圳读书分享 &amp; AI 共创</span></li>
+        </ul>
+        <div class="m-btns">
+          <a class="m-btn m-btn--primary" href="#a">查看作品</a>
+          <a class="m-btn" href="#a">读文章</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="m-works m-works--band">
+      <div class="m-wrap">
+        <div class="m-head"><p class="m-kicker">Works · 作品</p><h2 class="m-h2">作品</h2></div>
+        <div class="m-grid">
+          <article class="m-card m-card--hover">
+            <a class="m-card__media" href="#a"><img src="../web/assets/img/works/weread-enhancer.jpg" alt="微信悦读宣传图"></a>
+            <div class="m-card__body">
+              <p class="m-meta">浏览器插件</p><h3 class="m-ct">微信悦读</h3><p class="m-latin">WeRead Enhancer</p>
+              <p class="m-desc">让微信读书网页版更好读：屏占比、自动阅读、笔记增强与阅读统计。</p>
+              <div class="m-status">已上架 Edge 商店<span class="m-links"><a href="#a">官网 →</a></span></div>
+            </div>
+          </article>
+          <article class="m-card m-card--hover">
+            <a class="m-card__media" href="#a"><img src="../web/assets/img/works/wechat-qr.jpg" alt="公众号二维码"></a>
+            <div class="m-card__body">
+              <p class="m-meta">公众号</p><h3 class="m-ct">i雅俗共赏</h3><p class="m-latin">WeChat Official Account</p>
+              <p class="m-desc">俗到极致即为雅，雅得过头便是俗——记录生活与思考。</p>
+              <div class="m-status">扫码或点开即可阅读<span class="m-links"><a href="#a">读文章 →</a></span></div>
+            </div>
+          </article>
+          <article class="m-card m-card--hover">
+            <a class="m-card__media" href="#a"><img src="../web/assets/img/works/coros-run.jpg" alt="高驰跑步看板封面"></a>
+            <div class="m-card__body">
+              <p class="m-meta">跑步数据看板</p><h3 class="m-ct">高驰跑步看板</h3><p class="m-latin">COROS Run Dashboard</p>
+              <p class="m-desc">跑量 / 配速 / 心率趋势、训练负荷与五区配速，附 AI 中文复盘。</p>
+              <div class="m-status">邮箱登录 · 只看本人数据<span class="m-links"><a href="#a">打开看板 →</a></span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="m-articles">
+      <div class="m-wrap">
+        <div class="m-head"><p class="m-kicker">Writing · 文章</p><h2 class="m-h2">文章</h2></div>
+        <ul class="m-list">
+          <li class="m-ai m-ai--latest"><a href="#a"><span class="m-ai__t">读书复盘</span><span class="m-ai__ti">最稳定的铁饭碗，就是你自己：《低风险创业》阅读复盘</span><span class="m-ai__d">2026-09-22</span></a></li>
+          <li class="m-ai"><a href="#a"><span class="m-ai__t">读书 · 成长</span><span class="m-ai__ti">读了1000小时书，我才明白：读书救不了我</span><span class="m-ai__d">2026-09-08</span></a></li>
+          <li class="m-ai"><a href="#a"><span class="m-ai__t">旅行 · 成长</span><span class="m-ai__ti">我人生第一次看见大海，却高兴不起来</span><span class="m-ai__d">2026-08-25</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="m-foot"><div class="m-wrap">
+      <p class="m-foot__q">最后，祝你成为超人。<br>在生活中游刃有余的人。</p>
+      <p class="m-foot__s">「人应该是被超越的某种东西。」—— 尼采　／　© 2026 Chester</p>
+    </div></footer>
+  </div>
+</section>
+
+<!-- ============================ 版本 B ============================ -->
+<section class="v" id="b">
+  <div class="v__bar"><b>版本 B · 克制纸感</b>　<em>去掉红底通栏 —— 作品区仍在纸底，卡片暖白 + 细描边（方角），其余同 A；最贴原「极简」铁律，冲击最小</em></div>
+  <div class="mock">
+    <header class="m-hero m-hero--paper">
+      <div class="m-wrap">
+        <p class="m-eyebrow">Personal Site · 个人网站</p>
+        <h1 class="m-name">Chester Lee</h1>
+        <p class="m-sub">i 雅俗共赏 —— 记录生活、作品与思考</p>
+        <p class="m-mani">INTJ · 现居深圳 · <strong>信息化 PM × 独立开发者（AI 产品）</strong>。用大图与少量文字，说清我是谁、在做什么。</p>
+        <ul class="m-facts">
+          <li><span class="m-fk">阅读</span><span class="m-fv">微信读书 1400 小时 · 3 年 2000+ 小时</span></li>
+          <li><span class="m-fk">跑步</span><span class="m-fv">2025 年 2000 公里 · 10 场半马 · PB 1:42:00</span></li>
+          <li><span class="m-fk">产品</span><span class="m-fv">一款 AI 阅读知识管理工具、一款 AI 跑步教练</span></li>
+          <li><span class="m-fk">爱好</span><span class="m-fv">阅读 · 跑步 · 传统文化 · AI</span></li>
+          <li><span class="m-fk">公众号</span><span class="m-fv">i雅俗共赏</span></li>
+          <li><span class="m-fk">分享</span><span class="m-fv">在深圳读书分享 &amp; AI 共创</span></li>
+        </ul>
+        <div class="m-btns">
+          <a class="m-btn m-btn--primary" href="#b">查看作品</a>
+          <a class="m-btn" href="#b">读文章</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="m-works m-works--paper">
+      <div class="m-wrap">
+        <div class="m-head"><p class="m-kicker">Works · 作品</p><h2 class="m-h2">作品</h2></div>
+        <div class="m-grid">
+          <article class="m-card m-card--bordered">
+            <a class="m-card__media" href="#b"><img src="../web/assets/img/works/weread-enhancer.jpg" alt="微信悦读宣传图"></a>
+            <div class="m-card__body">
+              <p class="m-meta">浏览器插件</p><h3 class="m-ct">微信悦读</h3><p class="m-latin">WeRead Enhancer</p>
+              <p class="m-desc">让微信读书网页版更好读：屏占比、自动阅读、笔记增强与阅读统计。</p>
+              <div class="m-status">已上架 Edge 商店<span class="m-links"><a href="#b">官网 →</a></span></div>
+            </div>
+          </article>
+          <article class="m-card m-card--bordered">
+            <a class="m-card__media" href="#b"><img src="../web/assets/img/works/wechat-qr.jpg" alt="公众号二维码"></a>
+            <div class="m-card__body">
+              <p class="m-meta">公众号</p><h3 class="m-ct">i雅俗共赏</h3><p class="m-latin">WeChat Official Account</p>
+              <p class="m-desc">俗到极致即为雅，雅得过头便是俗——记录生活与思考。</p>
+              <div class="m-status">扫码或点开即可阅读<span class="m-links"><a href="#b">读文章 →</a></span></div>
+            </div>
+          </article>
+          <article class="m-card m-card--bordered">
+            <a class="m-card__media" href="#b"><img src="../web/assets/img/works/coros-run.jpg" alt="高驰跑步看板封面"></a>
+            <div class="m-card__body">
+              <p class="m-meta">跑步数据看板</p><h3 class="m-ct">高驰跑步看板</h3><p class="m-latin">COROS Run Dashboard</p>
+              <p class="m-desc">跑量 / 配速 / 心率趋势、训练负荷与五区配速，附 AI 中文复盘。</p>
+              <div class="m-status">邮箱登录 · 只看本人数据<span class="m-links"><a href="#b">打开看板 →</a></span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="m-articles">
+      <div class="m-wrap">
+        <div class="m-head"><p class="m-kicker">Writing · 文章</p><h2 class="m-h2">文章</h2></div>
+        <ul class="m-list">
+          <li class="m-ai m-ai--latest"><a href="#b"><span class="m-ai__t">读书复盘</span><span class="m-ai__ti">最稳定的铁饭碗，就是你自己：《低风险创业》阅读复盘</span><span class="m-ai__d">2026-09-22</span></a></li>
+          <li class="m-ai"><a href="#b"><span class="m-ai__t">读书 · 成长</span><span class="m-ai__ti">读了1000小时书，我才明白：读书救不了我</span><span class="m-ai__d">2026-09-08</span></a></li>
+          <li class="m-ai"><a href="#b"><span class="m-ai__t">旅行 · 成长</span><span class="m-ai__ti">我人生第一次看见大海，却高兴不起来</span><span class="m-ai__d">2026-08-25</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="m-foot"><div class="m-wrap">
+      <p class="m-foot__q">最后，祝你成为超人。<br>在生活中游刃有余的人。</p>
+      <p class="m-foot__s">「人应该是被超越的某种东西。」—— 尼采　／　© 2026 Chester</p>
+    </div></footer>
+  </div>
+</section>
+
+<!-- ============================ 版本 C ============================ -->
+<section class="v" id="c">
+  <div class="v__bar"><b>版本 C · 杂志编辑</b>　<em>作品从「卡片网格」改成「编辑行长条」（左方图 + 大标题 + 右侧入口）—— 最像参考站的刊物感；无红底</em></div>
+  <div class="mock">
+    <header class="m-hero m-hero--paper">
+      <div class="m-wrap">
+        <p class="m-eyebrow">Personal Site · 个人网站</p>
+        <h1 class="m-name">Chester Lee</h1>
+        <p class="m-sub">i 雅俗共赏 —— 记录生活、作品与思考</p>
+        <p class="m-mani">INTJ · 现居深圳 · <strong>信息化 PM × 独立开发者（AI 产品）</strong>。用大图与少量文字，说清我是谁、在做什么。</p>
+        <ul class="m-facts">
+          <li><span class="m-fk">阅读</span><span class="m-fv">微信读书 1400 小时 · 3 年 2000+ 小时</span></li>
+          <li><span class="m-fk">跑步</span><span class="m-fv">2025 年 2000 公里 · 10 场半马 · PB 1:42:00</span></li>
+          <li><span class="m-fk">产品</span><span class="m-fv">一款 AI 阅读知识管理工具、一款 AI 跑步教练</span></li>
+          <li><span class="m-fk">爱好</span><span class="m-fv">阅读 · 跑步 · 传统文化 · AI</span></li>
+          <li><span class="m-fk">公众号</span><span class="m-fv">i雅俗共赏</span></li>
+          <li><span class="m-fk">分享</span><span class="m-fv">在深圳读书分享 &amp; AI 共创</span></li>
+        </ul>
+      </div>
+    </header>
+
+    <section class="m-works m-works--paper">
+      <div class="m-wrap">
+        <div class="m-head"><p class="m-kicker">Works · 作品</p><h2 class="m-h2">作品</h2></div>
+        <div class="m-rows">
+          <a class="m-row" href="#c">
+            <img class="m-row__img" src="../web/assets/img/works/weread-enhancer.jpg" alt="微信悦读">
+            <span class="m-row__body"><span class="m-row__ct">微信悦读</span><span class="m-row__ds">浏览器插件 · 让微信读书网页版更好读：屏占比、自动阅读、笔记增强与统计。</span></span>
+            <span class="m-row__mt">已上架 Edge</span>
+          </a>
+          <a class="m-row" href="#c">
+            <img class="m-row__img" src="../web/assets/img/works/wechat-qr.jpg" alt="公众号">
+            <span class="m-row__body"><span class="m-row__ct">i雅俗共赏</span><span class="m-row__ds">公众号 · 俗到极致即为雅，雅得过头便是俗——记录生活与思考。</span></span>
+            <span class="m-row__mt">扫码阅读</span>
+          </a>
+          <a class="m-row" href="#c">
+            <img class="m-row__img" src="../web/assets/img/works/coros-run.jpg" alt="高驰跑步看板">
+            <span class="m-row__body"><span class="m-row__ct">高驰跑步看板</span><span class="m-row__ds">跑步数据看板 · 跑量/配速/心率趋势、训练负荷与五区配速，附 AI 复盘。</span></span>
+            <span class="m-row__mt">打开看板</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="m-articles">
+      <div class="m-wrap">
+        <div class="m-head"><p class="m-kicker">Writing · 文章</p><h2 class="m-h2">文章</h2></div>
+        <ul class="m-list">
+          <li class="m-ai m-ai--latest"><a href="#c"><span class="m-ai__t">读书复盘</span><span class="m-ai__ti">最稳定的铁饭碗，就是你自己：《低风险创业》阅读复盘</span><span class="m-ai__d">2026-09-22</span></a></li>
+          <li class="m-ai"><a href="#c"><span class="m-ai__t">读书 · 成长</span><span class="m-ai__ti">读了1000小时书，我才明白：读书救不了我</span><span class="m-ai__d">2026-09-08</span></a></li>
+          <li class="m-ai"><a href="#c"><span class="m-ai__t">旅行 · 成长</span><span class="m-ai__ti">我人生第一次看见大海，却高兴不起来</span><span class="m-ai__d">2026-08-25</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="m-foot"><div class="m-wrap">
+      <p class="m-foot__q">最后，祝你成为超人。<br>在生活中游刃有余的人。</p>
+      <p class="m-foot__s">「人应该是被超越的某种东西。」—— 尼采　／　© 2026 Chester</p>
+    </div></footer>
+  </div>
+</section>
+
+<!-- ============================ 版本 D ============================ -->
+<section class="v" id="d">
+  <div class="v__bar"><b>版本 D · 深首尾</b>　<em>保留原「首尾呼应」结构：首屏深墨底 + 页脚深墨底，中间纸底；作品区不加红底 —— 改动最贴近原站，只把灰换墨、整体换纸感</em></div>
+  <div class="mock">
+    <header class="m-hero m-hero--ink">
+      <div class="m-wrap">
+        <p class="m-eyebrow">Personal Site · 个人网站</p>
+        <h1 class="m-name">Chester Lee</h1>
+        <p class="m-sub">i 雅俗共赏 —— 记录生活、作品与思考</p>
+        <p class="m-mani">INTJ · 现居深圳 · <strong>信息化 PM × 独立开发者（AI 产品）</strong>。用大图与少量文字，说清我是谁、在做什么。</p>
+        <ul class="m-facts">
+          <li><span class="m-fk">阅读</span><span class="m-fv">微信读书 1400 小时 · 3 年 2000+ 小时</span></li>
+          <li><span class="m-fk">跑步</span><span class="m-fv">2025 年 2000 公里 · 10 场半马 · PB 1:42:00</span></li>
+          <li><span class="m-fk">产品</span><span class="m-fv">一款 AI 阅读知识管理工具、一款 AI 跑步教练</span></li>
+          <li><span class="m-fk">爱好</span><span class="m-fv">阅读 · 跑步 · 传统文化 · AI</span></li>
+          <li><span class="m-fk">公众号</span><span class="m-fv">i雅俗共赏</span></li>
+          <li><span class="m-fk">分享</span><span class="m-fv">在深圳读书分享 &amp; AI 共创</span></li>
+        </ul>
+        <div class="m-btns">
+          <a class="m-btn m-btn--primary" href="#d">查看作品</a>
+          <a class="m-btn" href="#d">读文章</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="m-works m-works--paper">
+      <div class="m-wrap">
+        <div class="m-head"><p class="m-kicker">Works · 作品</p><h2 class="m-h2">作品</h2></div>
+        <div class="m-grid">
+          <article class="m-card m-card--hover">
+            <a class="m-card__media" href="#d"><img src="../web/assets/img/works/weread-enhancer.jpg" alt="微信悦读宣传图"></a>
+            <div class="m-card__body">
+              <p class="m-meta">浏览器插件</p><h3 class="m-ct">微信悦读</h3><p class="m-latin">WeRead Enhancer</p>
+              <p class="m-desc">让微信读书网页版更好读：屏占比、自动阅读、笔记增强与阅读统计。</p>
+              <div class="m-status">已上架 Edge 商店<span class="m-links"><a href="#d">官网 →</a></span></div>
+            </div>
+          </article>
+          <article class="m-card m-card--hover">
+            <a class="m-card__media" href="#d"><img src="../web/assets/img/works/wechat-qr.jpg" alt="公众号二维码"></a>
+            <div class="m-card__body">
+              <p class="m-meta">公众号</p><h3 class="m-ct">i雅俗共赏</h3><p class="m-latin">WeChat Official Account</p>
+              <p class="m-desc">俗到极致即为雅，雅得过头便是俗——记录生活与思考。</p>
+              <div class="m-status">扫码或点开即可阅读<span class="m-links"><a href="#d">读文章 →</a></span></div>
+            </div>
+          </article>
+          <article class="m-card m-card--hover">
+            <a class="m-card__media" href="#d"><img src="../web/assets/img/works/coros-run.jpg" alt="高驰跑步看板封面"></a>
+            <div class="m-card__body">
+              <p class="m-meta">跑步数据看板</p><h3 class="m-ct">高驰跑步看板</h3><p class="m-latin">COROS Run Dashboard</p>
+              <p class="m-desc">跑量 / 配速 / 心率趋势、训练负荷与五区配速，附 AI 中文复盘。</p>
+              <div class="m-status">邮箱登录 · 只看本人数据<span class="m-links"><a href="#d">打开看板 →</a></span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="m-articles">
+      <div class="m-wrap">
+        <div class="m-head"><p class="m-kicker">Writing · 文章</p><h2 class="m-h2">文章</h2></div>
+        <ul class="m-list">
+          <li class="m-ai m-ai--latest"><a href="#d"><span class="m-ai__t">读书复盘</span><span class="m-ai__ti">最稳定的铁饭碗，就是你自己：《低风险创业》阅读复盘</span><span class="m-ai__d">2026-09-22</span></a></li>
+          <li class="m-ai"><a href="#d"><span class="m-ai__t">读书 · 成长</span><span class="m-ai__ti">读了1000小时书，我才明白：读书救不了我</span><span class="m-ai__d">2026-09-08</span></a></li>
+          <li class="m-ai"><a href="#d"><span class="m-ai__t">旅行 · 成长</span><span class="m-ai__ti">我人生第一次看见大海，却高兴不起来</span><span class="m-ai__d">2026-08-25</span></a></li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="m-foot"><div class="m-wrap">
+      <p class="m-foot__q">最后，祝你成为超人。<br>在生活中游刃有余的人。</p>
+      <p class="m-foot__s">「人应该是被超越的某种东西。」—— 尼采　／　© 2026 Chester</p>
+    </div></footer>
+  </div>
+</section>
+
+<div class="note">本地对比页，不上线。选定方向后我再改进正式站。当前线上为 <a href="../web/index.html">版本 A</a>。</div>
+
+</body>
+</html>

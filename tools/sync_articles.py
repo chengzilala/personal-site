@@ -652,8 +652,8 @@ ARTICLE_TPL = """<article class="ps-post">
 
 LIST_TPL = """<main class="ps-list">
   <header class="ps-list__head">
-    <h1 class="ps-list__title">文章</h1>
     <p class="ps-list__sub">{sub}</p>
+    <h1 class="ps-list__title">文章</h1>
   </header>
   <ul class="ps-list__items">
 {items}
