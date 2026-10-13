@@ -24,3 +24,15 @@
 - **产出物（文件/链接）**：`web/assets/css/site.css`、`tools/sync_articles.py`、`web/assets/js/site.js`、`web/index.html`、`web/articles/index.html` 及 25 篇正文、`web/assets/js/articles-data.js`、`plan/RPD_需求文档.md`。
 - **待办**：① 如需看效果，跑一次本地服务截图核对（本轮按「轻验证」只做了命令行核对）；② 仍偏大的文章插图建议在 Obsidian 换小图。
 - **风险/注意事项**：详情页小标签「第 N 篇」随篇数变化（按发布时间排序的序号）；标签目前不做独立标签页（无死链，仅展示）；改版只动文章模块，其它板块样式未变。
+
+---
+
+## 2026-10-13 会话条目：全站样式改版（纸感编辑风 v0.54–v0.56）提交并部署上线（已完成）
+
+- **目标**：把工作面里已改好的全站样式改版（借鉴 kanbenzhi.com 的「纸感编辑风」）提交并部署上线（用户口令「部署发布上线」）。
+- **已做**：① **提交 + 双推**：`git add` 7 个改动文件 + 2 个 demo 预览页 → commit `f003fc9` → `git push origin main`（GitHub + Gitee 双推成功）。② **帽子云部署**：控制台 `dash.maoziyun.com` 项目 3936 → 应用 `personalsite` → 点「部署」→ 分支填 `main`（选 `Create "main"`）→ 立即部署，约 8 秒成功，commit `f003fc9` 带「当前版本」标记。③ **线上验证**（主域名 `personalsite-32km31c.maozi.io`，`?cb=` 绕缓存）。
+- **关键结论/决定**：① 全站改版要点（见 RPD v0.54–v0.56）：配色改暖色纸感（奶油底 `#f2eee2` / 暖近黑字 / 点缀红 `#e1462b`）、作品区红底通栏（新增 `.ps-band`）、页脚深墨底、板块副题改编辑风眉标（移到标题前）、文章列表标签等宽大写；**首屏例外**——保持改版前深灰底 `#393939`（v0.55 按用户要求回退、移除动作按钮）；v0.56 再加「首屏内容整块水平居中」+「文章列表悬停标题变点缀橙」。② `demo/` 预览页库内已有先例（`card-preview.html` / `hero-text-preview.html`），故本次 2 个新预览页一并入库（**不上线**，站点根为 `web/`）。③ 改版**只动样式与排版，不改内容与事实**（红线）。
+- **产出物（文件/链接）**：commit `f003fc9`；站点提交：`plan/RPD_需求文档.md`、`tools/sync_articles.py`、`web/about.html`、`web/index.html`、`web/works.html`、`web/articles/index.html`、`web/assets/css/site.css`、`demo/style-upgrade-preview.html`、`demo/versions-preview.html`；线上 `https://personalsite-32km31c.maozi.io`。
+- **验证（从简）**：① 关键路径 HTTP：`/`、`/assets/css/site.css`、`/assets/js/site.js` = 200；`/index.html`、`/works.html` 等 = 308（CDN 规范化重定向，`-L` 跟随后 200）。② 内容抽查：`site.css` 含纸感底 `#f2eee2`（3 处）、点缀红 `#e1462b`、`ps-band`（3 处）；首页与作品页跟随后各含 `ps-band`（1 处）；文章列表页 10028 字节非空。③ 未跑浏览器截图（按「轻验证」约定，纯 CSS/HTML 改动以命令行核对为准）。
+- **待办**：如用户想看真实渲染，再跑一次浏览器复检（无白屏 / 375 与 1280 两档无横向滚动 / 控制台 0 报错）。
+- **风险/注意事项**：① 帽子云 **push 不自动重建**，每次更新都须在控制台手动点「部署」；② 只认**主域名**（带随机前缀的是单次快照 URL）；③ CDN 缓存约 1200s，验证务必加 `?cb=<时间戳>`。
