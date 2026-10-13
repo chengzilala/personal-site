@@ -8,7 +8,7 @@
   --bg:        #f2eee2;   /* 纸底（原近白 #faf9f7） */
   --fg:        #14120d;   /* 暖近黑 */
   --muted:     #857d71;
-  --line:      #d4cbb8;   /* 纸感细线（原 #e6e2db） */
+  --line:      #b0a289;   /* 纸感细线（原 #e6e2db → #d4cbb8 → 加深 #b0a289） */
   --white:     #fffdf8;   /* 暖白：作品卡底 */
   --ph-bg:     #ebe5d4;   /* 占位块底色 */
   --ph-fg:     #a49b8d;
@@ -513,7 +513,7 @@ a { color: inherit; }
 .ps-card__foot {
   margin-top: auto;
   padding-top: 12px;
-  border-top: 1px solid #d4cbb8;
+  border-top: 1px solid #b0a289;
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
@@ -541,7 +541,7 @@ a { color: inherit; }
 .ps-card__link {
   text-decoration: none;
   color: #14120d;
-  border-bottom: 1px solid #d4cbb8;
+  border-bottom: 1px solid #b0a289;
   padding-bottom: 1px;
   white-space: nowrap;
   transition: border-color 0.2s;
@@ -724,9 +724,9 @@ a { color: inherit; }
 /* 悬停：标题变点缀橙（与「最新一篇」标题同色），跟手反馈 */
 .ps-item__link:hover .ps-item__title { color: var(--accent); }
 
-/* 最新一篇：浅底高亮 + 标题用点缀色（与参考图一致） */
+/* 最新一篇：仅保留浅底高亮 + 加粗，标题**不用**点缀橙（保持常规墨色） */
 .ps-item--latest .ps-item__link { background: var(--accent-soft); }
-.ps-item--latest .ps-item__title { color: var(--accent); font-weight: 700; }
+.ps-item--latest .ps-item__title { font-weight: 700; }
 
 /* 平板/桌面：一行三列「标签 ／ 标题 ／ 日期」 */
 @media (min-width: 700px) {
