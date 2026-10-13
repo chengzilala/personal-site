@@ -330,9 +330,8 @@ a { color: inherit; }
   color: var(--muted);
 }
 
-/* 「关于我」自我介绍正文：沿用正文排版尺度，宽度限在易读区间 */
+/* 「关于我」自我介绍正文：铺满内容区（与上方数字卡片同宽，右侧不留空） */
 .ps-prose {
-  max-width: 40em;
   margin: 0 0 clamp(28px, 6vw, 44px);
   font-size: clamp(16px, 4.2vw, 17.5px);
   line-height: 1.95;
