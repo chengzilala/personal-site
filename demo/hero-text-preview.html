@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>首屏文字样式对比 · 4 个版本</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #f4f4f5;
+    color: #1a1a1a;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 28px 22px 80px; }
+  .page-h { font-size: 22px; font-weight: 700; margin: 0 0 6px; }
+  .page-sub { color: #6b6b6b; font-size: 14px; margin: 0 0 26px; line-height: 1.7; }
+
+  .demo-label { font-size: 15px; font-weight: 700; margin: 34px 0 6px; letter-spacing: .06em; color: #111; }
+  .demo-note { font-size: 13px; color: #8a8a8a; margin: 0 0 12px; }
+
+  /* —— 首屏容器（与站点同款：深灰底 #393939，桌面左右两栏） —— */
+  .hero {
+    background: #393939;
+    border-radius: 14px;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 44px;
+    align-items: center;
+  }
+  .hero__photo { border-radius: 12px; overflow: hidden; }
+  .hero__photo img { display: block; width: 100%; height: auto; }
+  .hero__name { margin: 0 0 12px; color: #fff; font-size: 42px; font-weight: 700; letter-spacing: -.01em; line-height: 1.1; }
+
+  /* 通用清单结构（版本各自覆盖样式） */
+  .facts { margin: 24px 0 0; padding: 0; list-style: none; }
+  .facts li { display: contents; }
+  .tagline { margin: 0; }
+
+  /* ============ 版本 1 · 现状（基准） ============ */
+  .v1 .tagline { color: #cccccc; font-size: 17px; max-width: 34em; }
+  .v1 .facts {
+    display: grid; grid-template-columns: max-content minmax(0, 1fr);
+    column-gap: 20px; row-gap: 11px; font-size: 16px; max-width: 40em;
+  }
+  .v1 .k { font-size: .95em; color: #a6a6a6; letter-spacing: .08em; }
+  .v1 .v { color: #d6d6d6; line-height: 1.7; }
+
+  /* ============ 版本 2 · 杂志感：弱标签 · 强内容 ============ */
+  .v2 .hero__name { letter-spacing: -.015em; }
+  .v2 .tagline { color: #dcdcdc; font-size: 17px; max-width: 34em; letter-spacing: .01em; }
+  .v2 .facts {
+    display: grid; grid-template-columns: max-content minmax(0, 1fr);
+    column-gap: 28px; row-gap: 13px; font-size: 16.5px; max-width: 40em;
+    margin-top: 26px; padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,.13);
+  }
+  .v2 .k { font-size: .8em; color: #8f8f8f; letter-spacing: .16em; padding-top: .35em; }
+  .v2 .v { color: #f2f2f2; line-height: 1.75; }
+
+  /* ============ 版本 3 · 胶囊标签（结构化、逐行） ============ */
+  .v3 .tagline { color: #d2d2d2; font-size: 16.5px; max-width: 34em; }
+  .v3 .facts { display: flex; flex-direction: column; gap: 10px; margin-top: 26px; max-width: 40em; }
+  .v3 .facts li { display: flex; align-items: baseline; gap: 14px; }
+  .v3 .k {
+    flex: 0 0 auto; min-width: 58px; text-align: center;
+    font-size: 12.5px; letter-spacing: .06em; color: #d0d0d0;
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.10);
+    padding: 3px 10px; border-radius: 999px; line-height: 1.5;
+  }
+  .v3 .v { color: #ededed; font-size: 16px; line-height: 1.6; }
+
+  /* ============ 版本 4 · 整块卡片 + 两栏 ============ */
+  .v4 .tagline { color: #d2d2d2; font-size: 16.5px; max-width: 34em; }
+  .v4 .facts {
+    display: grid; grid-template-columns: max-content minmax(0, 1fr);
+    column-gap: 22px; row-gap: 12px; font-size: 16px; max-width: 42em;
+    margin-top: 26px; padding: 20px 24px;
+    background: rgba(255,255,255,.045);
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 12px;
+  }
+  .v4 .k { font-size: .9em; color: #9c9c9c; letter-spacing: .1em; }
+  .v4 .v { color: #eaeaea; line-height: 1.7; }
+
+  @media (max-width: 720px) {
+    .hero { grid-template-columns: 1fr; gap: 24px; padding: 26px; }
+    .hero__photo { max-width: 260px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1 class="page-h">首屏文字样式 · 4 个版本</h1>
+  <p class="page-sub">都在站点同款深灰底（#393939）上对比。滚动看完，记住喜欢的版本号，在对话里告诉我「用版本 X」即可。<br>选中范围＝「一行简介 + 六行清单」；姓名 <b>Chester Lee</b> 基本不动。</p>
+
+  <!-- ===== 版本 1 ===== -->
+  <p class="demo-label">版本 1 · 现状（基准）</p>
+  <p class="demo-note">标签灰字 + 内容浅灰两列。信息清楚，但整体对比度偏低、标签偏「抢」。</p>
+  <div class="hero v1">
+    <figure class="hero__photo"><img src="../web/assets/img/photos/portrait-line.jpg" alt="线稿插画"></figure>
+    <div>
+      <h1 class="hero__name">Chester Lee</h1>
+      <p class="tagline">INTJ · 现居深圳 · 信息化PM × 独立开发者（AI 产品）</p>
+      <ul class="facts">
+        <li><span class="k">阅读</span><span class="v">微信读书 1400 小时 · 3 年 2000+ 小时</span></li>
+        <li><span class="k">跑步</span><span class="v">2025 年 2000 公里 · 10 场半马 · PB 1:42:00</span></li>
+        <li><span class="k">产品</span><span class="v">一款 AI 阅读知识管理工具、一款 AI 跑步教练</span></li>
+        <li><span class="k">爱好</span><span class="v">阅读 · 跑步 · 传统文化 · AI</span></li>
+        <li><span class="k">公众号</span><span class="v">i雅俗共赏</span></li>
+        <li><span class="k">分享</span><span class="v">在深圳办读书分享 &amp; AI 共创</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== 版本 2 ===== -->
+  <p class="demo-label">版本 2 · 杂志感（弱标签 · 强内容）</p>
+  <p class="demo-note">标签缩小变淡、字距拉开；内容提亮到接近纯白，行距放松；清单上方加一条细线分隔。最克制、最「有品」。</p>
+  <div class="hero v2">
+    <figure class="hero__photo"><img src="../web/assets/img/photos/portrait-line.jpg" alt="线稿插画"></figure>
+    <div>
+      <h1 class="hero__name">Chester Lee</h1>
+      <p class="tagline">INTJ · 现居深圳 · 信息化PM × 独立开发者（AI 产品）</p>
+      <ul class="facts">
+        <li><span class="k">阅读</span><span class="v">微信读书 1400 小时 · 3 年 2000+ 小时</span></li>
+        <li><span class="k">跑步</span><span class="v">2025 年 2000 公里 · 10 场半马 · PB 1:42:00</span></li>
+        <li><span class="k">产品</span><span class="v">一款 AI 阅读知识管理工具、一款 AI 跑步教练</span></li>
+        <li><span class="k">爱好</span><span class="v">阅读 · 跑步 · 传统文化 · AI</span></li>
+        <li><span class="k">公众号</span><span class="v">i雅俗共赏</span></li>
+        <li><span class="k">分享</span><span class="v">在深圳办读书分享 &amp; AI 共创</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== 版本 3 ===== -->
+  <p class="demo-label">版本 3 · 胶囊标签（结构化 · 逐行）</p>
+  <p class="demo-note">每个标签做成淡色圆角胶囊，一行一条、更松弛好读。科技感、整齐，但视觉元素多一点。</p>
+  <div class="hero v3">
+    <figure class="hero__photo"><img src="../web/assets/img/photos/portrait-line.jpg" alt="线稿插画"></figure>
+    <div>
+      <h1 class="hero__name">Chester Lee</h1>
+      <p class="tagline">INTJ · 现居深圳 · 信息化PM × 独立开发者（AI 产品）</p>
+      <ul class="facts">
+        <li><span class="k">阅读</span><span class="v">微信读书 1400 小时 · 3 年 2000+ 小时</span></li>
+        <li><span class="k">跑步</span><span class="v">2025 年 2000 公里 · 10 场半马 · PB 1:42:00</span></li>
+        <li><span class="k">产品</span><span class="v">一款 AI 阅读知识管理工具、一款 AI 跑步教练</span></li>
+        <li><span class="k">爱好</span><span class="v">阅读 · 跑步 · 传统文化 · AI</span></li>
+        <li><span class="k">公众号</span><span class="v">i雅俗共赏</span></li>
+        <li><span class="k">分享</span><span class="v">在深圳办读书分享 &amp; AI 共创</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== 版本 4 ===== -->
+  <p class="demo-label">版本 4 · 整块卡片（分区感强）</p>
+  <p class="demo-note">清单整体收进一个半透明圆角卡片里，与上方简介分层。稳重、像「资料卡」，但比 2/3 更「重」。</p>
+  <div class="hero v4">
+    <figure class="hero__photo"><img src="../web/assets/img/photos/portrait-line.jpg" alt="线稿插画"></figure>
+    <div>
+      <h1 class="hero__name">Chester Lee</h1>
+      <p class="tagline">INTJ · 现居深圳 · 信息化PM × 独立开发者（AI 产品）</p>
+      <ul class="facts">
+        <li><span class="k">阅读</span><span class="v">微信读书 1400 小时 · 3 年 2000+ 小时</span></li>
+        <li><span class="k">跑步</span><span class="v">2025 年 2000 公里 · 10 场半马 · PB 1:42:00</span></li>
+        <li><span class="k">产品</span><span class="v">一款 AI 阅读知识管理工具、一款 AI 跑步教练</span></li>
+        <li><span class="k">爱好</span><span class="v">阅读 · 跑步 · 传统文化 · AI</span></li>
+        <li><span class="k">公众号</span><span class="v">i雅俗共赏</span></li>
+        <li><span class="k">分享</span><span class="v">在深圳办读书分享 &amp; AI 共创</span></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

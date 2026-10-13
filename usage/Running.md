@@ -31,13 +31,13 @@ python3 -m http.server 5181 --directory web
 别的网站只要**贴一段代码**就能引用它；以后你改 `web/card.html`，所有嵌了的地方**自动跟着更新**。
 
 **第一步**：把名片页部署上去（跟着本站一起发布即可），访问地址是
-`https://personalsite-32km31c.maozi.io/card.html`。
+`https://chesterlee.cn/card.html`（旧域名 `https://personalsite-32km31c.maozi.io/card.html` 仍可访问，仅作备用）。
 
 **第二步**：把下面整段贴到对方网站要放名片的位置：
 
 ```html
 <iframe id="ps-card"
-        src="https://personalsite-32km31c.maozi.io/card.html"
+        src="https://chesterlee.cn/card.html"
         title="张诚 · Chester 名片"
         style="width:100%;border:0;display:block;height:360px"
         loading="lazy"></iframe>

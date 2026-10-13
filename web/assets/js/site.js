@@ -11,46 +11,32 @@ function renderArticles() {
   var max = parseInt(host.getAttribute('data-limit'), 10);
   if (!max) max = 4;
 
-  list.slice(0, max).forEach(function (item) {
+  list.slice(0, max).forEach(function (item, i) {
+    var li = document.createElement('li');
+    li.className = 'ps-item' + (i === 0 ? ' ps-item--latest' : '');
+
     var row = document.createElement('a');
-    row.className = 'ps-article-row ps-reveal';
+    row.className = 'ps-item__link ps-reveal';
     row.href = item.url;
 
-    // 缩略图：数据里的路径是相对 articles/ 目录的，首页在根目录，要去掉开头的 ../
-    if (item.cover) {
-      var thumb = document.createElement('div');
-      thumb.className = 'ps-article-row__thumb';
-      var img = document.createElement('img');
-      img.src = item.cover.replace(/^\.\.\//, '');
-      img.alt = '';
-      img.loading = 'lazy';
-      thumb.appendChild(img);
-      row.appendChild(thumb);
-    }
+    var tag = document.createElement('span');
+    tag.className = 'ps-item__tag';
+    tag.textContent = (item.tags && item.tags.length) ? item.tags.slice(0, 2).join(' · ') : '文章';
 
-    var text = document.createElement('div');
-    text.className = 'ps-article-row__text';
-
-    var date = document.createElement('time');
-    date.className = 'ps-article-row__date';
-    date.textContent = item.date;
-
-    var title = document.createElement('h3');
-    title.className = 'ps-article-row__title';
+    var title = document.createElement('span');
+    title.className = 'ps-item__title';
     title.textContent = item.title;
 
-    text.appendChild(date);
-    text.appendChild(title);
+    var date = document.createElement('time');
+    date.className = 'ps-item__date';
+    date.dateTime = item.date;
+    date.textContent = item.date;
 
-    if (item.summary) {
-      var summary = document.createElement('p');
-      summary.className = 'ps-article-row__summary';
-      summary.textContent = item.summary;
-      text.appendChild(summary);
-    }
-
-    row.appendChild(text);
-    host.appendChild(row);
+    row.appendChild(tag);
+    row.appendChild(title);
+    row.appendChild(date);
+    li.appendChild(row);
+    host.appendChild(li);
   });
 }
 

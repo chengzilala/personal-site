@@ -10,6 +10,12 @@
   --line:      #e6e2db;
   --ph-bg:     #efebe4;   /* 占位块底色 */
   --ph-fg:     #a49b8d;
+  --accent:    #d8412a;   /* 全站唯一点缀色：作品卡小标签 / 最新文章高亮 / 文章标签 */
+  --accent-soft: rgba(216, 65, 42, 0.07);   /* 最新一篇的浅底 */
+  --hover-bg:  rgba(0, 0, 0, 0.03);         /* 列表行悬停底 */
+
+  /* 文章大标题用系统衬线（参考图观感）；不引外部字体 */
+  --font-serif: Georgia, "Songti SC", "STSong", "Noto Serif CJK SC", serif;
 
   --maxw:      1100px;
   --gutter:    20px;      /* 手机外边距 */
@@ -25,6 +31,8 @@
     --line:    #26262a;
     --ph-bg:   #1a1a1e;
     --ph-fg:   #5f5950;
+    --accent-soft: rgba(216, 65, 42, 0.16);
+    --hover-bg:    rgba(255, 255, 255, 0.045);
   }
 }
 
@@ -161,7 +169,8 @@ a { color: inherit; }
   margin: 0;
   max-width: 34em;
   font-size: clamp(15px, 4vw, 17px);
-  color: #cccccc;
+  letter-spacing: 0.01em;
+  color: #dcdcdc;
 }
 
 /* 首屏一行简介（阮一峰式：一行灰字，无标签、无装饰） */
@@ -174,14 +183,15 @@ a { color: inherit; }
 
 /* 首屏自我介绍：标签 + 内容的紧凑清单（阅读 / 跑步 / 产品 / 爱好 / 公众号 / 分享） */
 .ps-hero__facts {
-  margin: clamp(20px, 4.4vw, 30px) 0 0;
-  padding: 0;
+  margin: clamp(20px, 4.4vw, 26px) 0 0;
+  padding: clamp(16px, 3.2vw, 20px) 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.13);
   list-style: none;
   display: grid;
   grid-template-columns: max-content minmax(0, 1fr);
   align-items: baseline;
-  column-gap: clamp(16px, 3vw, 22px);
-  row-gap: 11px;
+  column-gap: clamp(20px, 3.6vw, 28px);
+  row-gap: 13px;
   max-width: 40em;
   font-size: clamp(14px, 3.6vw, 16.5px);
 }
@@ -190,14 +200,15 @@ a { color: inherit; }
 .ps-hero__facts li { display: contents; }
 
 .ps-hero__fact-k {
-  font-size: 0.95em;
-  color: #a6a6a6;
-  letter-spacing: 0.08em;
+  font-size: 0.8em;
+  color: #8f8f8f;
+  letter-spacing: 0.16em;
+  padding-top: 0.35em;
 }
 
 .ps-hero__fact-v {
-  color: #d6d6d6;
-  line-height: 1.7;
+  color: #f2f2f2;
+  line-height: 1.75;
 }
 
 /* ================= 板块通用 ================= */
@@ -384,80 +395,137 @@ a { color: inherit; }
   object-fit: cover;
 }
 
-/* ================= 作品卡 ================= */
+/* ================= 作品卡（图左文右 · 参考 kanbenzhi.com） =================
+   卡片结构：左侧方形图块 + 右侧文字列
+   文字列自上而下：小标签(点缀色) → 大标题 → 英文斜体副题 → 一行说明
+   → 细分隔线 → 底部一行（小圆点+说明 ／ 链接）
+   排布：桌面两列网格，窄屏单列，卡片始终保持「图左文右」横向形态 */
 
 .ps-works {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(18px, 4vw, 28px);
+  gap: clamp(14px, 2.6vw, 20px);
+}
+
+/* 两列只在够宽时启用（≈900px 起），保证每张横向卡仍有足够文字宽度 */
+@media (min-width: 900px) {
+  .ps-works { grid-template-columns: repeat(2, 1fr); }
 }
 
 .ps-card {
   margin: 0;
+  display: grid;
+  /* 第二列用 minmax(0,1fr)：允许文字列被压缩到比内容更窄，链接才会换行而不是撑破卡片 */
+  grid-template-columns: 40% minmax(0, 1fr);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
+  background: var(--bg);
   transition: transform 0.25s ease, border-color 0.25s ease;
 }
 
 .ps-card:hover { transform: translateY(-3px); border-color: var(--muted); }
 
-/* 作品图区：统一四周留白，两张图都放进同一个居中正方形画面框，按原比例缩放 */
+/* 左侧图块：铺满整格、按比例裁切填充；图片本身可点击跳转 */
 .ps-card__media {
-  background: var(--ph-bg);
-  padding: clamp(16px, 2.4vw, 26px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.ps-card__media .ps-ph { aspect-ratio: 16 / 9; }
-
-/* 图片可点击跳转：整块图片是链接，悬停给一点反馈
-   画面框以方图（二维码）为标准：宽高一致、居中，两张图视觉尺寸接近 */
-.ps-card__media-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: min(100%, 240px);
-  aspect-ratio: 1 / 1;
-}
-.ps-card__media-link img { transition: opacity 0.2s ease; }
-.ps-card__media-link:hover img { opacity: 0.88; }
-
-/* 放入真实作品图后：在画面框内按原比例自适应，不裁切、居中 */
-.ps-card__media img {
   display: block;
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-  margin: 0 auto;
+  background: var(--ph-bg);
+  overflow: hidden;
+}
+.ps-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.2s ease;
+}
+.ps-card__media:hover img { opacity: 0.9; }
+
+/* 右侧文字列：撑满高度，底部一行用 margin-top:auto 沉底 */
+.ps-card__body {
+  padding: clamp(14px, 2vw, 20px);
+  display: flex;
+  flex-direction: column;
 }
 
-.ps-card__body { padding: 18px 20px 22px; }
+/* 小标签：全站唯一点缀色用在这里 */
+.ps-card__tag {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
 
-.ps-card__title { margin: 0 0 6px; font-size: 19px; font-weight: 700; }
+.ps-card__title {
+  margin: 0 0 2px;
+  font-size: clamp(20px, 2.4vw, 26px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
 
-.ps-card__desc { margin: 0 0 14px; font-size: 15px; color: var(--muted); }
+/* 英文副题：斜体、浅色 */
+.ps-card__sub {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.ps-card__desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* 底部一行：细分隔线之上，左「小圆点+说明」右「链接」；空间不够就换行，绝不出格 */
+.ps-card__foot {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 12px;
+  font-size: 12.5px;
+}
+
+.ps-card__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  color: var(--muted);
+}
+.ps-card__meta::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex: none;
+}
+
+/* 链接组（官网 / H5 等多个入口）：靠右排、可换行 */
+.ps-card__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px 14px;
+  min-width: 0;
+}
 
 .ps-card__link {
-  font-size: 14px;
   text-decoration: none;
+  color: var(--fg);
   border-bottom: 1px solid var(--line);
-  padding-bottom: 2px;
+  padding-bottom: 1px;
   transition: border-color 0.2s;
 }
 
 .ps-card__link:hover { border-color: var(--fg); }
-
-/* 多入口链接组（官网 / H5）：竖排、各自独立下划线 */
-.ps-card__links {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-  margin-bottom: 4px;
-}
 
 /* ================= 页脚（= 课件最后一页，配色/顺序/粗细照搬） =================
    排版沿用末页比例（主标题≈副行的 1.7 倍），整体取常规页脚的较小尺度 */
@@ -536,7 +604,6 @@ a { color: inherit; }
     grid-template-columns: minmax(200px, 320px) minmax(0, 1fr);
     align-items: center;
   }
-  .ps-works   { grid-template-columns: repeat(2, 1fr); }
   /* 数字亮点：桌面排成一行；数字收小一点，避免长数字（1:42:00）挤出格子 */
   .ps-stats     { grid-template-columns: repeat(4, 1fr); }
   .ps-stat__num { font-size: clamp(22px, 3.6vw, 30px); }
@@ -564,61 +631,82 @@ a { color: inherit; }
 
 /* =========================================================
    文章模块 —— 首页列表 / 文章列表页 / 正文页
+   版式参考：左标签 ／ 中标题 ／ 右日期的细线列表；正文页
+   顶部小标签 → 大标题 → 信息行 → 正文 → 署名 → 上下篇。
    （页面由 tools/sync_articles.py 从 Obsidian 同步生成）
    ========================================================= */
 
-/* ---------- 首页「文章」列表 ---------- */
+/* ---------- 列表行（首页与列表页共用） ---------- */
 
-.ps-article-row {
-  display: flex;
-  gap: clamp(16px, 3.4vw, 24px);
-  align-items: flex-start;
-  padding: clamp(22px, 4.6vw, 32px) 0;
-  border-bottom: 1px solid var(--line);
-  text-decoration: none;
-}
-
-/* 缩略图：文章有配图时显示，固定 4:3 大图 */
-.ps-article-row__thumb {
-  flex: 0 0 auto;
-  width: clamp(120px, 26vw, 208px);
-  aspect-ratio: 4 / 3;
-  border-radius: 10px;
-  overflow: hidden;
-  background: var(--ph-bg);
-}
-
-.ps-article-row__thumb img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.ps-article-row__text { min-width: 0; }
-
-.ps-article-row__date {
-  display: block;
-  font-size: 13px;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-}
-
-.ps-article-row__title {
-  margin: 9px 0 7px;
-  font-size: clamp(19px, 4.8vw, 25px);
-  font-weight: 700;
-  line-height: 1.35;
-}
-
-.ps-article-row__summary {
+.ps-list__items {
   margin: 0;
-  font-size: 16px;
-  color: var(--muted);
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
 }
 
-.ps-article-row:hover .ps-article-row__title { opacity: 0.72; }
+.ps-item { border-bottom: 1px solid var(--line); }
 
+/* 手机：第一行「标签 + 日期」两端对齐，标题独占第二行 */
+.ps-item__link {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "tag   date"
+    "title title";
+  align-items: center;
+  column-gap: 14px;
+  row-gap: 8px;
+  padding: clamp(16px, 4.2vw, 22px) clamp(10px, 1.8vw, 16px);
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.2s ease;
+}
+
+.ps-item__tag {
+  grid-area: tag;
+  min-width: 0;
+  font-size: clamp(12px, 3.2vw, 13.5px);
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ps-item__title {
+  grid-area: title;
+  font-size: clamp(19px, 4.8vw, 26px);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.ps-item__date {
+  grid-area: date;
+  font-size: clamp(12px, 3.2vw, 13.5px);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.ps-item__link:hover { background: var(--hover-bg); }
+
+/* 最新一篇：浅底高亮 + 标题用点缀色（与参考图一致） */
+.ps-item--latest .ps-item__link { background: var(--accent-soft); }
+.ps-item--latest .ps-item__title { color: var(--accent); font-weight: 700; }
+
+/* 平板/桌面：一行三列「标签 ／ 标题 ／ 日期」 */
+@media (min-width: 700px) {
+  .ps-item__link {
+    grid-template-columns: minmax(120px, 200px) minmax(0, 1fr) auto;
+    grid-template-areas: "tag title date";
+    align-items: baseline;
+    column-gap: clamp(20px, 4vw, 48px);
+  }
+}
+
+/* 列表页「全部文章 →」这类尾部链接 */
 .ps-articles__more { margin: clamp(18px, 4vw, 26px) 0 0; font-size: 14px; }
 
 .ps-articles__more a {
@@ -634,77 +722,128 @@ a { color: inherit; }
 .ps-list {
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: clamp(32px, 7vw, 64px) var(--gutter) clamp(40px, 8vw, 72px);
+  padding: clamp(30px, 7vw, 76px) var(--gutter) clamp(40px, 8vw, 84px);
 }
 
-.ps-list__title { margin: 10px 0 6px; font-size: clamp(26px, 6vw, 34px); }
-
-.ps-list__sub { margin: 0 0 clamp(20px, 4vw, 32px); font-size: 14px; color: var(--muted); }
-
-.ps-list__items { margin: 0; padding: 0; list-style: none; }
-
-.ps-item { border-top: 1px solid var(--line); }
-
-.ps-item__link {
-  display: flex;
-  gap: clamp(16px, 3.4vw, 24px);
-  align-items: flex-start;
-  padding: clamp(24px, 5vw, 34px) 0;
-  text-decoration: none;
+.ps-list__title {
+  margin: 0 0 12px;
+  font-size: clamp(44px, 12vw, 92px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
 }
 
-/* 缩略图：文章有配图时显示，固定 4:3 大图 */
-.ps-item__thumb {
-  flex: 0 0 auto;
-  width: clamp(120px, 26vw, 208px);
-  aspect-ratio: 4 / 3;
-  border-radius: 10px;
-  overflow: hidden;
-  background: var(--ph-bg);
+.ps-list__sub {
+  margin: 0 0 clamp(24px, 5vw, 44px);
+  font-size: clamp(13px, 3.4vw, 15px);
+  letter-spacing: 0.02em;
+  color: var(--muted);
 }
-
-.ps-item__thumb img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.ps-item__text { min-width: 0; }
-
-.ps-item__date { display: block; font-size: 13px; letter-spacing: 0.08em; color: var(--muted); }
-
-.ps-item__title {
-  margin: 9px 0 8px;
-  font-size: clamp(19px, 4.8vw, 25px);
-  font-weight: 700;
-  line-height: 1.35;
-}
-
-.ps-item__summary { margin: 0; font-size: 16px; color: var(--muted); }
-
-.ps-item__link:hover .ps-item__title { opacity: 0.72; }
 
 /* ---------- 正文页 ---------- */
 
+/* 阅读区收窄到易读区间（参考图即为窄栏正文） */
 .ps-post {
-  max-width: var(--maxw);
+  max-width: 760px;
   margin: 0 auto;
-  padding: clamp(28px, 6vw, 56px) var(--gutter) clamp(24px, 5vw, 40px);
+  padding: clamp(28px, 6vw, 64px) var(--gutter) clamp(28px, 6vw, 56px);
 }
 
 .ps-post__head { margin-bottom: clamp(22px, 5vw, 34px); }
 
+.ps-post__kicker {
+  margin: 0 0 clamp(12px, 3vw, 18px);
+  font-size: clamp(12px, 3.2vw, 13.5px);
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
 .ps-post__title {
-  margin: 0 0 10px;
-  font-size: clamp(25px, 6.2vw, 36px);
-  line-height: 1.28;
+  margin: 0 0 clamp(14px, 3.2vw, 20px);
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 7vw, 44px);
+  font-weight: 700;
+  line-height: 1.25;
   letter-spacing: -0.01em;
 }
 
-.ps-post__meta { margin: 0; font-size: 13px; letter-spacing: 0.06em; color: var(--muted); }
+/* 信息行：日期 · 字数 · 阅读时长 · #标签 */
+.ps-post__meta {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 10px;
+  font-size: clamp(12.5px, 3.3vw, 14px);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.ps-post__meta-sep { color: var(--muted); opacity: 0.5; }
+
+.ps-post__tags { display: inline-flex; flex-wrap: wrap; gap: 0 10px; color: var(--accent); }
 
 .ps-post__body { font-size: clamp(16px, 4.2vw, 17.5px); line-height: 1.95; }
+
+/* 文末署名（参考图：居中斜体一行） */
+.ps-post__sign {
+  margin: clamp(30px, 6vw, 46px) 0 0;
+  padding-top: clamp(20px, 4vw, 28px);
+  border-top: 1px solid var(--line);
+  text-align: center;
+  font-size: clamp(13px, 3.4vw, 15px);
+  font-style: italic;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+/* 上一篇 / 下一篇 */
+.ps-post__nav {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: clamp(24px, 5vw, 38px) 0 0;
+  padding-top: clamp(20px, 4vw, 28px);
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 620px) {
+  .ps-post__nav { grid-template-columns: 1fr 1fr; gap: 24px; }
+}
+
+.ps-post__nav-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.ps-post__nav-item--next { text-align: right; }
+
+.ps-post__nav-k {
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.ps-post__nav-t { font-size: clamp(15px, 4vw, 17px); line-height: 1.4; }
+
+.ps-post__nav-item:hover .ps-post__nav-t { color: var(--accent); }
+
+.ps-post__nav-empty { font-size: 12.5px; color: var(--muted); }
+
+.ps-post__nav-empty--next { text-align: right; }
+
+/* 返回文章列表 */
+.ps-post__back {
+  margin: clamp(22px, 4.5vw, 34px) 0 0;
+  text-align: center;
+  font-size: 13.5px;
+}
+
+.ps-post__back a { color: var(--muted); text-decoration: none; }
+.ps-post__back a:hover { color: var(--fg); }
 
 .ps-post__body > p { margin: 0 0 1.05em; }
 
