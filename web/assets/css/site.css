@@ -407,8 +407,7 @@ a { color: inherit; }
   gap: clamp(14px, 2.6vw, 20px);
 }
 
-/* 两列只在够宽时启用（≈900px 起），保证每张横向卡仍有足够文字宽度 */
-@media (min-width: 900px) {
+@media (min-width: 760px) {
   .ps-works { grid-template-columns: repeat(2, 1fr); }
 }
 
@@ -604,6 +603,7 @@ a { color: inherit; }
     grid-template-columns: minmax(200px, 320px) minmax(0, 1fr);
     align-items: center;
   }
+  .ps-works   { grid-template-columns: repeat(2, 1fr); }
   /* 数字亮点：桌面排成一行；数字收小一点，避免长数字（1:42:00）挤出格子 */
   .ps-stats     { grid-template-columns: repeat(4, 1fr); }
   .ps-stat__num { font-size: clamp(22px, 3.6vw, 30px); }
