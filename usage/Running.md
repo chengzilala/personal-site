@@ -27,7 +27,7 @@ python3 -m http.server 5181 --directory web
 
 ## 把名片嵌到别的网站
 
-`web/card.html` 是一张「个人名片」独立页（深灰卡片：照片 + 名字 + 一句话 + 一行关键词）。
+`web/card.html` 是一张「个人名片」独立页（深灰卡片：照片 + 姓名 + 一行简介，内容与首页首屏一致）。
 别的网站只要**贴一段代码**就能引用它；以后你改 `web/card.html`，所有嵌了的地方**自动跟着更新**。
 
 **第一步**：把名片页部署上去（跟着本站一起发布即可），访问地址是
@@ -38,7 +38,7 @@ python3 -m http.server 5181 --directory web
 ```html
 <iframe id="ps-card"
         src="https://chesterlee.cn/card.html"
-        title="张诚 · Chester 名片"
+        title="Chester Lee 名片"
         style="width:100%;border:0;display:block;height:360px"
         loading="lazy"></iframe>
 <script>

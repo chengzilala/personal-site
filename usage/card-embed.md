@@ -4,7 +4,7 @@
   更详细的自用说明见同目录 Running.md「把名片嵌到别的网站」。
 -->
 
-【需求】在页面里嵌入一张「张诚 · Chester」个人名片
+【需求】在页面里嵌入一张「Chester Lee」个人名片
 
 我们想在站内某处放一张个人名片区块。名片页已经部署在我们的个人网站上，地址是：
 
@@ -12,13 +12,13 @@ https://chesterlee.cn/card.html
 
 （说明：旧域名 https://personalsite-32km31c.maozi.io/card.html 仍可访问，仅作备用；请统一用上面的新域名。）
 
-它是一张深灰圆角卡片：左边照片、右边「张诚 · Chester + 一句话 + 一行关键词」。
+它是一张深灰圆角卡片：左边照片、右边「Chester Lee + 一行简介」。
 请在本站页面里用 iframe 引用它，把下面整段贴到要放名片的位置（放进页面正文的某个容器里即可）：
 
 ```html
 <iframe id="ps-card"
         src="https://chesterlee.cn/card.html"
-        title="张诚 · Chester 名片"
+        title="Chester Lee 名片"
         style="width:100%;border:0;display:block;height:360px"
         loading="lazy"></iframe>
 <script>
