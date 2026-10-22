@@ -907,6 +907,63 @@ def js_str(value):
     return '"%s"' % value.replace("\\", "\\\\").replace('"', '\\"').replace("\n", " ")
 
 
+CLEAN_TPL = """<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{title}</title>
+<link rel="canonical" href="{target}">
+<meta name="robots" content="noindex,follow">
+<meta http-equiv="refresh" content="0; url={target}">
+<script>location.replace('{target}');</script>
+<style>
+  html,body{{height:100%;margin:0}}
+  body{{display:flex;align-items:center;justify-content:center;background:#faf9f7;color:#555;
+       font:15px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}}
+  a{{color:#1a6bd8;text-decoration:none}}
+  a:hover{{text-decoration:underline}}
+</style>
+</head>
+<body>
+  <p>正在打开《{title_plain}》… 如果没有自动跳转，请<a href="{target}">点这里</a>。</p>
+  {mark}
+</body>
+</html>
+"""
+
+
+def write_clean_url_pages(items):
+    """为每篇文章生成 /articles/<slug>/ 跳转页（无 .html 的旧链接也能打开）。"""
+    slugs = set(it["slug"] for it in items)
+    for it in items:
+        d = os.path.join(ARTICLES_DIR, it["slug"])
+        os.makedirs(d, exist_ok=True)
+        target = "/articles/%s.html" % it["slug"]
+        page = CLEAN_TPL.format(
+            title=html_lib.escape("%s ｜ %s" % (it["title"], SITE_NAME)),
+            title_plain=html_lib.escape(it["title"]),
+            target=target,
+            mark=GENERATED_MARK,
+        )
+        with open(os.path.join(d, "index.html"), "w", encoding="utf-8") as f:
+            f.write(page)
+    if not os.path.isdir(ARTICLES_DIR):
+        return
+    for name in os.listdir(ARTICLES_DIR):
+        folder = os.path.join(ARTICLES_DIR, name)
+        index = os.path.join(folder, "index.html")
+        if not os.path.isdir(folder) or name in slugs or not os.path.exists(index):
+            continue
+        try:
+            with open(index, "r", encoding="utf-8") as f:
+                if GENERATED_MARK in f.read(2000):
+                    os.remove(index)
+                    os.rmdir(folder)
+        except OSError:
+            pass
+
+
 def cleanup_orphans(slugs):
     """删掉以前生成、现在已不在清单里的文章页。"""
     if not os.path.isdir(ARTICLES_DIR):
@@ -944,8 +1001,10 @@ def main():
 
     write_list_page(docs)
     write_data_js(docs)
+    write_clean_url_pages(docs)
     print("  ✓ 生成列表页 web/articles/index.html")
     print("  ✓ 生成数据文件 web/assets/js/articles-data.js")
+    print("  ✓ 生成无 .html 跳转页 web/articles/<slug>/index.html")
 
     if not partial:
         cleanup_orphans(set(d["slug"] for d in docs))
