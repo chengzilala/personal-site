@@ -7,7 +7,9 @@
    本机预览（localhost / 127.0.0.1）自动指向本地测试端口，方便联调。
    正式域名还没上线时，可把 prod 设为空串 ''，线上就不显示「账户」入口。 */
 var PS_ACCOUNT = {
-  prod: 'https://account.chesterlee.cn',
+  // 账户中心（account.chesterlee.cn）尚未上线：线上先隐藏入口（空串 = 不显示）；
+  // 账户中心部署好并配好 DNS 后，把 prod 改回 'https://account.chesterlee.cn' 即可。
+  prod: '',
   local: 'http://localhost:18830'
 };
 
