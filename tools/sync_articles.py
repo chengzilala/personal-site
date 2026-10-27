@@ -625,7 +625,7 @@ FOOT_TPL = """<footer class="ps-footer">
     <p class="ps-footer__line2">在我的语境中有两层意思</p>
     <p class="ps-footer__line3">在生活中游刃有余的人</p>
     <p class="ps-footer__line4">「人应该是被超越的某种东西。」—— 尼采</p>
-    <p class="ps-footer__meta">俗到极致即为雅，雅得过头便是俗——是谓i雅俗共赏。<span class="ps-footer__meta-sep">／</span>© 2026 Chester</p>
+    <p class="ps-footer__meta">俗到极致即为雅，雅得过头便是俗——是谓i雅俗共赏。<span class="ps-footer__meta-sep">／</span>© 2026 Chester<span class="ps-footer__meta-sep">·</span><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">陇ICP备2026009894号-2</a></p>
   </div>
 </footer>
 <script src="{js}"></script>

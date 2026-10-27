@@ -1,6 +1,7 @@
 # personal-site — 个人网站
 
 > 用**大图**说话的极简个人网站：展示「我的生活方式」与「我的作品」。文字极少，手机/电脑都好看。
+> **域名 / 备案 / 上线**：统一记在 [部署上线备案/README.md](../部署上线备案/README.md)（唯一台账），本文不重复。
 
 ---
 
@@ -20,6 +21,7 @@
 - 可直接打开的首页：[web/index.html](./web/index.html)（响应式：作品 + 最近文章 + 生活方式）
 - 关于我页 [web/about.html](./web/about.html)（数字亮点 + 自我介绍 + 个人微信 / 公众号二维码）
 - 作品页 [web/works.html](./web/works.html)、文章列表 [web/articles/index.html](./web/articles/index.html) 及每篇正文
+- 顶栏「账户」入口：跳到统一账户中心（登录 / 我的账户）；地址在 `web/assets/js/site.js` 顶部的 `PS_ACCOUNT`，本机预览自动指向本地测试端口
 - 从 Obsidian 一键同步文章的脚本：双击项目根 **`同步文章.command`**
 - 目录骨架 + AI 协作规则与技能（`.trae/`，项目级）已就位
 - 需求文档、运行手册、会话记录已就位
@@ -87,7 +89,7 @@ personal-site/
 
 1. 确认视觉方向（先出一版首页样张给你看）
 2. 把你的照片与作品信息填进去
-3. 部署上线（Vercel 等静态托管）
+3. 部署上线（腾讯云轻量 · Caddy 静态站，见 [Running.md](./usage/Running.md#部署以后)）
 
 ## 相关文档
 

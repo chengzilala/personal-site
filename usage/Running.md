@@ -21,6 +21,7 @@ python3 -m http.server 5181 --directory web
 | 文字内容（名字、介绍、作品） | `web/index.html` |
 | 颜色 / 字体 / 间距 / 响应式断点 | `web/assets/css/site.css` |
 | 交互（切换、滚动效果） | `web/assets/js/site.js` |
+| 顶栏「账户」入口 / 账户中心地址 | `web/assets/js/site.js` 顶部的 `PS_ACCOUNT`（`prod` 为空串 = 线上不显示入口） |
 | 照片 | 放进 `web/assets/img/photos/` |
 | 作品图 | 放进 `web/assets/img/works/` |
 | 名片（嵌到别的网站用） | `web/card.html` |
@@ -65,4 +66,10 @@ python3 -m http.server 5181 --directory web
 
 ## 部署（以后）
 
-纯静态，可直接拖到 Vercel / Netlify / GitHub Pages。配置见 `web/vercel.json`。
+现在跑在**腾讯云轻量**（`43.136.92.125`）的 Caddy 静态站，站点根 `/srv/chesterlee/site`，源就在 `web/`，**改完直接覆盖即可，无需构建、无需重启**：
+
+```bash
+rsync -az -e "ssh -i ~/.ssh/chesterlee_web" web/ ubuntu@43.136.92.125:/srv/chesterlee/site/
+```
+
+只改单个文件时用 `scp` 也行。验证加缓存穿透参数：`curl -s "https://chesterlee.cn/路径?cb=$(date +%s)"`。域名 / 备案 / 落点以 [部署上线备案/README.md](../../部署上线备案/README.md) 台账为准。

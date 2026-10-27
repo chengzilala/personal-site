@@ -70,6 +70,31 @@
     color: #dcdcdc;
   }
 
+  /* ---------- 可点击提示（整张卡都能点，这里给个明确的入口暗示） ---------- */
+  .pc-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: clamp(16px, 2.8vw, 22px) 0 0;
+    padding: 7px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.07);
+    font-size: clamp(13px, 2.4vw, 14.5px);
+    line-height: 1.4;
+    color: #ffffff;
+    transition: background 0.18s ease, border-color 0.18s ease;
+  }
+  .pc-cta__arrow {
+    display: inline-block;
+    transition: transform 0.18s ease;
+  }
+  .pc-card:hover .pc-cta {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.55);
+  }
+  .pc-card:hover .pc-cta__arrow { transform: translateX(3px); }
+
   /* ---------- 宽一点时：照片在左、文字在右（与站内首屏一致） ---------- */
   @media (min-width: 560px) {
     .pc-card {
@@ -99,6 +124,10 @@
   <div class="pc-text">
     <h1 class="pc-name">Chester Lee</h1>
     <p class="pc-tagline">INTJ · 现居深圳 · 信息化PM × 独立开发者（AI 产品）</p>
+    <p class="pc-cta">
+      chesterlee.cn
+      <span class="pc-cta__arrow" aria-hidden="true">→</span>
+    </p>
   </div>
 
 </a>

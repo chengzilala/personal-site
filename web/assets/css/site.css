@@ -138,6 +138,14 @@ a { color: inherit; }
 }
 .ps-topbar__links a[aria-current="page"]::after { transform: scaleX(1); }
 
+/* 顶栏多了「账户」入口后：窄屏收紧间距与字号，避免一行放不下 */
+@media (max-width: 430px) {
+  .ps-topbar__links {
+    gap: 12px;
+    font-size: 14px;
+  }
+}
+
 /* ================= 首屏 ================= */
 
 /* 与页脚同色通栏铺开：首尾呼应（保持改版前的深灰底，不随纸感改版） */

@@ -1,6 +1,33 @@
 /* personal-site · 极简脚本
-   两件事：1) 首页「文章」列表渲染  2) 元素进入视口时淡入
+   三件事：1) 首页「文章」列表渲染  2) 元素进入视口时淡入  3) 顶栏「账户」入口
    不依赖任何库。 */
+
+/* ---------- 0. 账户中心地址 ---------- */
+/* 账户中心单独部署；上线后把 prod 改成正式域名即可。
+   本机预览（localhost / 127.0.0.1）自动指向本地测试端口，方便联调。
+   正式域名还没上线时，可把 prod 设为空串 ''，线上就不显示「账户」入口。 */
+var PS_ACCOUNT = {
+  prod: 'https://account.chesterlee.cn',
+  local: 'http://localhost:18830'
+};
+
+function accountWeb() {
+  var isLocal = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+  return isLocal ? PS_ACCOUNT.local : PS_ACCOUNT.prod;
+}
+
+/* 顶栏加「账户」入口：未登录会自动跳到登录页，已登录直接看我的账户 */
+function setupAccountEntry() {
+  var links = document.querySelector('.ps-topbar__links');
+  if (!links || links.querySelector('.ps-account') || !accountWeb()) return;
+
+  var link = document.createElement('a');
+  link.className = 'ps-account';
+  link.href = accountWeb() + '/account.html';
+  link.textContent = '账户';
+  link.setAttribute('aria-label', '登录或查看我的账户');
+  links.appendChild(link);
+}
 
 /* ---------- 1. 首页文章列表 ---------- */
 function renderArticles() {
@@ -68,3 +95,4 @@ function setupReveal() {
 
 renderArticles();
 setupReveal();
+setupAccountEntry();
