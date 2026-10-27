@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="算经 · 勾股三角">
+  <title>算经 · 勾股三角</title>
+  <path d="M70 310 L310 310 L70 130 Z"
+        fill="none" stroke="#14120d" stroke-width="3"
+        stroke-linejoin="round"/>
+  <path d="M70 286 H94 V310"
+        fill="none" stroke="#e1462b" stroke-width="3"/>
+  <g fill="#14120d" fill-opacity="0.35">
+    <circle cx="118" cy="310" r="4"/>
+    <circle cx="166" cy="310" r="4"/>
+    <circle cx="214" cy="310" r="4"/>
+    <circle cx="262" cy="310" r="4"/>
+    <circle cx="70" cy="250" r="4"/>
+    <circle cx="70" cy="190" r="4"/>
+  </g>
+  <circle cx="310" cy="310" r="26" fill="#e1462b"/>
+</svg>
