@@ -59,3 +59,16 @@
 - **产出物（文件/链接）**：`web/assets/js/site.js`、`web/assets/css/site.css`、`README.md`、`usage/Running.md`。
 - **待办**：① 账户中心部署到 `account.chesterlee.cn` 后更新 `PS_ACCOUNT.prod`（本地测试端口那行可删）；② 之后可再把「作品卡」改成登录后才可进。
 - **风险/注意事项**：新增第 5 个导航项，窄屏已收紧；若再加导航项需重新核对 375px 宽度；本站不存 Token、不写任何账户逻辑。
+
+---
+
+## 2026-10-27 会话条目：站点迁到腾讯云轻量（Caddy）+ 分析并修复三处问题（已完成）
+
+- **目标**：用户宣布「帽子云部署取消，已部署到新地方」，要求分析新部署；随后按选择修复三处问题。
+- **已做（分析）**：实测 `chesterlee.cn` / `www.chesterlee.cn` → 200，落点 `43.136.92.125`（腾讯云轻量），`Server: Caddy`、HTTP/2 + HTTP/3、http→https **308**，首页约 47ms；关键页与干净 URL（`/works/`、`/about/`、`/card/`、`/articles/<slug>/`）全 200；线上内容为最新（ICP、名片提示、作品「阅读产品套件」均在）。
+- **已做（修复三处，按用户选择）**：① **账户入口线上暂隐藏**：`web/assets/js/site.js` 的 `PS_ACCOUNT.prod` 置空串（`account.chesterlee.cn` 尚未解析，避免死链；本机 localhost 仍走 18830）。② **补建台账**：新增 `Knowledge/Coding/部署上线备案/README.md`（域名/备案/落点/部署方式/旧域名/账户中心/仓库，唯一台账）。③ **旧帽子云域名**：按用户决定**保留作备用、不再更新**（停在 v0.60，无 ICP），已在台账记录。
+- **关键结论/决定**：**上线方式已从帽子云改为自有服务器 rsync**——`push 到 GitHub ≠ 上线`；上线 = `rsync -az -e "ssh -i ~/.ssh/chesterlee_web" web/ ubuntu@43.136.92.125:/srv/chesterlee/site/`（Caddy 静态站，无需重启）。旧帽子云应用不再部署。
+- **产出物（文件/链接）**：`web/assets/js/site.js`（prod=''）、`plan/RPD_需求文档.md`（v0.64）、`部署上线备案/README.md`（repo 外、本地台账）；线上 `https://chesterlee.cn`。
+- **验证（从简）**：`node --check site.js` OK；SSH BatchMode 连通 `SSH_OK`；rsync 仅 `site.js` 内容更新（size+time），其余仅 mtime；线上 `site.js` 的 `prod=''`、首页仍含 ICP 备案号、`/` = 200。
+- **待办**：① 账户中心上线并配好 `account.chesterlee.cn` DNS 后，把 `PS_ACCOUNT.prod` 改回该域名并 rsync；② 旧帽子云域名如介意可后续 301 或下线。
+- **风险/注意事项**：`account.chesterlee.cn` 当前 DNS 不解析（NXDOMAIN）；旧域名与新站两版本并存（旧为 v0.60）；今后改完务必 rsync 才会上线。
