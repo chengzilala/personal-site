@@ -1,6 +1,7 @@
-# personal-site — RPD 需求文档（版本：v0.64）
+# personal-site — RPD 需求文档（版本：v0.65）
 
-> **状态**：v0.64 **「账户」入口线上暂隐藏**——「账户」入口依赖的账户中心 `account.chesterlee.cn` 尚未上线（DNS 未解析），为免死链，`web/assets/js/site.js` 的 `PS_ACCOUNT.prod` 置为空串（线上不显示入口）；本机 `localhost` 仍指向 `http://localhost:18830` 便于联调。账户中心上线后把 `prod` 改回正式域名即可。
+> **状态**：v0.65 **作品新增「拍一杯」（milk-tea-log）**——作品区第 5 张卡：小标签「饮品记录 H5」、标题「拍一杯」、副题 `Milk Tea Log`、说明「拍一张照，收进按月归档的奶茶印章册」、状态「手机优先 · 本机存档 · 自带地图」，卡片图与底部链接均指向 `https://mtl.chesterlee.cn`（新窗口打开）。新增手写 SVG 插画 `web/assets/img/works/milk-tea-log.svg`（奶茶杯 + 印章红点，沿用墨色 `#14120d` + 点缀红 `#e1462b`）。同步改 `web/index.html`、`web/works.html`（两处作品区内容保持一致）。
+> **上一版** v0.64 **「账户」入口线上暂隐藏**——「账户」入口依赖的账户中心 `account.chesterlee.cn` 尚未上线（DNS 未解析），为免死链，`web/assets/js/site.js` 的 `PS_ACCOUNT.prod` 置为空串（线上不显示入口）；本机 `localhost` 仍指向 `http://localhost:18830` 便于联调。账户中心上线后把 `prod` 改回正式域名即可。
 > **上一版** v0.63 **页脚备案信息统一为一行**——全站页脚按《部署上线备案》台账标准改为一行：`俗到极致即为雅…／© 2026 Chester · 陇ICP备2026009894号-2`（原为「© 2026 Chester」一段 + 单独一行备案号）。覆盖首页 / 关于我 / 作品 / 文章列表 + 25 篇正文，共 29 个页面；备案号仍为工信部超链接。同步 `tools/sync_articles.py` 的页脚模板（此前模板缺备案号，重新同步文章会把备案号刷掉）。
 > **上一版** v0.62 **首屏爱好补「轮滑」+ 兼容不带 .html 的旧链接**——① 首页首屏清单「爱好」由「阅读 · 跑步 · 传统文化 · AI」改为「阅读 · 跑步 · **轮滑** · 传统文化 · AI」（`web/index.html`）。② **修复线上 404**：帽子云只按文件路径分发、不会像 Vercel `cleanUrls` 那样重写无扩展名路径，导致 `/works/`、`/about/`、`/card/` 与 `/articles/<slug>/` 这类旧链接直接 404。做法是**为每个地址补一个轻量跳转页**（`<meta refresh>` + `location.replace`，均指向对应 `.html`，带 `noindex`）：新增 `web/works/index.html`、`web/card/index.html`，并为 25 篇文章生成 `web/articles/<slug>/index.html`；`/about/index.html` 此前已存在。跳转页由 `tools/sync_articles.py` 的 `write_clean_url_pages()` 一并生成（会清理已删除文章的目录），今后同步新文章自动带上，不再漏。③ 线上逐条实测（真实浏览器）：`/works/`→作品页、`/about/`→关于我、`/card/`→名片、`/articles/a-9d2c7f03/`→该篇正文，均 200 且正常落地。
 > **上一版** v0.61 **「个人名片」按当前首屏更新**——名片页 `web/card.html` 原先还是旧首屏内容（实拍 `portrait.jpg` + 「张诚 · Chester / 我想成为更好的自己。 / 计算机 · IT PM · …」），本次按用户确认改为**与当前首页首屏一致的精简版**：① 照片换成首屏现在用的**线稿插画** `portrait-line.jpg`（1296×1598，完整显示、不裁切，与首屏一致）；② 姓名改 `Chester Lee`；③ 简介改「INTJ · 现居深圳 · 信息化PM × 独立开发者（AI 产品）」；④ **不带**首屏的六项清单（用户选「精简版」），删去原 `.pc-meta`「一行关键词」样式。其余（深灰圆角卡、整卡可点跳回 `https://chesterlee.cn/`、`target="_top"` 跳出 iframe、宽度自适应、高度 postMessage 自适应）保持不变。同步：`<title>` 与 `aria-label` 改为 `Chester Lee`；本地预览 `demo/card-preview.html` 的 iframe `title` 与其嵌入代码示例、`usage/Running.md`、`usage/card-embed.md` 内的名称与描述一并更新（发给对方网站的说明保持准确）。
@@ -70,12 +71,13 @@
 - **板块底色（v0.54）**：作品区整块铺点缀红 `#e1462b`、通栏（`.ps-band`，首页与作品页各包一层）。
 - **卡片 = 一张奶油纸（v0.58）**：左方形图块（`aspect-ratio:1/1`、`object-fit:contain`、图与卡同底 `#f2eee2`）+ 右文字列；卡片纸色/墨色**固定，不随系统暗色反转**；方角、无描边，悬停轻抬 + 投影。
 - **卡片图可点击**：图片整体用 `<a>` 包住，与底部「链接」指向同一地址，`target="_blank"` 新窗口打开；悬停时图片轻微变淡作为可点提示。
-- **插画（v0.58）**：不用实拍/宣传图，改为手写 **SVG 几何插画**（透明底、墨色 + 点缀红）：`weread-enhancer.svg`（想法之网）、`wechat-official.svg`（雅俗共赏）、`coros-run.svg`（进步曲线）。
+- **插画（v0.58）**：不用实拍/宣传图，改为手写 **SVG 几何插画**（透明底、墨色 + 点缀红）：`weread-enhancer.svg`（想法之网）、`wechat-official.svg`（雅俗共赏）、`coros-run.svg`（进步曲线）、`milk-tea-log.svg`（奶茶杯 + 印章）。
 - 首个作品：**微信悦读**（一整套阅读产品：电脑插件 + 手机 H5 + 微信小程序）——插画 `web/assets/img/works/weread-enhancer.svg`，底部链接「官网 →」指向 `https://reader.chesterlee.cn`（`target="_blank"` 新窗口打开）。
 - 图片缺失时用占位色块，不留破图。
 - 第二张卡：**公众号 · i雅俗共赏**——插画 `web/assets/img/works/wechat-official.svg`，底部链接「读文章 →」进入站内文章列表 `articles/index.html`。
 - 第三张卡：**高驰跑步看板**——插画 `web/assets/img/works/coros-run.svg`，底部链接「打开看板 →」指向 `https://coros-run-d0g0acnksda36ca62-1256686574.tcloudbaseapp.com`（`target="_blank"` 新窗口打开）。
-- **首页也展示作品**：首页「作品」板块与作品页内容一致（三张卡）。
+- 第四张卡：**拍一杯**（奶茶记录 H5）——插画 `web/assets/img/works/milk-tea-log.svg`，卡片图与底部链接均指向 `https://mtl.chesterlee.cn`（`target="_blank"` 新窗口打开）；文案见 v0.65 版本说明。
+- **首页也展示作品**：首页「作品」板块与作品页内容一致（v0.65 起五张卡，含「算经」）。
 - 旧图 `weread-enhancer.jpg` / `wechat-qr.jpg` / `coros-run.jpg` 保留未删（备用）。
 
 ### 3.3 响应式（P0）

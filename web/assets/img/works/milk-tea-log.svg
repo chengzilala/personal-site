@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="拍一杯 · 奶茶印章">
+  <title>拍一杯 · 奶茶印章</title>
+  <path d="M120 150 L150 322 L250 322 L280 150 Z"
+        fill="none" stroke="#14120d" stroke-width="3"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M112 150 H288"
+        fill="none" stroke="#14120d" stroke-width="3"
+        stroke-linecap="round"/>
+  <path d="M248 68 L228 150"
+        fill="none" stroke="#14120d" stroke-width="3"
+        stroke-linecap="round"/>
+  <g fill="#14120d" fill-opacity="0.35">
+    <circle cx="176" cy="300" r="5"/>
+    <circle cx="204" cy="306" r="5"/>
+    <circle cx="232" cy="298" r="5"/>
+    <circle cx="190" cy="276" r="5"/>
+    <circle cx="218" cy="272" r="5"/>
+  </g>
+  <circle cx="304" cy="286" r="26" fill="#e1462b"/>
+</svg>
