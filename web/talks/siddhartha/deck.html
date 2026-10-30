@@ -258,7 +258,8 @@ body{
       var inner=s.querySelector('.inner')||s.querySelector('.xinner'); if(!inner) return;
       var was=s.className;
       s.style.visibility='hidden'; s.classList.add('on');
-      var avail=s.clientHeight-104, need=inner.scrollHeight;
+      // 外来页整块就是内容，按它自己的高度判断，别拿页头的 -104 去比（会误判成超高一律缩小）
+      var avail=inner.classList.contains('xinner')?inner.clientHeight:s.clientHeight-104, need=inner.scrollHeight;
       if(need>avail){
         var k=avail/need;
         inner.style.transform='scale('+k+')';
