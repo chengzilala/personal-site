@@ -410,7 +410,7 @@ def write_detail(t, ordinal, prev_t, next_t, with_pdf):
     if t["pptx"] and os.path.isfile(t["pptx"]):
         ppt_name = os.path.basename(t["pptx"])
         dst = os.path.join(d, "deck.pptx")
-        if not os.path.isfile(dst) or os.path.getsize(dst) != os.path.getsize(t["pptx"]):
+        if not os.path.isfile(dst) or os.path.getmtime(t["pptx"]) > os.path.getmtime(dst):
             shutil.copy2(t["pptx"], dst)
         # 源文件是 600，网站要能被 Caddy 读到
         os.chmod(dst, 0o644)

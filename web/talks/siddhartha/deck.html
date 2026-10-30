@@ -24,6 +24,7 @@ body{
 }
 .slide.on{display:flex}
 .inner{flex:1;display:flex;flex-direction:column;min-height:0;transform-origin:top left;width:100%}
+.xinner{flex:1;display:flex;flex-direction:column;min-height:0;transform-origin:top left;width:100%}
 .mid .inner{justify-content:center}
 
 /* ---- 通用页头 ---- */
@@ -38,6 +39,8 @@ body{
 .cover .kicker{letter-spacing:4px}
 .cover h1{font-size:64px;font-weight:700;line-height:1.2;letter-spacing:1px;max-width:19em}
 .cover .sub{margin-top:22px;font-size:19px;color:var(--sub);line-height:1.8;max-width:24em}
+.cover .sub p{margin:0 0 6px}
+.cover .sub p.sig{margin-top:20px;font-size:17px;color:var(--dim)}
 .cover .meta{position:absolute;left:96px;bottom:56px;font-size:12px;color:var(--dim);letter-spacing:3px}
 
 /* ---- 固定宣传图页（第 2 页）---- */
@@ -213,7 +216,7 @@ body{
 <section class="slide qt" data-n="67"><div class="inner"><div class="hd"><div><div class="kicker">02 · 品尝</div><div class="ttl">不只思想，还有肉体</div></div><div class="pg">67</div></div><div class="hr"></div><div class="card"><p class="md">他想：“亲口品尝尘世的一切很好。尽管孩提时我已知道，淫乐和财富不属于善。我熟知已久，却刚刚经历，不仅用思想，还用眼睛、心灵和肉体经历。我庆幸我经历了它！”</p></div></div></section>
 <section class="slide" data-n="68"><div class="inner"><div class="hd"><div><div class="kicker">03 · 路线</div><div class="ttl">他走过的路</div></div><div class="pg">68</div></div><div class="hr"></div><div class="tlx"><div class="track" style="grid-template-columns:repeat(7,1fr)"><div class="node"><div class="when">少年</div><i class="dot"></i><div class="ds">只知神明和献祭。</div></div><div class="node"><div class="when">青年</div><i class="dot"></i><div class="ds">苦修、思考、禅定，渴求梵天。</div></div><div class="node"><div class="when">沙门</div><i class="dot"></i><div class="ds">林中苦行，漠视肉体。</div></div><div class="node"><div class="when">佛陀</div><i class="dot"></i><div class="ds">与他相遇，又与他告别。</div></div><div class="node"><div class="when">尘世</div><i class="dot"></i><div class="ds">迦摩罗与商海，赚钱又输钱。</div></div><div class="node"><div class="when">河边</div><i class="dot"></i><div class="ds">摆渡、倾听，失去儿子。</div></div><div class="node"><div class="when">老去</div><i class="dot"></i><div class="ds">与乔文达重逢，微笑。</div></div></div></div><div class="strip">这条路古怪、泥泞，或许是个旋回。</div></div></section>
 <section class="slide stmt mid" data-n="69"><div class="inner"><div class="eyebrow">04 · 结尾</div><div class="big s1">他微笑了</div><div class="rule"></div><div class="subs"><p>那微笑，让他忆起一生中爱过的、宝贵和神圣的一切。</p></div></div></section>
-<section class="slide cover mid" data-n="70"><div class="inner"><div class="kicker">END</div><h1>悉达多读书会</h1><div class="sub"></div><div class="meta">Chester</div></div></section>
+<section class="slide cover mid" data-n="70"><div class="inner"><div class="kicker">END</div><h1>最后，祝你成为超人。</h1><div class="sub"><p>在我的语境中有两层意思</p><p>在生活中游刃有余的人</p><p class="sig">「人应该是被超越的某种东西。」—— 尼采</p></div><div class="meta">Chester</div></div></section>
 </div>
 <div class="hud">
   <span>← → 翻页　F 全屏　P 打印 / 导出 PDF</span>
@@ -240,7 +243,7 @@ body{
   // 内容溢出时整体等比缩小，宁可小一点也不裁掉字
   function autoshrink(){
     slides.forEach(function(s){
-      var inner=s.querySelector('.inner'); if(!inner) return;
+      var inner=s.querySelector('.inner')||s.querySelector('.xinner'); if(!inner) return;
       var was=s.className;
       s.style.visibility='hidden'; s.classList.add('on');
       var avail=s.clientHeight-104, need=inner.scrollHeight;

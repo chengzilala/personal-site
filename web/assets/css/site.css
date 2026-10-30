@@ -1377,6 +1377,7 @@ a { color: inherit; }
 .ps-talk__tl li {
   position: relative;
   gap: 0;
+  align-content: start;
   padding: 0 0 0 26px;
   border: 0;
   border-radius: 0;
@@ -1440,6 +1441,8 @@ a { color: inherit; }
   }
 
   .ps-talk__tl li::after { top: 16px; }
+
+  .ps-talk__tl li:first-child::before { top: 20px; }  /* 横排时首节点也走线下方 */
 
   .ps-talk__tl li span { padding-top: 18px; }
 }
