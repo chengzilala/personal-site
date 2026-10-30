@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="循光践道 · 光与道">
+  <title>循光践道 · 光与道</title>
+  <g fill="none" stroke="#14120d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M52 300 L132 236 L196 288"/>
+    <path d="M196 288 L258 232 L340 296"/>
+    <path d="M96 364 C168 340 210 292 246 238 C266 208 282 178 296 152"/>
+  </g>
+  <circle cx="300" cy="120" r="34" fill="#e1462b"/>
+  <circle cx="300" cy="120" r="52" fill="none" stroke="#e1462b" stroke-opacity="0.35" stroke-width="2"/>
+  <circle cx="300" cy="120" r="70" fill="none" stroke="#e1462b" stroke-opacity="0.16" stroke-width="2"/>
+  <g fill="#14120d" fill-opacity="0.3">
+    <circle cx="92" cy="196" r="4"/>
+    <circle cx="140" cy="150" r="3"/>
+    <circle cx="214" cy="120" r="3"/>
+    <circle cx="352" cy="196" r="4"/>
+    <circle cx="330" cy="248" r="3"/>
+  </g>
+  <circle cx="296" cy="152" r="7" fill="#14120d"/>
+</svg>

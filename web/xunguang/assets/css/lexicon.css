@@ -1,0 +1,384 @@
+/* 循光践道官网 · 文化词库
+ * 仅 lexicon.html 使用；类名统一 xg-lex / xg-cloud 前缀
+ * 原生 CSS，零依赖
+ */
+
+/* ========== 词库页通用 ========== */
+.xg-lexicon {
+  background:
+    radial-gradient(80% 60% at 50% 0, rgba(201, 160, 99, 0.08), transparent 70%),
+    var(--xg-paper);
+}
+
+.xg-lexicon__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px 40px;
+}
+
+.xg-lexicon__hint {
+  margin: 0 0 8px;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--xg-muted);
+}
+
+.xg-lexicon__note {
+  margin: 20px 0 0;
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  color: var(--xg-muted);
+}
+
+.xg-lexicon__note span {
+  margin-left: 10px;
+}
+
+/* ========== 筛选 ========== */
+.xg-lexicon__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 34px 0 0;
+}
+
+.xg-lex-filter {
+  padding: 8px 18px;
+  border: 1px solid var(--xg-line);
+  font-size: 12.5px;
+  letter-spacing: 0.12em;
+  color: var(--xg-ink-soft);
+  transition: color 0.3s var(--xg-ease), background 0.3s var(--xg-ease),
+    border-color 0.3s var(--xg-ease);
+}
+
+.xg-lex-filter:hover {
+  border-color: rgba(23, 35, 45, 0.36);
+}
+
+.xg-lex-filter.is-active {
+  background: var(--xg-ink);
+  border-color: var(--xg-ink);
+  color: var(--xg-paper);
+}
+
+.xg-lex-filter:focus-visible {
+  outline: 2px solid var(--xg-cinnabar);
+  outline-offset: 2px;
+}
+
+/* ========== 词云 ========== */
+.xg-cloud {
+  position: relative;
+  min-height: 420px;
+  margin-top: 26px;
+  border-top: 1px solid var(--xg-line);
+  border-bottom: 1px solid var(--xg-line);
+  background:
+    radial-gradient(closest-side, rgba(201, 160, 99, 0.1), transparent 100%),
+    radial-gradient(closest-side at 30% 40%, rgba(166, 64, 44, 0.05), transparent 100%);
+  overflow: hidden;
+}
+
+.xg-cloud__word {
+  position: absolute;
+  padding: 0.1em 0.16em;
+  font-family: var(--xg-serif);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--xg-ink);
+  white-space: nowrap;
+  opacity: 0.72;
+  animation: xg-lex-in 0.8s var(--xg-ease) backwards;
+  transition: color 0.28s var(--xg-ease), opacity 0.28s var(--xg-ease),
+    transform 0.28s var(--xg-ease);
+}
+
+.xg-cloud__word:hover,
+.xg-cloud__word:focus-visible,
+.xg-cloud__word.is-active {
+  color: var(--xg-cinnabar);
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.xg-cloud__word:focus-visible {
+  outline: 1px solid var(--xg-cinnabar);
+  outline-offset: 6px;
+}
+
+.xg-cloud__word--vertical {
+  writing-mode: vertical-rl;
+  letter-spacing: 0.16em;
+}
+
+.xg-cloud.is-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px 18px;
+  min-height: 0;
+  padding: 32px 4px;
+  overflow: visible;
+}
+
+.xg-cloud.is-flow .xg-cloud__word {
+  position: static;
+  writing-mode: horizontal-tb;
+  white-space: normal;
+  animation: none;
+  opacity: 0.82;
+}
+
+.xg-cloud.is-flow .xg-cloud__word:hover,
+.xg-cloud.is-flow .xg-cloud__word.is-active {
+  transform: none;
+}
+
+@keyframes xg-lex-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+/* ========== 说明卡 ========== */
+.xg-lex-pop {
+  position: fixed;
+  z-index: 90;
+  width: min(370px, calc(100vw - 32px));
+  max-height: min(72vh, 560px);
+  padding: 26px 28px 22px;
+  overflow: auto;
+  border: 1px solid var(--xg-line-dark);
+  background:
+    radial-gradient(120% 80% at 100% 0, rgba(201, 160, 99, 0.16), transparent 60%),
+    #0b1c27;
+  color: #f3e8d6;
+  box-shadow: 0 30px 70px rgba(6, 17, 26, 0.32);
+  animation: xg-lex-pop-in 0.22s var(--xg-ease) both;
+  -webkit-overflow-scrolling: touch;
+}
+
+.xg-lex-pop[hidden] {
+  display: none;
+}
+
+.xg-lex-pop__close {
+  position: absolute;
+  top: 9px;
+  right: 12px;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  line-height: 1;
+  color: rgba(243, 232, 214, 0.5);
+  transition: color 0.25s var(--xg-ease);
+}
+
+.xg-lex-pop__close:hover {
+  color: var(--xg-gold-light);
+}
+
+.xg-lex-pop__cat {
+  margin: 0 0 10px;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--xg-gold);
+}
+
+.xg-lex-pop__title {
+  margin: 0;
+  font-family: var(--xg-serif);
+  font-size: 27px;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.08em;
+}
+
+.xg-lex-pop__summary {
+  margin: 12px 0 0;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--xg-gold-light);
+}
+
+.xg-lex-pop__detail {
+  margin: 14px 0 0;
+  font-size: 13.5px;
+  line-height: 1.9;
+  color: rgba(243, 232, 214, 0.72);
+}
+
+.xg-lex-pop__related {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.xg-lex-pop__related:empty {
+  display: none;
+}
+
+.xg-lex-pop__chip {
+  padding: 5px 12px;
+  border: 1px solid rgba(232, 201, 149, 0.26);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  color: rgba(243, 232, 214, 0.78);
+  transition: border-color 0.25s var(--xg-ease), color 0.25s var(--xg-ease),
+    background 0.25s var(--xg-ease);
+}
+
+.xg-lex-pop__chip:hover {
+  border-color: var(--xg-gold);
+  background: rgba(232, 201, 149, 0.08);
+  color: var(--xg-gold-light);
+}
+
+.xg-lex-pop__source {
+  margin: 16px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(232, 201, 149, 0.14);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  line-height: 1.7;
+  color: rgba(243, 232, 214, 0.42);
+}
+
+@keyframes xg-lex-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* ========== 词条索引 ========== */
+.xg-lexicon__index-section {
+  background: var(--xg-paper-deep);
+}
+
+.xg-lexicon__index {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 44px 64px;
+  margin-top: 48px;
+}
+
+.xg-lex-group__title {
+  margin: 0 0 10px;
+  font-family: var(--xg-serif);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: var(--xg-cinnabar);
+}
+
+.xg-lex-group__title span {
+  margin-left: 8px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--xg-muted);
+}
+
+.xg-lex-group__list {
+  border-top: 1px solid var(--xg-line);
+}
+
+.xg-lex-item {
+  display: block;
+  width: 100%;
+  padding: 14px 0 13px;
+  border-bottom: 1px solid var(--xg-line);
+  text-align: left;
+  transition: color 0.28s var(--xg-ease), padding-left 0.28s var(--xg-ease);
+}
+
+.xg-lex-item:hover,
+.xg-lex-item:focus-visible,
+.xg-lex-item.is-active {
+  padding-left: 8px;
+  color: var(--xg-cinnabar);
+}
+
+.xg-lex-item:focus-visible {
+  outline: 1px solid var(--xg-cinnabar);
+  outline-offset: 2px;
+}
+
+.xg-lex-item__term {
+  display: block;
+  font-family: var(--xg-serif);
+  font-size: 17px;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+}
+
+.xg-lex-item__summary {
+  display: block;
+  margin-top: 3px;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--xg-muted);
+}
+
+.xg-lexicon__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 54px;
+}
+
+/* ========== 响应式 ========== */
+@media (max-width: 860px) {
+  .xg-lexicon__index {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+}
+
+@media (max-width: 720px) {
+  .xg-cloud {
+    min-height: 0;
+  }
+
+  .xg-lexicon__filters {
+    gap: 8px;
+    margin-top: 26px;
+  }
+
+  .xg-lex-filter {
+    padding: 7px 14px;
+    font-size: 12px;
+  }
+
+  .xg-lex-pop {
+    top: auto !important;
+    left: 12px !important;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    width: auto;
+    max-height: 68vh;
+    padding: 24px 22px 20px;
+  }
+
+  .xg-lex-pop__title {
+    font-size: 23px;
+  }
+
+  .xg-lexicon__cta .xg-btn {
+    flex: 1 1 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xg-cloud__word,
+  .xg-lex-pop {
+    animation: none;
+  }
+}

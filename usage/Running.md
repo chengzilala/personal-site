@@ -14,6 +14,38 @@ python3 -m http.server 5181 --directory web
 # 然后浏览器打开 http://localhost:5181
 ```
 
+## 和账户中心联调（登录 / 作品上报）
+
+三个服务都要起（第三个就是上面的本站）：
+
+```bash
+# 终端 1：账户中心接口（验证码打印在这个终端）
+cd ../account-center
+node cloud/functions/accountCenter/dev-server.js      # 8942
+
+# 终端 2：账户中心页面
+cd ../account-center/web
+python3 -m http.server 18830
+
+# 终端 3：本站
+python3 -m http.server 5181 --directory web
+```
+
+首次联调先在账户中心登记本站（登记后要重启终端 1 的 dev-server 才生效）：
+
+```bash
+cd ../account-center
+node tools/register-product.js personal-site 个人网站 http://localhost:5181
+```
+
+然后打开 `http://localhost:5181`：
+
+1. 顶栏显示「登录」→ 点它跳账户中心登录页
+2. 邮箱登录 → 自动带票据回本站，顶栏变成「我的」
+3. 点任意作品卡 → 进账户中心「我的账户 → 我的足迹」，能看到一条「打开作品」
+
+注意：登记地址是 `http://localhost:5181`，所以联调请用 `localhost` 访问，别用 `127.0.0.1`（票据校验按域名严格比对）。上了正式域名后，把 `PS_ACCOUNT.prod` 改回 `https://account.chesterlee.cn`，并重新登记作品地址。
+
 ## 改东西看哪里
 
 | 想改什么 | 改哪个文件 |
@@ -21,7 +53,8 @@ python3 -m http.server 5181 --directory web
 | 文字内容（名字、介绍、作品） | `web/index.html` |
 | 颜色 / 字体 / 间距 / 响应式断点 | `web/assets/css/site.css` |
 | 交互（切换、滚动效果） | `web/assets/js/site.js` |
-| 顶栏「账户」入口 / 账户中心地址 | `web/assets/js/site.js` 顶部的 `PS_ACCOUNT`（`prod` 为空串 = 线上不显示入口） |
+| 顶栏「登录 / 我的」入口 / 账户中心地址 | `web/assets/js/site.js` 顶部的 `PS_ACCOUNT`（`prod` 为空串 = 线上不显示入口） |
+| 账户 SDK | `web/assets/js/ps-auth.js`（复制自 `account-center/sdk/ps-auth.js`，要改先改母本再同步） |
 | 照片 | 放进 `web/assets/img/photos/` |
 | 作品图 | 放进 `web/assets/img/works/` |
 | 名片（嵌到别的网站用） | `web/card.html` |
@@ -32,7 +65,7 @@ python3 -m http.server 5181 --directory web
 别的网站只要**贴一段代码**就能引用它；以后你改 `web/card.html`，所有嵌了的地方**自动跟着更新**。
 
 **第一步**：把名片页部署上去（跟着本站一起发布即可），访问地址是
-`https://chesterlee.cn/card.html`（旧域名 `https://personalsite-32km31c.maozi.io/card.html` 仍可访问，仅作备用）。
+`https://chesterlee.cn/card.html`（随本站一起 `rsync` 发布到腾讯云轻量 `/srv/chesterlee/site/`）。
 
 **第二步**：把下面整段贴到对方网站要放名片的位置：
 

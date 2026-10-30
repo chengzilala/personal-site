@@ -1,0 +1,146 @@
+/* 循光践道官网 · 版本切换入口（两版共用） */
+.xg-vswitch {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 130;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 15px;
+  border: 1px solid rgba(232, 201, 149, 0.34);
+  border-radius: 999px;
+  background: rgba(4, 8, 12, 0.82);
+  color: #e8c995;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-decoration: none;
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.42);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition:
+    border-color 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s ease;
+}
+
+.xg-vswitch em {
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 0;
+  opacity: 0.55;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.xg-vswitch:hover {
+  border-color: rgba(232, 201, 149, 0.72);
+  background: rgba(9, 15, 21, 0.94);
+  box-shadow:
+    0 0 0 1px rgba(232, 201, 149, 0.08),
+    0 0 30px rgba(201, 160, 99, 0.2);
+  transform: translateY(-1px);
+}
+
+.xg-vswitch:hover em {
+  opacity: 0.95;
+  transform: translateX(2px);
+}
+
+.xg-vswitch:focus-visible {
+  outline: 2px solid rgba(232, 201, 149, 0.7);
+  outline-offset: 3px;
+}
+
+/* 多个版本入口：右下角纵向排列 */
+.xg-vswitch-group {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 140;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.xg-vswitch-group::before {
+  content: "版本";
+  margin-bottom: 1px;
+  color: rgba(232, 201, 149, 0.42);
+  font-size: 10px;
+  letter-spacing: 0.34em;
+  line-height: 1;
+}
+
+/* 当前版本：不可点，作为位置提示 */
+.xg-vswitch--current {
+  background: rgba(201, 160, 99, 0.16);
+  border-color: rgba(232, 201, 149, 0.6);
+  color: #f3ddb6;
+  cursor: default;
+  box-shadow: 0 0 0 1px rgba(232, 201, 149, 0.08);
+}
+
+.xg-vswitch--current.xg-vswitch--star {
+  background: rgba(120, 150, 220, 0.16);
+  border-color: rgba(190, 210, 255, 0.55);
+  color: #eef4ff;
+}
+
+.xg-vswitch--current em {
+  opacity: 0.62;
+}
+
+.xg-vswitch-group .xg-vswitch {
+  position: static;
+  right: auto;
+  bottom: auto;
+}
+
+.xg-vswitch--star {
+  background: rgba(4, 10, 22, 0.86);
+  border-color: rgba(168, 192, 255, 0.38);
+  color: #dfe8ff;
+}
+
+.xg-vswitch--star:hover {
+  border-color: rgba(214, 230, 255, 0.7);
+  background: rgba(8, 16, 32, 0.95);
+  box-shadow:
+    0 0 0 1px rgba(168, 192, 255, 0.1),
+    0 0 30px rgba(120, 150, 220, 0.24);
+}
+
+@media (max-width: 600px) {
+  .xg-vswitch {
+    right: 12px;
+    bottom: 12px;
+    padding: 8px 12px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+
+  .xg-vswitch-group {
+    right: 12px;
+    bottom: 12px;
+    gap: 6px;
+  }
+
+  .xg-vswitch-group .xg-vswitch {
+    padding: 7px 10px;
+    font-size: 10px;
+  }
+
+  .xg-vswitch-group .xg-vswitch em {
+    font-size: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xg-vswitch,
+  .xg-vswitch em {
+    transition: none;
+  }
+}

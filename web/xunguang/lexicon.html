@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>文化词库 · 循光践道 · 天光版</title>
+  <meta name="description" content="循光践道文化词库：用一张词云，把文化、生命态、财商、人性、家学、情感、商业等关键词讲清楚。悬停或轻点词条，看看它们在我们这里是什么意思。" />
+  <meta name="theme-color" content="#02060e" />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/png" sizes="128x128" href="assets/img/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/img/favicon-180.png" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/star.css" />
+  <link rel="stylesheet" href="assets/css/beam.css" />
+  <link rel="stylesheet" href="assets/css/lexicon.css" />
+</head>
+<body class="xgs xgb">
+  <a class="xg-skip" href="#main">跳到主要内容</a>
+
+  <header class="xg-header">
+    <a class="xg-brand" href="index.html" aria-label="循光践道首页">
+      <img class="xg-brand__logo" src="assets/img/logo-mark.png" alt="" width="52" height="52" />
+      <span class="xg-brand__text">
+        <span class="xg-brand__name">循光践道</span>
+        <span class="xg-brand__en">XUN GUANG JIAN DAO</span>
+      </span>
+    </a>
+    <button class="xg-nav-toggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="xg-nav">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav class="xg-nav" id="xg-nav" aria-label="主导航">
+      <a href="index.html">首页</a>
+      <a href="philosophy.html">理念</a>
+      <a href="programs.html">我们做什么</a>
+      <a href="stories.html">案例</a>
+      <a href="books.html">书单</a>
+      <a href="lexicon.html" aria-current="page">词库</a>
+      <a href="about.html">关于</a>
+      <a href="contact.html">联系我们</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="xg-page-hero">
+      <div class="xg-page-hero__inner">
+        <p class="xg-kicker">文化词库</p>
+        <h1 class="xg-page-hero__title">词里有我们的<br />看法与做法</h1>
+        <p class="xg-page-hero__lead">
+          同一个词，放在不同地方，意思可以很不一样。这里收录了循光践道日常真正在用的词，
+          以及我们为什么这样理解它。把光标停在任意一个词上，或轻点它，看看它在我们这里指什么。
+        </p>
+      </div>
+    </section>
+
+    <section class="xg-section xg-lexicon">
+      <div class="xg-wrap">
+        <div class="xg-lexicon__head">
+          <div>
+            <p class="xg-kicker">关键词云</p>
+            <h2 class="xg-title">三十五个词，<br />一套看世界的方式</h2>
+          </div>
+          <p class="xg-lexicon__hint">悬停 / 轻点词条，看它的说明</p>
+        </div>
+
+        <div class="xg-lexicon__filters" id="xg-lex-filters" role="group" aria-label="按主题筛选词条"></div>
+
+        <div class="xg-cloud" id="xg-cloud" aria-label="文化关键词云"></div>
+
+        <p class="xg-lexicon__note">
+          词条与释义整理自循光践道知识库，并按对外口径改写。
+          <span id="xg-lexicon-updated"></span>
+        </p>
+      </div>
+    </section>
+
+    <section class="xg-section xg-lexicon__index-section">
+      <div class="xg-wrap">
+        <p class="xg-kicker">词条索引</p>
+        <h2 class="xg-title">按主题慢慢看</h2>
+        <p class="xg-lead">
+          不想在词云里找，也可以按主题往下读。每个词先给一句话解释，点开可以看完整说明。
+        </p>
+        <div class="xg-lexicon__index" id="xg-lexicon-index"></div>
+
+        <div class="xg-lexicon__cta">
+          <a class="xg-btn xg-btn--solid" href="programs.html">看看我们做什么</a>
+          <a class="xg-btn xg-btn--ghost" href="contact.html">联系我们</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="xg-lex-pop" id="xg-lex-pop" role="dialog" aria-modal="false" aria-labelledby="xg-lex-pop-title" hidden>
+    <button class="xg-lex-pop__close" type="button" aria-label="关闭词条说明">&times;</button>
+    <p class="xg-lex-pop__cat"></p>
+    <h3 class="xg-lex-pop__title" id="xg-lex-pop-title"></h3>
+    <p class="xg-lex-pop__summary"></p>
+    <p class="xg-lex-pop__detail"></p>
+    <div class="xg-lex-pop__related" aria-label="相关词条"></div>
+    <p class="xg-lex-pop__source"></p>
+  </div>
+
+  <footer class="xg-footer">
+    <div class="xg-footer__top">
+      <div class="xg-footer__brand">
+        <a class="xg-brand" href="index.html" aria-label="循光践道首页">
+          <img class="xg-brand__logo" src="assets/img/logo-mark.png" alt="" width="52" height="52" />
+          <span class="xg-brand__text">
+            <span class="xg-brand__name">循光践道</span>
+            <span class="xg-brand__en">XUN GUANG JIAN DAO</span>
+          </span>
+        </a>
+        <p>循天光以明悟，践本心而成道。以中华文化为根，以长期陪跑为路。</p>
+      </div>
+      <nav class="xg-footer__nav" aria-label="页脚导航">
+        <a href="index.html">首页</a>
+        <a href="philosophy.html">品牌理念</a>
+        <a href="programs.html">我们做什么</a>
+        <a href="stories.html">改变案例</a>
+        <a href="books.html">寻光书单</a>
+        <a href="lexicon.html">文化词库</a>
+        <a href="about.html">关于我们</a>
+        <a href="about.html#logo-story">徽记故事</a>
+        <a href="contact.html">联系我们</a>
+        <a href="privacy.html">隐私政策</a>
+      </nav>
+    </div>
+    <div class="xg-footer__bottom">
+      <span>© 2026 循光践道</span>
+      <span>愿循光，践道。</span>
+      <span>© 2026 Chester · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">陇ICP备2026009894号-2</a></span>
+
+    </div>
+  </footer>
+
+  <script src="assets/data/lexicon.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/lexicon.js"></script>
+  <script src="assets/js/star.js"></script>
+  <script src="assets/js/beam.js"></script>
+  <script src="assets/js/versions.js"></script>
+</body>
+</html>

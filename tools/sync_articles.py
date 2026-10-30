@@ -614,6 +614,7 @@ TOPBAR_TPL = """<nav class="ps-topbar" aria-label="主导航">
       <a href="{about}">关于我</a>
       <a href="{works}"{cur_works}>作品</a>
       <a href="{articles}"{cur_articles}>文章</a>
+      <a href="{talks}"{cur_talks}>分享</a>
     </div>
   </div>
 </nav>
@@ -687,9 +688,11 @@ def topbar_html(prefix, current):
         about=prefix + "about.html",
         works=prefix + "works.html",
         articles="index.html",
+        talks=prefix + "talks/index.html",
         cur_home=mark("home"),
         cur_works=mark("works"),
         cur_articles=mark("articles"),
+        cur_talks="",
     )
 
 

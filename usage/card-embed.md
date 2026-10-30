@@ -10,8 +10,6 @@
 
 https://chesterlee.cn/card.html
 
-（说明：旧域名 https://personalsite-32km31c.maozi.io/card.html 仍可访问，仅作备用；请统一用上面的新域名。）
-
 它是一张深灰圆角卡片：左边照片、右边「Chester Lee + 一行简介」。
 请在本站页面里用 iframe 引用它，把下面整段贴到要放名片的位置（放进页面正文的某个容器里即可）：
 

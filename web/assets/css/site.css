@@ -138,6 +138,17 @@ a { color: inherit; }
 }
 .ps-topbar__links a[aria-current="page"]::after { transform: scaleX(1); }
 
+/* 顶栏账户入口：登录后带小头像 */
+.ps-account-avatar {
+  width: 22px;
+  height: 22px;
+  margin-right: 6px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  object-fit: cover;
+  vertical-align: -5px;
+}
+
 /* 顶栏多了「账户」入口后：窄屏收紧间距与字号，避免一行放不下 */
 @media (max-width: 430px) {
   .ps-topbar__links {
@@ -950,3 +961,491 @@ a { color: inherit; }
 }
 
 .ps-post__body pre code { padding: 0; background: none; }
+
+/* ================= 接单板块（v0.71：独立通栏） ================= */
+
+/* 与上方作品区拉开距离：换一层纸色 + 顶部细线 + 大留白，读起来是另一个章节 */
+.ps-hire-band {
+  margin-top: clamp(44px, 8vw, 88px);
+  padding: clamp(52px, 9vw, 104px) 0 clamp(56px, 9vw, 104px);
+  background: var(--ph-bg);
+  border-top: 1px solid var(--line);
+}
+
+/* 暂时隐藏接单板块（v0.72）：删掉 works.html 里该 section 的 hidden 即可恢复 */
+.ps-hire-band[hidden] { display: none; }
+
+/* 内层只负责限宽与左右边距，纵向留白交给通栏，避免分隔线重复 */
+.ps-hire-band .ps-section {
+  border-top: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.ps-svc {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+  margin: 0 0 clamp(26px, 5vw, 40px);
+}
+
+@media (min-width: 760px) {
+  .ps-svc { grid-template-columns: repeat(3, 1fr); }
+}
+
+.ps-svc__card {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(18px, 2.4vw, 26px);
+  background: var(--white);
+  border: 1px solid var(--line);
+}
+
+.ps-svc__name {
+  margin: 0 0 8px;
+  font-size: clamp(19px, 2.4vw, 22px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.ps-svc__desc {
+  margin: 0 0 14px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.ps-svc__list {
+  margin: 0 0 16px;
+  padding-left: 1.1em;
+  font-size: 13.5px;
+  line-height: 1.85;
+  color: var(--muted);
+}
+
+/* 报价方式说明沉底，三张卡的下沿对齐（不公开具体价格） */
+.ps-svc__note {
+  margin: auto 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* 四步流程：等宽序号在上，说明在下 */
+.ps-steps {
+  counter-reset: ps-step;
+  list-style: none;
+  margin: 0 0 clamp(26px, 5vw, 40px);
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+@media (min-width: 640px) {
+  .ps-steps { grid-template-columns: repeat(4, 1fr); }
+}
+
+.ps-steps li {
+  counter-increment: ps-step;
+  position: relative;
+  padding-top: 30px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+.ps-steps li::before {
+  content: "0" counter(ps-step);
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+}
+
+.ps-steps li b {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--fg);
+}
+
+/* 常见问题：细线分隔的可展开条目 */
+.ps-faq {
+  margin: 0 0 clamp(24px, 4vw, 34px);
+  border-top: 1px solid var(--line);
+}
+
+.ps-faq details {
+  border-bottom: 1px solid var(--line);
+  padding: 14px 0;
+}
+
+.ps-faq summary {
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  list-style-position: outside;
+}
+
+.ps-faq summary:hover { color: var(--accent); }
+
+.ps-faq p {
+  margin: 10px 0 0;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+/* 联系方式：二维码 + 一句说明 */
+.ps-hire-contact {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 3vw, 24px);
+  flex-wrap: wrap;
+}
+
+.ps-hire-contact img {
+  width: 132px;
+  height: auto;
+  border: 1px solid var(--line);
+}
+
+.ps-hire-contact p {
+  margin: 0;
+  max-width: 30em;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+/* ================= 课程 / talks v1 ================= */
+
+.ps-list__intro {
+  max-width: 46em;
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+/* ---- 课程列表 ---- */
+
+.ps-talk-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+.ps-talk-item { border-bottom: 1px solid var(--line); }
+
+.ps-talk-item__link {
+  display: flex;
+  gap: clamp(14px, 3vw, 26px);
+  align-items: flex-start;
+  padding: clamp(18px, 3.4vw, 26px) 4px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.ps-talk-item__link:hover { background: var(--hover-bg); }
+
+.ps-talk-item__no {
+  flex: none;
+  padding-top: .45em;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.ps-talk-item__main {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: .4em;
+}
+
+.ps-talk-item__title {
+  font-family: var(--font-serif);
+  font-size: clamp(19px, 4.4vw, 26px);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.ps-talk-item__desc {
+  font-size: clamp(14px, 3.6vw, 15.5px);
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.ps-talk-item__meta {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.ps-talk-item__go {
+  flex: none;
+  align-self: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.ps-talk-item__link:hover .ps-talk-item__title,
+.ps-talk-item__link:hover .ps-talk-item__go { color: var(--accent); }
+
+/* ---- 课程详情：三个出口 ---- */
+
+.ps-talk__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 clamp(26px, 5vw, 38px);
+}
+
+.ps-talk__btn {
+  display: inline-block;
+  padding: 9px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 13.5px;
+  letter-spacing: 0.02em;
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.ps-talk__btn:hover { border-color: var(--fg); }
+
+.ps-talk__btn--main {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--white);
+}
+
+.ps-talk__btn--main:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* ---- 课程详情：阅读版 ---- */
+
+/* 课程页比文章页放宽：课件内容块多，窄栏会让整页显得空 */
+.ps-post.ps-talk { max-width: 980px; }
+
+.ps-post.ps-talk .ps-post__body { font-size: clamp(16.5px, 4.4vw, 18px); }
+
+/* 卡片与时间轴在大屏铺成多列，把多出来的宽度用掉 */
+@media (min-width: 860px) {
+  .ps-talk__cards { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+}
+
+.ps-talk__part-no {
+  margin: 2.6em 0 .3em;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.ps-talk__part {
+  margin: 0 0 .5em;
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 5.6vw, 30px);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.ps-talk__lede {
+  margin: 0 0 1.6em;
+  color: var(--muted);
+  font-size: clamp(15px, 3.9vw, 16.5px);
+  line-height: 1.85;
+}
+
+.ps-talk__kicker {
+  margin: 2.4em 0 .5em;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ps-talk__claim {
+  margin: 0 0 .6em;
+  font-family: var(--font-serif);
+  font-size: clamp(24px, 6.2vw, 34px);
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+.ps-talk__sub {
+  margin: 0 0 .55em;
+  color: var(--muted);
+  font-size: clamp(15px, 3.9vw, 16.5px);
+  line-height: 1.9;
+}
+
+.ps-talk__note {
+  margin: 1.1em 0 0;
+  padding-left: 14px;
+  border-left: 2px solid var(--accent);
+  font-size: clamp(14px, 3.6vw, 15.5px);
+  line-height: 1.85;
+}
+
+.ps-talk__h3 {
+  margin: 2.2em 0 .9em;
+  font-family: var(--font-serif);
+  font-size: clamp(17px, 4.4vw, 20px);
+  font-weight: 700;
+}
+
+.ps-talk__rows {
+  display: grid;
+  grid-template-columns: minmax(84px, 26%) 1fr;
+  margin: 0 0 1.4em;
+  border-top: 1px solid var(--line);
+}
+
+.ps-talk__rows dt {
+  padding: 14px 14px 14px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.ps-talk__rows dd {
+  margin: 0;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.ps-talk__cards,
+.ps-talk__tl {
+  display: grid;
+  gap: 12px;
+  list-style: none;
+  margin: 0 0 1.4em;
+  padding: 0;
+}
+
+.ps-talk__cards li,
+.ps-talk__tl li {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--white);
+}
+
+.ps-talk__cards li b,
+.ps-talk__tl li b { font-size: 15.5px; }
+
+.ps-talk__cards li span,
+.ps-talk__tl li span {
+  color: var(--muted);
+  font-size: 14.5px;
+  line-height: 1.75;
+}
+
+.ps-talk__tl li b {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+
+/* 时间轴不沿用卡片外观：年份在上，一条线穿过节点，说明在下 */
+.ps-talk__tl li {
+  position: relative;
+  gap: 0;
+  padding: 0 0 0 26px;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
+.ps-talk__tl li b {
+  display: block;
+  height: 20px;
+  line-height: 20px;
+}
+
+/* 每个节点自己画一段线，折行时也不会断链 */
+.ps-talk__tl li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 10px;
+  bottom: -12px;
+  width: 1px;
+  background: var(--line);
+}
+
+.ps-talk__tl li::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(225, 70, 43, 0.13);
+}
+
+.ps-talk__tl li:first-child::before { top: 10px; }
+.ps-talk__tl li:last-child::before { display: none; }
+
+.ps-talk__tl li span { padding-top: 8px; }
+
+/* 宽屏改横排：线横穿，节点压在线上 */
+@media (min-width: 860px) {
+  .ps-talk__tl {
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 0;
+  }
+
+  .ps-talk__tl li { padding: 0 26px 0 0; }
+
+  .ps-talk__tl li b,
+  .ps-talk__tl li span { padding-left: 16px; }  /* 给节点圆点让位 */
+
+  .ps-talk__tl li::before {
+    left: 0;
+    right: 0;
+    top: 20px;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+  }
+
+  .ps-talk__tl li::after { top: 16px; }
+
+  .ps-talk__tl li span { padding-top: 18px; }
+}
+
+.ps-post__body blockquote footer {
+  margin-top: .6em;
+  color: var(--muted);
+  font-size: 13px;
+}

@@ -1,0 +1,1101 @@
+/* 循光践道官网 · 深色光影主题（纯覆盖样式表）
+ * 用途：在 style.css 之后加载，把整站从「浅色纸感」改成「深夜 + 暖金光」。
+ * 约束：HTML 结构不变，只覆盖颜色 / 背景 / 边框 / 阴影 / 字体气质；
+ *       所有布局（display / grid / flex / 间距 / 尺寸 / 定位）全部沿用 style.css。
+ * 结构：按 style.css 的区块顺序排列，方便逐段对照。
+ */
+
+/* ========== 变量 ========== */
+:root {
+  color-scheme: dark;
+
+  /* 深色光影设计 token */
+  --bg: #04080c;
+  --bg-alt: #070d12;
+  --ink: #f3ead9;
+  --ink-soft: rgba(243, 234, 217, 0.66);
+  --ink-muted: rgba(243, 234, 217, 0.46);
+  --gold: #c9a063;
+  --gold-light: #e8c995;
+  --line: rgba(232, 201, 149, 0.16);
+  --line-strong: rgba(232, 201, 149, 0.32);
+  --card: rgba(243, 234, 217, 0.028);
+  --card-strong: rgba(243, 234, 217, 0.045);
+  --shadow-warm: rgba(6, 3, 0, 0.55);
+  --shadow-warm-deep: rgba(3, 2, 0, 0.9);
+
+  /* 兼容 style.css / lexicon.css 已有的 --xg-* 变量
+     （把原「纸 / 墨」语义整体翻转，旧组件无需逐条重写即可适配深色） */
+  --xg-night: var(--bg);
+  --xg-night-soft: var(--bg-alt);
+  --xg-ink: var(--ink);
+  --xg-ink-soft: rgba(243, 234, 217, 0.72);
+  --xg-paper: var(--bg);
+  --xg-paper-deep: var(--bg-alt);
+  --xg-gold: var(--gold);
+  --xg-gold-light: var(--gold-light);
+  --xg-cinnabar: #c98f6a;
+  --xg-muted: var(--ink-muted);
+  --xg-line: var(--line);
+  --xg-line-dark: rgba(232, 201, 149, 0.22);
+
+  /* 标题：宋体一脉；正文沿用 --xg-sans（不覆盖） */
+  --xg-serif: "Songti SC", "STSong", "Noto Serif SC", serif;
+}
+
+/* ========== 基础 ========== */
+html {
+  background: var(--bg);
+}
+
+body {
+  background-color: var(--bg);
+  background-image: radial-gradient(
+      120% 85% at 50% -18%,
+      rgba(201, 160, 99, 0.1) 0%,
+      rgba(201, 160, 99, 0) 62%
+    ),
+    radial-gradient(
+      60% 45% at 88% 6%,
+      rgba(232, 201, 149, 0.05) 0%,
+      rgba(232, 201, 149, 0) 70%
+    );
+  background-repeat: no-repeat;
+  color: var(--ink);
+}
+
+::selection {
+  background: rgba(232, 201, 149, 0.26);
+  color: #04080c;
+}
+
+.xg-skip {
+  background: var(--bg-alt);
+  color: var(--gold-light);
+  border: 1px solid var(--line-strong);
+}
+
+/* ========== 页头 ========== */
+.xg-header {
+  color: var(--ink);
+  background: linear-gradient(
+    to bottom,
+    rgba(3, 6, 9, 0.82),
+    rgba(3, 6, 9, 0)
+  );
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.xg-header.is-solid {
+  color: var(--ink);
+  background: rgba(4, 8, 12, 0.86);
+  box-shadow: 0 1px 0 var(--line);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.xg-home {
+  background: var(--bg);
+}
+
+.xg-home .xg-header.is-solid {
+  color: var(--ink);
+  background: linear-gradient(
+    to bottom,
+    rgba(3, 6, 9, 0.86),
+    rgba(3, 6, 9, 0.32)
+  );
+  box-shadow: none;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.xg-brand__name {
+  color: inherit;
+  letter-spacing: 0.3em;
+}
+
+.xg-nav a {
+  color: rgba(243, 234, 217, 0.74);
+}
+
+.xg-nav a:hover,
+.xg-nav a[aria-current="page"] {
+  color: var(--gold-light);
+}
+
+.xg-nav-toggle {
+  color: var(--gold-light);
+  border-color: var(--line-strong);
+}
+
+/* ========== 首屏：光 → 道 ========== */
+.xg-dawn {
+  background: var(--bg);
+}
+
+.xg-dawn__sky {
+  background: radial-gradient(
+      105% 92% at 50% 90%,
+      rgba(201, 160, 99, calc(0.08 + var(--p) * 0.6)) 0%,
+      rgba(201, 160, 99, 0) 86%
+    ),
+    linear-gradient(
+      180deg,
+      #02060a 0%,
+      #050d14 38%,
+      #0a1a22 68%,
+      #241d15 88%,
+      #3d2f21 100%
+    );
+}
+
+/* ========== 通用版式 ========== */
+/* 首屏金光退场：改成一层极淡的金色余晖 */
+.xg-dawn + .xg-section {
+  background: linear-gradient(
+    to bottom,
+    rgba(201, 160, 99, 0.16) 0,
+    rgba(201, 160, 99, 0) 220px
+  );
+}
+
+.xg-section {
+  color: var(--ink);
+}
+
+.xg-kicker {
+  color: var(--gold);
+}
+
+.xg-title {
+  color: var(--ink);
+  letter-spacing: 0.1em;
+}
+
+.xg-lead {
+  color: var(--ink-soft);
+}
+
+.xg-muted {
+  color: var(--ink-muted);
+}
+
+.xg-rule {
+  background: var(--line);
+}
+
+/* ========== 引言 + 三根柱子 ========== */
+.xg-intro__quote {
+  color: var(--ink);
+}
+
+.xg-intro__quote em {
+  color: var(--gold-light);
+}
+
+.xg-intro__note {
+  color: var(--ink-muted);
+}
+
+.xg-pillars {
+  background: var(--line);
+  border-top-color: var(--line);
+  border-bottom-color: var(--line);
+}
+
+.xg-pillar {
+  background: var(--card);
+}
+
+.xg-pillar__num {
+  color: var(--gold);
+}
+
+.xg-pillar__title {
+  color: var(--ink);
+  letter-spacing: 0.18em;
+}
+
+.xg-pillar__text {
+  color: var(--ink-muted);
+}
+
+/* ========== 五大赛道 ========== */
+.xg-track {
+  border-color: var(--line);
+  background: linear-gradient(
+    170deg,
+    rgba(243, 234, 217, 0.045),
+    rgba(243, 234, 217, 0.012)
+  );
+}
+
+.xg-track:hover {
+  border-color: rgba(232, 201, 149, 0.62);
+  box-shadow: 0 18px 40px var(--shadow-warm);
+}
+
+.xg-track__num {
+  color: var(--gold);
+}
+
+.xg-track__name {
+  color: var(--ink);
+}
+
+.xg-track__line {
+  color: var(--ink-soft);
+}
+
+.xg-track__list {
+  color: var(--ink-muted);
+}
+
+.xg-track__list li {
+  border-top-color: var(--line);
+}
+
+/* ========== 交付方式 ========== */
+.xg-deliver__aside p {
+  color: var(--ink-muted);
+}
+
+.xg-modes {
+  border-top-color: var(--line);
+}
+
+.xg-mode {
+  border-bottom-color: var(--line);
+}
+
+.xg-mode__num {
+  color: var(--gold);
+}
+
+.xg-mode__title {
+  color: var(--ink);
+}
+
+.xg-mode__text {
+  color: var(--ink-muted);
+}
+
+/* ========== 金句带 ========== */
+.xg-quotes {
+  background: #03070a;
+  color: var(--ink);
+}
+
+.xg-quotes__grid {
+  background: var(--line);
+  border-color: var(--line);
+}
+
+.xg-quote {
+  background: #03070a;
+}
+
+.xg-quote cite {
+  color: var(--ink-muted);
+}
+
+/* ========== 行动召唤 ========== */
+.xg-cta__title {
+  color: var(--ink);
+}
+
+.xg-cta__text {
+  color: var(--ink-muted);
+}
+
+/* ========== 按钮 ========== */
+.xg-btn {
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+.xg-btn--solid {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #0a0d10;
+}
+
+.xg-btn--solid:hover {
+  background: var(--gold-light);
+  border-color: var(--gold-light);
+  color: #0a0d10;
+}
+
+.xg-btn--ghost {
+  color: var(--ink);
+}
+
+.xg-btn--ghost:hover {
+  background: rgba(232, 201, 149, 0.08);
+  border-color: var(--gold);
+}
+
+.xg-btn--light {
+  border-color: rgba(232, 201, 149, 0.5);
+  color: var(--gold-light);
+}
+
+.xg-btn--light:hover {
+  background: rgba(232, 201, 149, 0.12);
+  border-color: var(--gold);
+}
+
+/* ========== 页脚 ========== */
+.xg-footer {
+  background: #020507;
+  color: rgba(243, 234, 217, 0.64);
+}
+
+.xg-footer__top {
+  border-bottom-color: var(--line);
+}
+
+.xg-footer__brand .xg-brand__name {
+  color: var(--ink);
+}
+
+.xg-footer__brand p {
+  color: rgba(243, 234, 217, 0.46);
+}
+
+.xg-footer__nav a {
+  color: rgba(243, 234, 217, 0.68);
+}
+
+.xg-footer__nav a:hover {
+  color: var(--gold-light);
+}
+
+.xg-footer__bottom {
+  color: rgba(243, 234, 217, 0.36);
+}
+
+/* ========== 内页页头 ========== */
+.xg-page-hero {
+  background: radial-gradient(
+      70% 80% at 70% 10%,
+      rgba(201, 160, 99, 0.14),
+      transparent 65%
+    ),
+    linear-gradient(160deg, #04080c 0%, #061019 58%, #0a161d 100%);
+  color: var(--ink);
+}
+
+.xg-page-hero::after {
+  background: linear-gradient(
+    180deg,
+    rgba(232, 201, 149, 0),
+    rgba(232, 201, 149, 0.1),
+    rgba(232, 201, 149, 0)
+  );
+}
+
+.xg-page-hero__title {
+  color: var(--ink);
+  letter-spacing: 0.14em;
+}
+
+.xg-page-hero__lead {
+  color: var(--ink-soft);
+}
+
+/* ========== 通用内容 ========== */
+.xg-prose p,
+.xg-prose ul {
+  color: var(--ink-soft);
+}
+
+.xg-prose h2,
+.xg-prose h3,
+.xg-prose strong {
+  color: var(--ink);
+}
+
+/* ========== 释义格 ========== */
+.xg-meanings {
+  background: var(--line);
+  border-color: var(--line);
+}
+
+.xg-meaning {
+  background: var(--card);
+}
+
+.xg-meaning__char {
+  color: var(--gold);
+}
+
+.xg-meaning__title {
+  color: var(--ink);
+  letter-spacing: 0.18em;
+}
+
+.xg-meaning__text {
+  color: var(--ink-muted);
+}
+
+/* ========== 品牌元素 ========== */
+.xg-element {
+  border-color: var(--line);
+  background: rgba(243, 234, 217, 0.015);
+}
+
+.xg-element h3 {
+  color: var(--ink);
+}
+
+.xg-element p {
+  color: var(--ink-muted);
+}
+
+/* ========== 信念列表 ========== */
+.xg-beliefs {
+  border-top-color: var(--line);
+}
+
+.xg-belief {
+  border-bottom-color: var(--line);
+}
+
+.xg-belief::before {
+  color: var(--gold);
+}
+
+.xg-belief p {
+  color: var(--ink);
+}
+
+/* ========== 赛道详情 ========== */
+.xg-program {
+  border-top-color: var(--line);
+}
+
+.xg-program__num {
+  color: var(--gold);
+}
+
+.xg-program__name {
+  color: var(--ink);
+  letter-spacing: 0.2em;
+}
+
+.xg-program__claim {
+  color: var(--ink-soft);
+}
+
+.xg-program__block h3 {
+  color: var(--gold);
+}
+
+.xg-program__block p,
+.xg-program__block ul {
+  color: var(--ink-muted);
+}
+
+.xg-program__block li::before {
+  background: var(--gold);
+}
+
+.xg-note {
+  border-left-color: var(--gold);
+  background: rgba(201, 160, 99, 0.07);
+  color: var(--ink-soft);
+}
+
+/* ========== 关于 ========== */
+.xg-facts {
+  background: var(--line);
+  border-color: var(--line);
+}
+
+.xg-fact {
+  background: var(--card);
+}
+
+.xg-fact__label {
+  color: var(--gold);
+}
+
+.xg-fact__value {
+  color: var(--ink);
+}
+
+/* ========== 徽记故事 ========== */
+.xg-emblem {
+  background: linear-gradient(
+    180deg,
+    rgba(201, 160, 99, 0.06),
+    rgba(201, 160, 99, 0) 62%
+  );
+}
+
+.xg-emblem__lead {
+  color: var(--ink-soft);
+}
+
+.xg-emblem__figure {
+  background: var(--bg-alt);
+  border-color: var(--line);
+}
+
+/* 徽记原图是「深墨 + 金 + 白底」的 JPG：
+   反相 + 色相回转把白底压成暗底、墨线提亮，再用 screen 融进深色框 */
+.xg-emblem__figure img {
+  mix-blend-mode: screen;
+  filter: invert(1) hue-rotate(180deg) contrast(1.04);
+}
+
+.xg-emblem__figure figcaption {
+  color: var(--ink-muted);
+}
+
+.xg-emblem__notes {
+  background: var(--line);
+  border-color: var(--line);
+}
+
+.xg-emblem__note {
+  background: var(--card);
+}
+
+.xg-emblem__num {
+  color: var(--gold);
+}
+
+.xg-emblem__note h3 {
+  color: var(--ink);
+}
+
+.xg-emblem__note p {
+  color: var(--ink-soft);
+}
+
+.xg-emblem__close {
+  border-top-color: var(--line);
+}
+
+.xg-emblem__close p {
+  color: var(--ink-soft);
+}
+
+.xg-emblem__close .xg-emblem__quote {
+  color: var(--gold-light);
+}
+
+/* ========== 团队成员 ========== */
+.xg-team__frame {
+  background: var(--bg-alt);
+  border-color: var(--line);
+}
+
+.xg-team__index {
+  background: var(--gold);
+  color: #0a0d10;
+}
+
+.xg-team__caption {
+  border-top-color: var(--line);
+  color: var(--ink-muted);
+}
+
+.xg-team__caption strong {
+  color: var(--ink);
+}
+
+.xg-team__body p {
+  color: var(--ink-soft);
+}
+
+.xg-team__body .xg-team__lead {
+  color: var(--ink);
+}
+
+.xg-team__quote {
+  border-left-color: var(--gold);
+  color: var(--ink-soft);
+}
+
+.xg-team__tags li {
+  border-color: var(--line);
+  color: var(--ink-muted);
+  background: rgba(243, 234, 217, 0.02);
+}
+
+/* ========== 联系 ========== */
+.xg-step {
+  border-top-color: var(--line);
+}
+
+.xg-step::before {
+  color: var(--gold);
+}
+
+.xg-step h3 {
+  color: var(--ink);
+}
+
+.xg-step p {
+  color: var(--ink-muted);
+}
+
+.xg-ask {
+  border-color: var(--line);
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.045),
+    rgba(255, 255, 255, 0.015)
+  );
+}
+
+.xg-ask h2 {
+  color: var(--ink);
+}
+
+.xg-ask ol {
+  color: var(--ink-soft);
+}
+
+.xg-account {
+  border-top-color: var(--line);
+  color: var(--ink-muted);
+}
+
+.xg-account strong {
+  color: var(--gold-light);
+}
+
+/* ========== 预约表单 ========== */
+.xg-form,
+.xg-form__done {
+  border-color: var(--line);
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.045),
+    rgba(255, 255, 255, 0.015)
+  );
+}
+
+.xg-field > span {
+  color: var(--ink-muted);
+}
+
+.xg-field em {
+  color: var(--gold);
+}
+
+.xg-field input,
+.xg-field textarea {
+  background: rgba(4, 8, 12, 0.86);
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.xg-field input::placeholder,
+.xg-field textarea::placeholder {
+  color: rgba(243, 234, 217, 0.34);
+}
+
+.xg-field input:focus,
+.xg-field textarea:focus {
+  outline-color: rgba(232, 201, 149, 0.45);
+  border-color: var(--gold);
+}
+
+.xg-form__consent {
+  color: var(--ink-muted);
+}
+
+.xg-form__consent input {
+  accent-color: var(--gold);
+}
+
+.xg-form__consent a {
+  color: var(--gold-light);
+}
+
+.xg-form__hint,
+.xg-form__status {
+  color: var(--ink-muted);
+}
+
+.xg-form__status[data-type="error"] {
+  color: #df8f79;
+}
+
+.xg-form__done h3 {
+  color: var(--ink);
+}
+
+.xg-form__done p {
+  color: var(--ink-muted);
+}
+
+/* ========== 隐私 / 法律文本 ========== */
+.xg-legal h2,
+.xg-legal h3 {
+  color: var(--ink);
+}
+
+.xg-legal p,
+.xg-legal li {
+  color: var(--ink-soft);
+}
+
+.xg-legal a {
+  color: var(--gold-light);
+}
+
+.xg-legal__date {
+  color: var(--ink-muted);
+}
+
+.xg-legal__toc {
+  border-color: var(--line);
+  background: rgba(243, 234, 217, 0.02);
+}
+
+.xg-legal__toc a {
+  color: var(--ink-soft);
+}
+
+/* ========== 响应式（只覆盖出现浅色背景/深色文字的断点） ========== */
+@media (max-width: 720px) {
+  .xg-nav {
+    background: rgba(3, 6, 9, 0.98);
+    color: var(--ink);
+    border-color: var(--line-strong);
+    box-shadow: 0 24px 60px rgba(3, 2, 0, 0.62);
+  }
+
+  .xg-nav a {
+    color: rgba(243, 234, 217, 0.76);
+    border-bottom-color: var(--line);
+  }
+
+  .xg-nav a[aria-current="page"] {
+    color: var(--gold-light);
+  }
+}
+
+/* ========== 案例页 ========== */
+.xg-legend {
+  background: var(--line);
+  border-color: var(--line);
+}
+
+.xg-legend__item {
+  background: var(--card);
+}
+
+.xg-legend__num {
+  color: var(--gold);
+}
+
+.xg-legend__title {
+  color: var(--ink);
+}
+
+.xg-legend__text {
+  color: var(--ink-muted);
+}
+
+.xg-stories {
+  border-top-color: var(--line);
+}
+
+.xg-story {
+  border-bottom-color: var(--line);
+}
+
+.xg-story__num {
+  color: var(--gold);
+}
+
+.xg-story__tag {
+  border-color: rgba(232, 201, 149, 0.5);
+  color: var(--gold-light);
+}
+
+.xg-story__who {
+  color: var(--ink-muted);
+}
+
+.xg-story__title {
+  color: var(--ink);
+  letter-spacing: 0.06em;
+}
+
+.xg-story__grid {
+  background: var(--line);
+  border-color: var(--line);
+}
+
+.xg-story__block {
+  background: var(--card);
+}
+
+.xg-story__label {
+  color: var(--gold);
+}
+
+.xg-story__text {
+  color: var(--ink-soft);
+}
+
+.xg-story__block--quote {
+  background: #03060a;
+}
+
+.xg-story__block--quote .xg-story__label {
+  color: var(--gold-light);
+}
+
+.xg-story__block--quote .xg-story__text {
+  color: var(--ink);
+}
+
+.xg-story__cite {
+  color: var(--ink-muted);
+}
+
+/* ========== 首页图库 ========== */
+.xg-gallery {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.xg-gallery .xg-kicker {
+  color: var(--gold);
+}
+
+.xg-gallery .xg-title {
+  color: var(--ink);
+}
+
+.xg-gallery .xg-lead {
+  color: var(--ink-soft);
+}
+
+.xg-gallery__frame {
+  background: var(--bg-alt);
+}
+
+.xg-gallery__veil {
+  background: linear-gradient(
+    to top,
+    rgba(2, 4, 7, 0.92) 0%,
+    rgba(2, 4, 7, 0.4) 38%,
+    rgba(2, 4, 7, 0) 66%
+  );
+}
+
+.xg-gallery__num {
+  color: rgba(232, 201, 149, 0.72);
+  text-shadow: 0 1px 6px rgba(2, 4, 0, 0.7);
+}
+
+.xg-gallery__item-title {
+  color: var(--ink);
+}
+
+.xg-gallery__desc {
+  color: rgba(243, 234, 217, 0.62);
+}
+
+/* ========== 图库灯箱 ========== */
+.xg-lightbox {
+  background: rgba(2, 4, 6, 0.97);
+}
+
+.xg-lightbox__img {
+  box-shadow: 0 24px 80px rgba(3, 2, 0, 0.7);
+}
+
+.xg-lightbox__count {
+  color: var(--gold);
+}
+
+.xg-lightbox__title {
+  color: var(--ink);
+}
+
+.xg-lightbox__desc {
+  color: var(--ink-soft);
+}
+
+.xg-lightbox__close,
+.xg-lightbox__nav {
+  border-color: var(--line-strong);
+  color: var(--gold-light);
+}
+
+.xg-lightbox__close:hover,
+.xg-lightbox__close:focus-visible,
+.xg-lightbox__nav:hover,
+.xg-lightbox__nav:focus-visible {
+  border-color: var(--gold);
+  background: rgba(232, 201, 149, 0.1);
+}
+
+/* ========== 寻光书单 ========== */
+.xg-books {
+  background: var(--bg-alt);
+}
+
+.xg-book__cover {
+  background: #0a1116;
+  box-shadow: 0 14px 30px -20px var(--shadow-warm-deep);
+}
+
+.xg-book__badge {
+  color: var(--ink);
+  background: rgba(3, 6, 9, 0.78);
+}
+
+.xg-book__note {
+  background: linear-gradient(
+    to top,
+    rgba(2, 5, 8, 0.97) 0%,
+    rgba(2, 5, 8, 0.9) 55%,
+    rgba(2, 5, 8, 0) 100%
+  );
+}
+
+.xg-book__note::before {
+  color: var(--gold-light);
+}
+
+.xg-book__note p {
+  color: rgba(243, 234, 217, 0.86);
+}
+
+.xg-book__index {
+  color: var(--ink-muted);
+}
+
+.xg-book__title {
+  color: var(--ink);
+}
+
+.xg-book__author {
+  color: var(--ink-muted);
+}
+
+/* 无封面时的手作书封 */
+.xg-book__cover--set {
+  background: radial-gradient(
+      circle at 24% 18%,
+      rgba(232, 201, 149, 0.28),
+      transparent 58%
+    ),
+    linear-gradient(155deg, #0a1922 0%, #03080c 72%);
+}
+
+.xg-book__spine {
+  border-color: rgba(232, 201, 149, 0.28);
+  color: rgba(243, 234, 217, 0.86);
+}
+
+.xg-book__cover--plain {
+  background: linear-gradient(155deg, #0d171c 0%, #050a0e 100%);
+  border: 1px solid var(--line);
+}
+
+.xg-book__plain-mark {
+  color: var(--gold);
+}
+
+.xg-book__plain-title {
+  color: var(--ink);
+}
+
+.xg-books__more {
+  border-top-color: var(--line);
+}
+
+.xg-books__more-title {
+  color: var(--ink);
+}
+
+.xg-books__more-note {
+  color: var(--ink-muted);
+}
+
+.xg-books__more-group h3 {
+  color: var(--gold);
+}
+
+.xg-books__more-group li {
+  border-color: var(--line);
+  color: var(--ink-soft);
+}
+
+.xg-books__foot {
+  color: var(--ink-muted);
+}
+
+@media (hover: hover) {
+  .xg-book:hover .xg-book__cover,
+  .xg-book:focus-visible .xg-book__cover {
+    box-shadow: 0 32px 56px -26px var(--shadow-warm-deep);
+  }
+}
+
+/* 触屏：点按展开的推荐语 */
+@media (hover: none) {
+  .xg-book__note {
+    border-left-color: var(--gold);
+    background: rgba(232, 201, 149, 0.05);
+  }
+
+  .xg-book__note p {
+    color: var(--ink-soft);
+  }
+
+  .xg-book__note::before {
+    color: var(--gold);
+  }
+
+  .xg-book.is-active .xg-book__cover {
+    box-shadow: 0 26px 46px -24px var(--shadow-warm-deep);
+  }
+}
+
+/* ========== 焦点可见 ========== */
+:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 3px;
+}
+
+.xg-gallery__item:focus-visible {
+  outline-color: var(--gold);
+}
+
+.xg-book:focus-visible {
+  outline: none;
+}
+
+.xg-book:focus-visible .xg-book__cover {
+  outline: 2px solid var(--gold);
+  outline-offset: 5px;
+}
+
+/* ========== 附：词库页兼容 ==========
+ * lexicon.css 在 light.css 之后加载，其余浅色已通过 --xg-* 变量翻转；
+ * 只有一处写死的深色 hover 边框与「墨底反白」的选中态需要更高优先级补偿。 */
+.xg-lexicon .xg-lex-filter:hover {
+  border-color: var(--line-strong);
+}
+
+.xg-lexicon .xg-lex-filter.is-active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #0a0d10;
+}

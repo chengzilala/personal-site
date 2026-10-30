@@ -21,7 +21,8 @@
 - 可直接打开的首页：[web/index.html](./web/index.html)（响应式：作品 + 最近文章 + 生活方式）
 - 关于我页 [web/about.html](./web/about.html)（数字亮点 + 自我介绍 + 个人微信 / 公众号二维码）
 - 作品页 [web/works.html](./web/works.html)、文章列表 [web/articles/index.html](./web/articles/index.html) 及每篇正文
-- 顶栏「账户」入口：跳到统一账户中心（登录 / 我的账户）；地址在 `web/assets/js/site.js` 顶部的 `PS_ACCOUNT`，本机预览自动指向本地测试端口
+- 顶栏「登录 / 我的」入口：已接统一账户中心 SDK（`web/assets/js/ps-auth.js`）。未登录点「登录」跳账户中心，登录后带一次性票据回本页；已登录显示「我的」，直接进账户中心。地址在 `web/assets/js/site.js` 顶部的 `PS_ACCOUNT`，本机预览自动指向本地测试端口
+- 登录后点作品卡，会自动在账户中心「我的足迹」记一条「打开作品」（失败静默，不影响打开）
 - 从 Obsidian 一键同步文章的脚本：双击项目根 **`同步文章.command`**
 - 目录骨架 + AI 协作规则与技能（`.trae/`，项目级）已就位
 - 需求文档、运行手册、会话记录已就位
@@ -38,10 +39,13 @@ personal-site/
 │   ├── about.html        # 关于我：数字亮点 + 自我介绍 + 个人微信 / 公众号二维码
 │   ├── works.html        # 作品页
 │   ├── articles/         # 文章：index.html（列表）+ <短名>.html（正文，脚本生成）
+│   ├── talks/            # 课程：index.html（列表）+ <短名>/{index,deck}.html + deck.pdf
+│   ├── xunguang/         # 「循光践道」官网副本（根 = 天光版；classic/ 破晓版；v2/v3/v5 变体）
 │   └── assets/
 │       ├── css/site.css
 │       ├── js/
 │       │   ├── site.js
+│       │   ├── ps-auth.js          # 账户中心 SDK（从 account-center/sdk/ps-auth.js 复制，改动请两边同步）
 │       │   └── articles-data.js   # 首页文章数据（脚本生成）
 │       └── img/
 │           ├── photos/   # 你的生活照放这里

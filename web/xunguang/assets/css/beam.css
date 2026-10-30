@@ -1,0 +1,233 @@
+/* 循光践道 · 天光版（v4）
+ * 在星汉版（星空 / 银河 / 北斗）之上，叠加一束随滚动落下的天光
+ * 原生 CSS，零依赖；新增类名统一 xgb- 前缀
+ */
+
+/* ========== 地平线暖光 ========== */
+.xgb-horizon {
+  position: fixed;
+  left: 50%;
+  bottom: -20vh;
+  z-index: 0;
+  width: 130vw;
+  height: 48vh;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    closest-side,
+    rgba(217, 181, 121, 0.18),
+    rgba(120, 150, 220, 0.05) 55%,
+    transparent 78%
+  );
+  filter: blur(12px);
+  pointer-events: none;
+}
+
+/* ========== 天光本体 ========== */
+.xgb-beam {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 40;
+  width: 0;
+  height: 0;
+  transform: translate3d(var(--x, 50vw), var(--y, 18vh), 0);
+  pointer-events: none;
+}
+
+.xgb-beam__glow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 620px;
+  height: 620px;
+  margin: -310px 0 0 -310px;
+  background: radial-gradient(
+    closest-side,
+    rgba(255, 239, 206, 0.13),
+    rgba(255, 226, 170, 0.05) 45%,
+    transparent 72%
+  );
+  mix-blend-mode: screen;
+}
+
+.xgb-beam__trail {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 210px;
+  height: 62vh;
+  margin-left: -105px;
+  background: linear-gradient(
+    to top,
+    rgba(255, 236, 196, 0.14),
+    rgba(255, 226, 170, 0.05) 42%,
+    transparent 86%
+  );
+  filter: blur(18px);
+  mix-blend-mode: screen;
+}
+
+.xgb-beam__core {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 2px;
+  height: 52vh;
+  margin-left: -1px;
+  background: linear-gradient(
+    to top,
+    rgba(255, 246, 222, 0.62),
+    rgba(255, 228, 175, 0.16) 46%,
+    transparent 88%
+  );
+  mix-blend-mode: screen;
+}
+
+.xgb-beam__head {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  border-radius: 50%;
+  background: #fff8e6;
+  box-shadow:
+    0 0 16px 6px rgba(255, 236, 190, 0.5),
+    0 0 56px 22px rgba(255, 226, 170, 0.24);
+}
+
+/* ========== 到「道」：光从落点铺满整片天空 ========== */
+.xgb-flood {
+  position: fixed;
+  inset: 0;
+  z-index: 35;
+  opacity: 0;
+  background: radial-gradient(
+    circle at var(--fx, 50%) var(--fy, 86%),
+    rgba(255, 250, 238, 0.3) 0%,
+    rgba(250, 226, 178, 0.18) 20%,
+    rgba(217, 181, 121, 0.07) 46%,
+    transparent 74%
+  );
+  mix-blend-mode: screen;
+  transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.xgb-beam__ring {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border: 1px solid rgba(255, 246, 220, 0.72);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+body.xgb-arrived .xgb-flood {
+  opacity: 1;
+}
+
+body.xgb-arrived .xgs-sky {
+  filter: brightness(1.22) saturate(1.1);
+}
+
+body.xgb-arrived .xgb-beam__glow {
+  transform: scale(2.2);
+}
+
+body.xgb-arrived .xgb-beam__head {
+  box-shadow:
+    0 0 32px 14px rgba(255, 246, 220, 0.85),
+    0 0 120px 60px rgba(255, 226, 170, 0.4);
+}
+
+body.xgb-arrived .xgb-beam__ring {
+  animation: xgb-ring 2.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.xgb-beam__glow {
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.xgs-sky {
+  transition: filter 1.4s ease;
+}
+
+/* ========== 与「见道」衔接：最后一段不再压黑，让星空透上来 ========== */
+body.xgb .xgl-dao {
+  background: transparent;
+  padding-top: 12vh;
+}
+
+/* 让「道」与下方文字在常见窗口高度里一屏放得下 */
+@media (min-width: 721px) {
+  body.xgb .xgl-dao__char {
+    font-size: clamp(150px, 32vh, 380px);
+  }
+}
+
+@keyframes xgb-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  70% {
+    opacity: 0.12;
+  }
+  100% {
+    transform: scale(220);
+    opacity: 0;
+  }
+}
+
+/* ========== 阅读进度：光走到哪 ========== */
+.xgb-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 45;
+  height: 2px;
+  background: rgba(236, 226, 207, 0.06);
+  pointer-events: none;
+}
+
+.xgb-progress span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(217, 181, 121, 0),
+    #f2dcae 45%,
+    #fff7e6
+  );
+  box-shadow: 0 0 12px rgba(242, 220, 174, 0.55);
+}
+
+@media (max-width: 720px) {
+  .xgb-beam__glow {
+    width: 420px;
+    height: 420px;
+    margin: -210px 0 0 -210px;
+  }
+
+  .xgb-beam__trail {
+    width: 140px;
+    height: 46vh;
+    margin-left: -70px;
+  }
+
+  .xgb-beam__core {
+    height: 38vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xgb-beam {
+    opacity: 0.55;
+  }
+}

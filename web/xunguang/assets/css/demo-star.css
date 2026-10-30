@@ -1,0 +1,320 @@
+/* 循光践道 · 新官网设计 Demo「星河光影」
+ * 在 demo-light.css 的光束体系上叠加星野 / 银河 / 北斗 / 古典星语
+ * 原生 CSS，零依赖；新增类名统一 xg-ds- 前缀
+ */
+
+/* ========== 底色：从墨夜换成深空 ========== */
+body.xg-ds {
+  --xg-night: #02060e;
+  --xg-gold: #e3c48f;
+  --xg-gold-deep: #c19a5f;
+  background: #02060e;
+}
+
+body.xg-ds .xg-dl-bg {
+  background:
+    radial-gradient(
+      1100px 720px at 76% -8%,
+      rgba(74, 96, 158, 0.3),
+      transparent 70%
+    ),
+    radial-gradient(
+      820px 600px at 6% 18%,
+      rgba(126, 74, 60, 0.18),
+      transparent 72%
+    ),
+    linear-gradient(180deg, #02060e 0%, #061020 55%, #03080f 100%);
+}
+
+body.xg-ds .xg-dl-vignette {
+  background: radial-gradient(
+    ellipse at 50% 42%,
+    transparent 38%,
+    rgba(0, 3, 8, 0.62) 100%
+  );
+}
+
+/* ========== 星野画布 ========== */
+.xg-ds-sky {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ========== 银河 ========== */
+.xg-ds-milky {
+  position: fixed;
+  left: 50%;
+  top: 34%;
+  z-index: 1;
+  width: 150vmax;
+  height: 24vmax;
+  transform: translate(-50%, -50%) rotate(-23deg);
+  background: radial-gradient(
+    closest-side,
+    rgba(196, 212, 255, 0.14),
+    rgba(150, 170, 220, 0.07) 44%,
+    transparent 78%
+  );
+  filter: blur(16px);
+  pointer-events: none;
+  animation: xg-ds-milky 26s ease-in-out infinite alternate;
+}
+
+.xg-ds-milky::before {
+  content: "";
+  position: absolute;
+  inset: 38% 6%;
+  background: radial-gradient(
+    closest-side,
+    rgba(226, 234, 255, 0.16),
+    transparent 82%
+  );
+}
+
+@keyframes xg-ds-milky {
+  from {
+    opacity: 0.55;
+  }
+  to {
+    opacity: 0.9;
+  }
+}
+
+/* ========== 北斗七星 ========== */
+.xg-ds-dipper {
+  position: absolute;
+  top: 8%;
+  right: -2%;
+  z-index: 1;
+  width: min(34vw, 430px);
+  opacity: 0.5;
+  pointer-events: none;
+  animation: xg-ds-drift 24s ease-in-out infinite alternate;
+}
+
+@keyframes xg-ds-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-10px, 8px, 0);
+  }
+}
+
+.xg-ds-dipper svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.xg-ds-dipper__line {
+  stroke: rgba(232, 201, 149, 0.34);
+  stroke-width: 0.8;
+  stroke-dasharray: 3 5;
+}
+
+.xg-ds-dipper__star {
+  fill: #fdf3dd;
+  filter: drop-shadow(0 0 6px rgba(255, 238, 200, 0.9));
+}
+
+.xg-ds-dipper__star--big {
+  filter: drop-shadow(0 0 12px rgba(255, 238, 200, 0.95));
+}
+
+.xg-ds-dipper__label {
+  fill: rgba(236, 226, 207, 0.55);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  font-family: var(--xg-serif);
+}
+
+/* ========== 首屏星语 ========== */
+body.xg-ds .xg-dl-hero {
+  padding-top: 17vh;
+  padding-bottom: 22vh;
+}
+
+.xg-ds-hero-quote {
+  margin: 26px 0 0;
+  font-family: var(--xg-serif);
+  font-size: clamp(14px, 1.5vw, 17px);
+  letter-spacing: 0.16em;
+  color: rgba(232, 201, 149, 0.66);
+  animation: xg-dl-rise 1.5s var(--xg-ease) 0.5s both;
+}
+
+.xg-ds-hero-quote span {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--xg-sans);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: rgba(236, 226, 207, 0.38);
+}
+
+/* ========== 观星：古典星语卡片 ========== */
+.xg-ds-watch {
+  position: relative;
+  z-index: 10;
+}
+
+.xg-ds-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 1.8vw, 22px);
+  margin-top: clamp(40px, 6vw, 62px);
+}
+
+.xg-ds-card {
+  position: relative;
+  margin: 0;
+  padding: clamp(22px, 2.6vw, 32px);
+  border: 1px solid rgba(217, 181, 121, 0.22);
+  background: linear-gradient(
+    160deg,
+    rgba(20, 34, 54, 0.74),
+    rgba(7, 14, 26, 0.66)
+  );
+  transition: transform 0.45s var(--xg-ease),
+    border-color 0.45s var(--xg-ease), box-shadow 0.45s var(--xg-ease);
+}
+
+.xg-ds-card::before {
+  content: "";
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #f2dcae;
+  box-shadow: 0 0 10px rgba(242, 220, 174, 0.8);
+}
+
+.xg-ds-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(217, 181, 121, 0.46);
+  box-shadow:
+    0 22px 50px rgba(0, 0, 0, 0.45),
+    0 0 40px rgba(126, 158, 226, 0.1);
+}
+
+.xg-ds-card__quote {
+  margin: 0;
+  font-family: var(--xg-serif);
+  font-size: clamp(18px, 1.9vw, 23px);
+  line-height: 1.85;
+  letter-spacing: 0.08em;
+  color: #f4e9d5;
+}
+
+.xg-ds-card figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(217, 181, 121, 0.14);
+}
+
+.xg-ds-card__source {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: rgba(232, 201, 149, 0.72);
+}
+
+.xg-ds-card__note {
+  font-size: 12.5px;
+  line-height: 1.9;
+  letter-spacing: 0.04em;
+  color: rgba(236, 226, 207, 0.68);
+}
+
+.xg-ds-foot {
+  margin: 34px 0 0;
+  font-size: 11.5px;
+  line-height: 2;
+  letter-spacing: 0.06em;
+  color: rgba(236, 226, 207, 0.38);
+}
+
+/* ========== 与光束体系的衔接 ========== */
+body.xg-ds .xg-dl-track,
+body.xg-ds .xg-dl-track:last-child,
+body.xg-ds .xg-dl-modes,
+body.xg-ds .xg-dl-mode {
+  border-color: rgba(217, 181, 121, 0.16);
+}
+
+body.xg-ds .xg-dl-header {
+  background: linear-gradient(
+    to bottom,
+    rgba(2, 6, 14, 0.8),
+    rgba(2, 6, 14, 0)
+  );
+}
+
+body.xg-ds .xg-ds-head-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 见道：星光落地的一层 */
+body.xg-ds .xg-dl-final::after {
+  background: radial-gradient(
+    ellipse at 50% 100%,
+    rgba(217, 181, 121, 0.22),
+    rgba(120, 150, 220, 0.06) 45%,
+    transparent 70%
+  );
+}
+
+/* ========== 响应式 ========== */
+@media (max-width: 980px) {
+  .xg-ds-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .xg-ds-dipper {
+    top: 3%;
+    right: -8%;
+    width: min(50vw, 360px);
+    opacity: 0.34;
+  }
+}
+
+@media (max-width: 720px) {
+  .xg-ds-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .xg-ds-dipper {
+    top: -1%;
+    right: -20%;
+    width: 76vw;
+    opacity: 0.2;
+  }
+
+  .xg-ds-dipper__label {
+    display: none;
+  }
+
+  .xg-ds-head-links .xg-dl-back--light {
+    display: none;
+  }
+}
+
+/* ========== 减少动态效果 ========== */
+@media (prefers-reduced-motion: reduce) {
+  .xg-ds-milky,
+  .xg-ds-dipper,
+  .xg-ds-hero-quote {
+    animation: none;
+  }
+}
