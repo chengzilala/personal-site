@@ -279,10 +279,7 @@ body{
   }
   document.addEventListener('mousemove',poke);
   document.addEventListener('keydown',poke);
-  document.addEventListener('click',function(e){
-    if(e.target.closest('.hud')) return;
-    show(e.clientX>window.innerWidth*0.5?i+1:i-1);
-  });
+  // 点击画布不翻页：现场误触太多，翻页只认键盘和翻页笔（← → / 空格 / PageUp·PageDown）
   window.addEventListener('resize',fit);
   autoshrink(); show(0); poke();
 })();
