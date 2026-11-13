@@ -1,0 +1,22 @@
+[Unit]
+Description=personal-site 匿名访问统计
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/srv/chesterlee/stats
+EnvironmentFile=-/etc/personal-stats.env
+Environment=STATS_HOST=127.0.0.1
+Environment=STATS_PORT=8950
+Environment=STATS_DATA=/var/lib/personal-stats/store.json
+ExecStart=/usr/bin/node /srv/chesterlee/stats/index.js
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ReadWritePaths=/var/lib/personal-stats
+
+[Install]
+WantedBy=multi-user.target

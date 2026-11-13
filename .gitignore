@@ -17,6 +17,9 @@ inbox/
 # 原始大图不入库（压缩后的成品图才入库）
 web/assets/img/**/raw/
 
+# 统计服务本地测试数据
+server/stats/.data/
+
 # IDE
 .vscode/
 .idea/

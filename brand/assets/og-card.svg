@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="i雅俗共赏 分享卡片">
+  <title>i雅俗共赏 · 分享卡片</title>
+  <rect width="1200" height="630" fill="#F2EEE2"/>
+  <g transform="translate(96 116)">
+    <circle cx="50" cy="21" r="7.5" fill="#E1462B"/>
+    <line x1="50" y1="41" x2="50" y2="78" stroke="#14120D" stroke-width="12" stroke-linecap="round"/>
+    <line x1="26" y1="90" x2="74" y2="90" stroke="#B0A289" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <text x="248" y="210" font-family="Georgia, 'Songti SC', STSong, SimSun, 'Noto Serif CJK SC', serif" font-size="112" letter-spacing="12" fill="#14120D">雅俗共赏</text>
+  <text x="96" y="330" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="24" letter-spacing="5" fill="#857D71">俗到极致即为雅 · 雅得过头便是俗</text>
+  <line x1="96" y1="384" x2="1104" y2="384" stroke="#B0A289" stroke-width="2"/>
+  <text x="96" y="452" font-family="'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif" font-size="26" fill="#14120D">信息化 PM × 独立开发者 —— 把生活做成一件件小作品</text>
+  <text x="1104" y="452" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="20" letter-spacing="3" fill="#857D71">CHESTERLEE.CN</text>
+</svg>

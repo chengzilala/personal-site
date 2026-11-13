@@ -6,6 +6,10 @@
 <title>作品 ｜ i雅俗共赏 · Chester</title>
 <meta name="description" content="我做过的作品。">
 <link rel="stylesheet" href="assets/css/site.css">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/favicon-180.png">
+<meta name="theme-color" content="#F2EEE2">
 </head>
 <body>
 
@@ -101,18 +105,18 @@
         <a class="ps-card__media"
            href="https://run.chesterlee.cn"
            target="_blank" rel="noopener"
-           aria-label="访问高驰跑步看板">
-          <img src="assets/img/works/coros-run.svg"
-               alt="高驰跑步看板 · 进步曲线（简洁图形）"
+           aria-label="访问跑不快">
+          <img src="assets/img/works/paobukuai-logo.svg"
+               alt="跑不快 · 品牌线稿（简洁图形）"
                width="400" height="400" loading="lazy">
         </a>
         <div class="ps-card__body">
-          <p class="ps-card__tag">跑步数据看板</p>
-          <h3 class="ps-card__title">高驰跑步看板</h3>
-          <p class="ps-card__sub">COROS Run Dashboard</p>
-          <p class="ps-card__desc">跑量 / 配速 / 心率，附 AI 复盘</p>
+          <p class="ps-card__tag">跑步训练看板</p>
+          <h3 class="ps-card__title">跑不快</h3>
+          <p class="ps-card__sub">SLOW IS FAST</p>
+          <p class="ps-card__desc">高驰 / 佳明数据，跑量、配速、强度一眼看清</p>
           <div class="ps-card__foot">
-            <span class="ps-card__meta">邮箱登录 · 只看本人数据</span>
+            <span class="ps-card__meta">比赛 PB · AI 复盘 · 教练</span>
             <a class="ps-card__link" href="https://run.chesterlee.cn" target="_blank" rel="noopener">打开看板 →</a>
           </div>
         </div>
@@ -141,6 +145,48 @@
 
       <article class="ps-card ps-reveal">
         <a class="ps-card__media"
+           href="https://map.chesterlee.cn/site/"
+           target="_blank" rel="noopener"
+           aria-label="访问留个点">
+          <img src="assets/img/works/map-notes.svg"
+               alt="留个点 · 地图定位与地点笔记（简洁图形）"
+               width="400" height="400" loading="lazy">
+        </a>
+        <div class="ps-card__body">
+          <p class="ps-card__tag">地图地点笔记</p>
+          <h3 class="ps-card__title">留个点</h3>
+          <p class="ps-card__sub">Map Notes</p>
+          <p class="ps-card__desc">把地图收藏取出来，补一句备注，按「离我多远」排</p>
+          <div class="ps-card__foot">
+            <span class="ps-card__meta">高德 · 百度 · 登录后可用</span>
+            <a class="ps-card__link" href="https://map.chesterlee.cn/site/" target="_blank" rel="noopener">打开「留个点」→</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="ps-card ps-reveal">
+        <a class="ps-card__media"
+           href="https://persona.chesterlee.cn"
+           target="_blank" rel="noopener"
+           aria-label="访问三面">
+          <img src="assets/img/works/work-persona.svg"
+               alt="三面 · 三种状态的自己（简洁图形）"
+               width="400" height="400" loading="lazy">
+        </a>
+        <div class="ps-card__body">
+          <p class="ps-card__tag">行为风格测评</p>
+          <h3 class="ps-card__title">三面</h3>
+          <p class="ps-card__sub">Work Persona</p>
+          <p class="ps-card__desc">42 道题，看清自然 / 工作 / 压力三种状态下的自己</p>
+          <div class="ps-card__foot">
+            <span class="ps-card__meta">DISC 四维 · 本机存档 · 可导出</span>
+            <a class="ps-card__link" href="https://persona.chesterlee.cn" target="_blank" rel="noopener">打开「三面」→</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="ps-card ps-reveal">
+        <a class="ps-card__media"
            href="xunguang/index.html"
            aria-label="访问循光践道官网（站内副本）">
           <img src="assets/img/works/xunguang.svg"
@@ -163,82 +209,23 @@
   </div>
   </section>
 
-  <!-- ================= 接单（v0.72：暂时隐藏，删掉 hidden 即可恢复） ================= -->
-  <section class="ps-hire-band" id="hire" hidden aria-labelledby="hire-title">
-  <div class="ps-section">
-    <div class="ps-section__head ps-reveal">
-      <p class="ps-section__sub">Hire ／ 另说一件事</p>
-      <h2 class="ps-section__title" id="hire-title">我能帮你做的</h2>
+  <!-- ================= 合作 / 联系（v0.73：只留一句话 + 二维码，不写服务清单） ================= -->
+  <section class="ps-contact" id="contact" aria-labelledby="contact-title">
+    <div class="ps-section">
+      <div class="ps-contact__box ps-reveal">
+        <div class="ps-contact__text">
+          <p class="ps-section__sub">Contact ／ 合作</p>
+          <h2 class="ps-contact__title" id="contact-title">想做一个类似的东西，可以直接聊</h2>
+          <p class="ps-contact__line">加微信说一句想做什么就行。先聊需求，再谈价格；不确定值不值得做也可以问，我直接告诉你。</p>
+        </div>
+        <figure class="ps-contact__qr">
+          <img src="assets/img/about/wechat-personal.jpg"
+               alt="个人微信二维码"
+               width="785" height="1000" loading="lazy">
+          <figcaption>WeChat</figcaption>
+        </figure>
+      </div>
     </div>
-
-    <p class="ps-intro ps-reveal">上面是我的作品，到这里是另一件事：如果你需要的正好是其中一类，我可以帮你做一个——包括做完之后怎么让它真的上线。</p>
-
-    <div class="ps-svc">
-
-      <article class="ps-svc__card ps-reveal">
-        <h3 class="ps-svc__name">网站</h3>
-        <p class="ps-svc__desc">企业官网、个人主页、工作室站。少字、多留白，手机先看。</p>
-        <ul class="ps-svc__list">
-          <li>1–9 个页面</li>
-          <li>电脑 + 手机自适应</li>
-          <li>联系方式 / 表单 / 基础 SEO</li>
-        </ul>
-        <p class="ps-svc__note">按页面数报价</p>
-      </article>
-
-      <article class="ps-svc__card ps-reveal">
-        <h3 class="ps-svc__name">数据看板</h3>
-        <p class="ps-svc__desc">手上一堆数据，做成一个打开就能看懂的网页。</p>
-        <ul class="ps-svc__list">
-          <li>表格 / 接口 / 手工导入</li>
-          <li>6–10 个图表，手机可用</li>
-          <li>可加 AI 文字复盘</li>
-        </ul>
-        <p class="ps-svc__note">按数据源与图表数报价</p>
-      </article>
-
-      <article class="ps-svc__card ps-reveal">
-        <h3 class="ps-svc__name">上线一条龙</h3>
-        <p class="ps-svc__desc">页面做好了却一直上不去？多半卡在域名、证书、部署、备案这几步。</p>
-        <ul class="ps-svc__list">
-          <li>域名解析 + HTTPS</li>
-          <li>部署、页脚备案号规范</li>
-          <li>上线后跑一遍体检</li>
-        </ul>
-        <p class="ps-svc__note">按域名与平台复杂度报价</p>
-      </article>
-
-    </div>
-
-    <ol class="ps-steps ps-reveal">
-      <li><b>说需求</b>想做什么、有没有参考的站</li>
-      <li><b>报价</b>按页面或数据源给准价</li>
-      <li><b>定金开工</b>先出首页，确认方向</li>
-      <li><b>上线交付</b>能访问、能手机看、体检过</li>
-    </ol>
-
-    <div class="ps-faq ps-reveal">
-      <details>
-        <summary>多久能做完？</summary>
-        <p>我按里程碑交付，不承诺具体日期：首页 → 全站 → 上线，每一步你确认了再往下走。备案和平台审核的等待时间不在我的工期里。</p>
-      </details>
-      <details>
-        <summary>能开发票吗？</summary>
-        <p>我是个人承接，默认不开票，所以价格是按不含票报的。必须开票的话，税费需要另外算。</p>
-      </details>
-      <details>
-        <summary>只做一部分可以吗？</summary>
-        <p>可以。很多人是「页面已经有了，只差上线」，那就按上线一条龙做；也有人先做一版最小的，用起来再补。</p>
-      </details>
-    </div>
-
-    <div class="ps-hire-contact ps-reveal">
-      <img src="assets/img/about/wechat-personal.jpg"
-           alt="个人微信二维码"
-           width="785" height="1000" loading="lazy">
-      <p>加我时说一句想做什么就行。<br>先聊需求，再谈价格；不确定要不要做也可以问，我直接告诉你不值得。</p>
-    </div>
-  </div>
   </section>
 
 </main>
@@ -249,7 +236,8 @@
     <p class="ps-footer__line2">在我的语境中有两层意思</p>
     <p class="ps-footer__line3">在生活中游刃有余的人</p>
     <p class="ps-footer__line4">「人应该是被超越的某种东西。」—— 尼采</p>
-    <p class="ps-footer__meta">俗到极致即为雅，雅得过头便是俗——是谓i雅俗共赏。<span class="ps-footer__meta-sep">／</span>© 2026 Chester<span class="ps-footer__meta-sep">·</span><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">陇ICP备2026009894号-2</a></p>
+    <p class="ps-footer__meta">俗到极致即为雅，雅得过头便是俗——是谓i雅俗共赏。</p>
+    <p class="ps-footer__meta ps-footer__beian"><span>© 2026 Chester</span><span class="ps-footer__meta-sep">·</span><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">陇ICP备2026009894号-2</a><span class="ps-footer__meta-sep">·</span><a class="ps-footer__police" href="https://beian.mps.gov.cn/#/query/webSearch?code=62052302000062" target="_blank" rel="noopener"><img src="/assets/img/beian-police.png" alt="公安备案" width="16" height="17">甘公网安备62052302000062号</a></p>
   </div>
 </footer>
 

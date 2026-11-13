@@ -602,6 +602,10 @@ HEAD_TPL = """<!doctype html>
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <link rel="stylesheet" href="{css}">
+<link rel="icon" href="{prefix}assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="{prefix}assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="{prefix}assets/img/favicon-180.png">
+<meta name="theme-color" content="#F2EEE2">
 </head>
 <body>
 """
@@ -626,7 +630,8 @@ FOOT_TPL = """<footer class="ps-footer">
     <p class="ps-footer__line2">在我的语境中有两层意思</p>
     <p class="ps-footer__line3">在生活中游刃有余的人</p>
     <p class="ps-footer__line4">「人应该是被超越的某种东西。」—— 尼采</p>
-    <p class="ps-footer__meta">俗到极致即为雅，雅得过头便是俗——是谓i雅俗共赏。<span class="ps-footer__meta-sep">／</span>© 2026 Chester<span class="ps-footer__meta-sep">·</span><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">陇ICP备2026009894号-2</a></p>
+    <p class="ps-footer__meta">俗到极致即为雅，雅得过头便是俗——是谓i雅俗共赏。</p>
+    <p class="ps-footer__meta ps-footer__beian"><span>© 2026 Chester</span><span class="ps-footer__meta-sep">·</span><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">陇ICP备2026009894号-2</a><span class="ps-footer__meta-sep">·</span><a class="ps-footer__police" href="https://beian.mps.gov.cn/#/query/webSearch?code=62052302000062" target="_blank" rel="noopener"><img src="/assets/img/beian-police.png" alt="公安备案" width="16" height="17">甘公网安备62052302000062号</a></p>
   </div>
 </footer>
 <script src="{js}"></script>
@@ -672,8 +677,11 @@ LIST_ITEM_TPL = """    <li class="ps-item{latest}">
 
 
 def page_head(title, desc, css):
+    # css 形如 "../assets/css/site.css"；favicon 用同一前缀拼相对路径，
+    # 这样直接双击本地 html 也能加载图标（不依赖域名根）。
+    prefix = css.rsplit("assets/", 1)[0] if "assets/" in css else ""
     return HEAD_TPL.format(
-        title=html_lib.escape(title), desc=html_lib.escape(desc), css=css
+        title=html_lib.escape(title), desc=html_lib.escape(desc), css=css, prefix=prefix
     )
 
 
@@ -916,6 +924,10 @@ CLEAN_TPL = """<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title}</title>
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../assets/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../../assets/img/favicon-180.png">
+<meta name="theme-color" content="#F2EEE2">
 <link rel="canonical" href="{target}">
 <meta name="robots" content="noindex,follow">
 <meta http-equiv="refresh" content="0; url={target}">

@@ -241,6 +241,32 @@
     });
   }
 
+  /**
+   * AI Key 托管：给 AI Key 集成组件的 AIKeyStore.remote 当 call 用。
+   *   AIKeyStore.remote({
+   *     call: PSAuth.aiKeyCall,
+   *     actions: { get: 'get', save: 'save', clear: 'clear', test: 'test', reveal: 'reveal' }
+   *   })
+   * Key 存在账户中心、按 uid 加密，任何作品登录后读到的都是同一份。
+   * 失败时 reject（code 与接口错误码一致），由组件转成页面提示。
+   */
+  var AIKEY_ACTIONS = {
+    get: 'aikey.get',
+    save: 'aikey.save',
+    clear: 'aikey.clear',
+    test: 'aikey.test',
+    reveal: 'aikey.reveal',
+    // 统一 AI 网关：只发对话，Key 不出账户中心
+    chat: 'aikey.chat'
+  };
+
+  function aiKeyCall(action, payload) {
+    var target = AIKEY_ACTIONS[action] || action;
+    return request(target, payload || {}).then(function (data) {
+      return Object.assign({ ok: true }, data || {});
+    });
+  }
+
   /** 行为上报：失败静默，绝不阻塞作品主流程 */
   function track(event) {
     event = event || {};
@@ -277,7 +303,8 @@
     getUser: getUser,
     requireLogin: requireLogin,
     logout: logout,
-    track: track
+    track: track,
+    aiKeyCall: aiKeyCall
   };
 
   global.PSAuth = PSAuth;

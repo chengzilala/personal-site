@@ -1,7 +1,7 @@
 # personal-site — 个人网站
 
 > 用**大图**说话的极简个人网站：展示「我的生活方式」与「我的作品」。文字极少，手机/电脑都好看。
-> **域名 / 备案 / 上线**：统一记在 [部署上线备案/README.md](../部署上线备案/README.md)（唯一台账），本文不重复。
+> **域名 / 备案 / 上线**：统一记在 [部署上线备案/README.md](../部署上线备案/README.md)（唯一台账），本文不重复；线上页脚已挂 `陇ICP备2026009894号-2` + `甘公网安备62052302000062号`（含公安部官方图标，2026-10-28 通过）。
 
 ---
 
@@ -23,6 +23,7 @@
 - 作品页 [web/works.html](./web/works.html)、文章列表 [web/articles/index.html](./web/articles/index.html) 及每篇正文
 - 顶栏「登录 / 我的」入口：已接统一账户中心 SDK（`web/assets/js/ps-auth.js`）。未登录点「登录」跳账户中心，登录后带一次性票据回本页；已登录显示「我的」，直接进账户中心。地址在 `web/assets/js/site.js` 顶部的 `PS_ACCOUNT`，本机预览自动指向本地测试端口
 - 登录后点作品卡，会自动在账户中心「我的足迹」记一条「打开作品」（失败静默，不影响打开）
+- 页脚显示「累计 N 人次 · 今日 N 人次」：自建匿名统计（无第三方、无 Cookie；接口不可用时这一行自动隐藏）
 - 从 Obsidian 一键同步文章的脚本：双击项目根 **`同步文章.command`**
 - 目录骨架 + AI 协作规则与技能（`.trae/`，项目级）已就位
 - 需求文档、运行手册、会话记录已就位
@@ -40,7 +41,7 @@ personal-site/
 │   ├── works.html        # 作品页
 │   ├── articles/         # 文章：index.html（列表）+ <短名>.html（正文，脚本生成）
 │   ├── talks/            # 课程：index.html（列表）+ <短名>/{index,deck}.html + deck.pdf
-│   ├── xunguang/         # 「循光践道」官网副本（根 = 天光版；classic/ 破晓版；v2/v3/v5 变体）
+│   ├── xunguang/         # 「循光践道」官网副本（默认天光版 v4；含 10 页正式版 + v2–v5 变体）
 │   └── assets/
 │       ├── css/site.css
 │       ├── js/
@@ -52,6 +53,8 @@ personal-site/
 │           ├── works/    # 作品截图放这里
 │           └── articles/ # 文章插图（脚本生成）
 ├── tools/                # 🛠 工具：sync_articles.py（把 Obsidian md 转成网站）
+├── brand/                # 🎨 品牌：标志 SVG / favicon / 品牌手册（brand/index.html）
+├── server/stats/         # 📊 自建匿名访问统计（Node，零依赖；只监听服务器本机）
 ├── plan/                 # 📋 规划：RPD 需求 / 版本
 ├── dev/                  # 🔧 开发：可复制项目指南 / 会话记录
 ├── test/                 # 🧪 验收测试清单

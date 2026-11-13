@@ -637,6 +637,43 @@ a { color: inherit; }
 /* 分隔符：只留左右呼吸，颜色与整行一致 */
 .ps-footer__meta-sep { margin: 0 clamp(6px, 1.4vw, 10px); }
 
+/* 备案行：与上面那句分开一行，图标与文字绑成一组、整行居中，窄屏自动折行 */
+.ps-footer__beian {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4px;
+  font-size: 12px;
+}
+/* 访问统计行：备案行下方一行小字（接口不可用时整行不插入） */
+.ps-footer__stats {
+  margin: 8px 0 0;
+  color: #8f8f8f;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.ps-footer__police {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none !important;
+}
+.ps-footer__police img {
+  display: inline-block;
+  width: 16px;
+  height: 17px;
+  border: 0;
+  opacity: 0.9;
+}
+.ps-footer__meta a {
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
 /* ================= 断点：平板 / 桌面 ================= */
 
 @media (min-width: 700px) {
@@ -970,6 +1007,54 @@ a { color: inherit; }
   padding: clamp(52px, 9vw, 104px) 0 clamp(56px, 9vw, 104px);
   background: var(--ph-bg);
   border-top: 1px solid var(--line);
+}
+
+/* 合作 / 联系（v0.73）：只一句话 + 二维码，不列服务清单 */
+.ps-contact {
+  margin-top: clamp(36px, 6vw, 64px);
+  padding: clamp(36px, 6vw, 64px) 0;
+  border-top: 1px solid var(--line);
+}
+
+.ps-contact .ps-section { border-top: 0; padding-top: 0; padding-bottom: 0; }
+
+.ps-contact__box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(20px, 4vw, 48px);
+  flex-wrap: wrap;
+  padding: clamp(20px, 3vw, 32px);
+  background: var(--white);
+  border: 1px solid var(--line);
+}
+
+.ps-contact__text { flex: 1 1 320px; min-width: 0; text-align: left; }
+
+.ps-contact__title {
+  margin: 0 0 10px;
+  font-size: clamp(20px, 2.4vw, 26px);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.ps-contact__line { margin: 0; font-size: 15px; line-height: 1.9; color: var(--muted); }
+
+.ps-contact__qr { margin: 0; flex: 0 0 auto; text-align: center; }
+
+.ps-contact__qr img { display: block; width: 132px; height: auto; }
+
+.ps-contact__qr figcaption {
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+@media (max-width: 640px) {
+  .ps-contact__box { flex-direction: column; align-items: flex-start; }
+  .ps-contact__qr { align-self: center; }
 }
 
 /* 暂时隐藏接单板块（v0.72）：删掉 works.html 里该 section 的 hidden 即可恢复 */

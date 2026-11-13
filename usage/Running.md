@@ -14,6 +14,20 @@ python3 -m http.server 5181 --directory web
 # 然后浏览器打开 http://localhost:5181
 ```
 
+## 本地看访问统计（可选）
+
+页脚「累计 / 今日」数字来自自建统计服务；不启动它时，页脚只是**不显示这一行**，不影响页面。
+
+```bash
+# 终端 1：统计服务（127.0.0.1:8950，数据落在 server/stats/.data/）
+node server/stats/index.js
+
+# 终端 2：本站
+python3 -m http.server 5181 --directory web
+```
+
+打开 http://localhost:5181 即可看到页脚数字：同一天刷新不会重复计数，换浏览器或开无痕会 +1。
+
 ## 和账户中心联调（登录 / 作品上报）
 
 三个服务都要起（第三个就是上面的本站）：
@@ -106,3 +120,26 @@ rsync -az -e "ssh -i ~/.ssh/chesterlee_web" web/ ubuntu@43.136.92.125:/srv/chest
 ```
 
 只改单个文件时用 `scp` 也行。验证加缓存穿透参数：`curl -s "https://chesterlee.cn/路径?cb=$(date +%s)"`。域名 / 备案 / 落点以 [部署上线备案/README.md](../../部署上线备案/README.md) 台账为准。
+
+### 部署访问统计服务（一次性）
+
+前端 `web/` 照常 rsync；统计服务单独部署（只监听服务器本机，Caddy 反代 `/stats/*`）：
+
+```bash
+# 1) 代码
+rsync -az -e "ssh -i ~/.ssh/chesterlee_web" server/stats/ ubuntu@43.136.92.125:/srv/chesterlee/stats/
+
+# 2) 数据目录 + systemd
+ssh -i ~/.ssh/chesterlee_web ubuntu@43.136.92.125 "sudo mkdir -p /var/lib/personal-stats && sudo chown ubuntu:ubuntu /var/lib/personal-stats && sudo cp /srv/chesterlee/stats/personal-stats.service /etc/systemd/system/ && sudo systemctl daemon-reload && sudo systemctl enable --now personal-stats && systemctl is-active personal-stats"
+
+# 3) Caddy：在 chesterlee.cn 站点块里加一条 handle 反代
+#    handle /stats/* {
+#        reverse_proxy 127.0.0.1:8950
+#    }
+sudo caddy validate --config /etc/caddy/Caddyfile && sudo systemctl reload caddy
+
+# 4) 自检
+curl -s "https://chesterlee.cn/stats/healthz?cb=$(date +%s)"     # 期望 {"ok":true}
+```
+
+> 数据与匿名哈希密钥都在服务器 `store.json` 里，不入库；备份该文件保留 7 天即可。清空统计 = `sudo rm -rf /var/lib/personal-stats` 后重启服务。

@@ -144,11 +144,20 @@ a.lnk:hover{color:#A9BEFF}
 .hud button:hover{color:var(--gold);border-color:var(--gold)}
 .bar-play{position:fixed;left:0;top:0;height:2px;background:var(--gold);width:0;z-index:10;transition:width .25s}
 
+/* ---- 触屏翻页键（只有手机 / 平板出现） ---- */
+.navtap{position:fixed;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;
+  display:none;align-items:center;justify-content:center;z-index:12;padding:0;cursor:pointer;
+  background:rgba(0,0,0,.32);border:1px solid rgba(200,164,100,.5);color:var(--gold);
+  font-size:24px;line-height:1;font-family:inherit;-webkit-tap-highlight-color:transparent}
+.navtap.prev{left:12px}
+.navtap.next{right:12px}
+body.is-touch .navtap{display:flex}
+
 /* ---- 打印 / 导出 PDF：一页一张 ---- */
 @media print{
   html,body{background:#fff;height:auto}
   .deck{position:static;display:block;overflow:visible}
-  .hud,.bar-play{display:none}
+  .hud,.bar-play,.navtap{display:none}
   .slide{display:flex !important;position:relative !important;left:auto !important;top:auto !important;
     transform:none !important;margin:0 auto;
     page-break-after:always;break-after:page;page-break-inside:avoid}
@@ -219,7 +228,7 @@ a.lnk:hover{color:#A9BEFF}
 <section class="slide cover mid" data-n="57"><div class="inner"><div class="kicker">END</div><h1>最后，祝你成为超人。</h1><div class="sub"><p>在我的语境中有两层意思</p><p>在生活中游刃有余的人</p><p class="sig">「人应该是被超越的某种东西。」—— 尼采</p></div><div class="meta">Chester</div></div></section>
 </div>
 <div class="hud">
-  <span>← → 翻页　F 全屏　P 打印 / 导出 PDF</span>
+  <span>← → / 滑动 / 点两侧 翻页　F 全屏　P 打印 / 导出 PDF</span>
   <span class="r"><span class="num">1 / 57</span>
     <button id="btn-fs">全屏</button><button id="btn-p">打印 / PDF</button></span>
 </div>
@@ -264,9 +273,59 @@ a.lnk:hover{color:#A9BEFF}
     else if(e.key==='f'||e.key==='F'){toggleFS();}
     else if(e.key==='p'||e.key==='P'){window.print();}
   });
+  // 手机：两侧圆形箭头 + 上下左右滑动 + 点两侧都能翻页
+  var isTouch=('ontouchstart' in window)||(navigator.maxTouchPoints>0);
+  if(isTouch){
+    document.body.className+=' is-touch';
+    var pv=document.createElement('button'), nx=document.createElement('button');
+    pv.type='button'; pv.className='navtap prev'; pv.setAttribute('aria-label','上一页'); pv.textContent='‹';
+    nx.type='button'; nx.className='navtap next'; nx.setAttribute('aria-label','下一页'); nx.textContent='›';
+    pv.onclick=function(){show(i-1);poke();};
+    nx.onclick=function(){show(i+1);poke();};
+    document.body.appendChild(pv); document.body.appendChild(nx);
+  }
+  // 手机滑动翻页：上/左滑下一页，下/右滑上一页；轻点不翻（避免误触）
+  var tx=0, ty=0, tracking=false;
+  document.addEventListener('touchstart',function(e){
+    poke();
+    if(e.touches.length!==1) return;
+    tracking=true; tx=e.touches[0].clientX; ty=e.touches[0].clientY;
+  },{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(!tracking||e.changedTouches.length!==1) return;
+    tracking=false;
+    var dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty;
+    var ax=Math.abs(dx), ay=Math.abs(dy);
+    if(Math.max(ax,ay)<36) return;
+    if(ay>ax) show(i+(dy<0?1:-1)); else show(i+(dx<0?1:-1));
+  },{passive:true});
+  // 触控板/鼠标滚轮同样能翻页，惯性滚动只算一次
+  var lastWheel=0;
+  document.addEventListener('wheel',function(e){
+    var now=Date.now();
+    if(now-lastWheel<450||Math.abs(e.deltaY)<8) return;
+    lastWheel=now; e.preventDefault();
+    show(i+(e.deltaY>0?1:-1));
+  },{passive:false});
+  // 手机上点屏幕左 / 右两侧也能翻页；中间区域和按钮、链接不抢
+  var touchDevice=isTouch;
+  document.addEventListener('click',function(e){
+    if(!touchDevice) return;
+    var t=e.target;
+    if(t.closest&&t.closest('a,button,input,textarea,select,label,[contenteditable],.hud')) return;
+    var x=e.clientX/window.innerWidth;
+    if(x<0.3) show(i-1); else if(x>0.7) show(i+1);
+  });
   function toggleFS(){
-    if(!document.fullscreenElement){document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();}
-    else{document.exitFullscreen&&document.exitFullscreen();}
+    var el=document.documentElement;
+    var on=document.fullscreenElement||document.webkitFullscreenElement;
+    if(!on){
+      if(el.requestFullscreen) el.requestFullscreen();
+      else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    }else{
+      if(document.exitFullscreen) document.exitFullscreen();
+      else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+    }
   }
   var btnFS=document.querySelector('#btn-fs'), btnP=document.querySelector('#btn-p');
   if(btnFS) btnFS.onclick=toggleFS;
@@ -281,8 +340,12 @@ a.lnk:hover{color:#A9BEFF}
   }
   document.addEventListener('mousemove',poke);
   document.addEventListener('keydown',poke);
-  // 点击画布不翻页：现场误触太多，翻页只认键盘和翻页笔（← → / 空格 / PageUp·PageDown）
+  // 画布点击默认不翻页（现场误触太多）；手机上只认左 / 右两侧点击，配合滑动、两侧箭头与键盘
+  // 窗口尺寸 / 进全屏 / 横竖屏切换后重新贴合
   window.addEventListener('resize',fit);
+  document.addEventListener('fullscreenchange',fit);
+  document.addEventListener('webkitfullscreenchange',fit);
+  window.addEventListener('orientationchange',fit);
   autoshrink(); show(0); poke();
 })();
 </script>

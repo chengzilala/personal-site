@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>i雅俗共赏 · 品牌手册 v1.0</title>
+<meta name="description" content="i雅俗共赏的品牌手册：标志、主张、色彩、字体、网站图标与落地清单。">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/favicon-180.png">
+<meta name="theme-color" content="#F2EEE2">
+<style>
+  :root{
+    --bg:#f2eee2; --fg:#14120d; --muted:#857d71; --line:#b0a289;
+    --white:#fffdf8; --accent:#e1462b;
+    --serif:Georgia,"Songti SC","STSong","Noto Serif CJK SC",serif;
+    --mono:ui-monospace,"SFMono-Regular","SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--fg);
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+    font-size:16px; line-height:1.75; -webkit-font-smoothing:antialiased;
+  }
+  .bb-wrap{max-width:860px; margin:0 auto; padding:0 24px 96px}
+  a{color:inherit}
+
+  /* ---------- 通用排版 ---------- */
+  .eyebrow{
+    font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--muted); margin:0 0 10px;
+  }
+  h2{
+    font-family:var(--serif); font-weight:600; font-size:30px; line-height:1.35;
+    margin:0 0 6px; letter-spacing:.02em;
+  }
+  h3{
+    font-size:16px; font-weight:600; margin:28px 0 8px; letter-spacing:.02em;
+  }
+  h3:first-child{margin-top:0}
+  p{margin:0 0 14px}
+  .lead{font-size:17px; color:var(--fg)}
+  .note{color:var(--muted); font-size:14px}
+  .rule{height:1px; background:var(--line); border:0; margin:0}
+  section{padding:56px 0 8px; border-top:1px solid var(--line)}
+  section:first-of-type{border-top:0}
+  .sec-num{font-family:var(--mono); font-size:12px; letter-spacing:.16em; color:var(--muted)}
+
+  /* ---------- 封面 ---------- */
+  .cover{padding:80px 0 56px; text-align:left}
+  .cover .mark-lg{width:76px; height:76px; display:block; margin-bottom:26px}
+  .cover h1{
+    font-family:var(--serif); font-weight:600; font-size:56px; line-height:1.15;
+    letter-spacing:.06em; margin:0 0 14px;
+  }
+  .cover .sub{font-size:17px; color:var(--muted); margin:0 0 40px}
+  .cover-meta{
+    display:flex; flex-wrap:wrap; gap:10px 28px;
+    font-family:var(--mono); font-size:12px; letter-spacing:.14em; color:var(--muted);
+    border-top:1px solid var(--line); padding-top:16px; margin-top:40px;
+  }
+
+  /* ---------- 卡片/色块 ---------- */
+  .grid{display:grid; gap:14px}
+  .grid--2{grid-template-columns:repeat(2,1fr)}
+  .grid--3{grid-template-columns:repeat(3,1fr)}
+  .grid--4{grid-template-columns:repeat(4,1fr)}
+  .card{
+    background:var(--white); border:1px solid rgba(176,162,137,.45);
+    border-radius:12px; padding:22px;
+  }
+  .card--paper{background:var(--bg)}
+  .card__label{
+    font-family:var(--mono); font-size:11px; letter-spacing:.16em; color:var(--muted);
+    margin:0 0 14px;
+  }
+  .card--dark{background:#17150f; border-color:#322d24; color:#f2eee2}
+  .card--dark .card__label{color:#a89f90}
+
+  /* ---------- 标志展示 ---------- */
+  .logo-stage{
+    display:flex; align-items:center; justify-content:center;
+    height:220px; padding:26px; background:var(--white);
+    border:1px solid rgba(176,162,137,.45); border-radius:12px;
+  }
+  .logo-stage img{max-width:100%; height:auto; display:block}
+  .logo-stage--dark{background:#17150f; border-color:#322d24}
+  .logo-stage--accent{background:var(--accent); border-color:var(--accent)}
+  .cap{
+    font-size:13px; color:var(--muted); margin:10px 0 0;
+    display:flex; justify-content:space-between; gap:12px;
+  }
+  .cap span:last-child{font-family:var(--mono); font-size:11px; letter-spacing:.08em}
+
+  .mark{width:64px; height:64px; display:block}
+
+  /* ---------- 色彩 ---------- */
+  .swatch{border-radius:12px; overflow:hidden; border:1px solid rgba(176,162,137,.45)}
+  .swatch__chip{height:88px}
+  .swatch__meta{background:var(--white); padding:10px 12px}
+  .swatch__name{font-size:14px; font-weight:600; margin:0}
+  .swatch__hex{font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--muted); margin:2px 0 0}
+  .ratio{display:flex; height:26px; border-radius:8px; overflow:hidden; margin:8px 0 8px; border:1px solid rgba(176,162,137,.6)}
+  .legend{display:flex; flex-wrap:wrap; gap:6px 20px; font-family:var(--mono); font-size:11px; letter-spacing:.08em; color:var(--muted); margin:0}
+  .legend span::before{content:""; display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:6px; background:currentColor}
+  .legend .l-paper::before{background:#f2eee2; box-shadow:inset 0 0 0 1px var(--line)}
+  .legend .l-white::before{background:#fffdf8; box-shadow:inset 0 0 0 1px var(--line)}
+  .legend .l-ink::before{background:#14120d}
+  .legend .l-accent::before{background:#e1462b}
+
+  /* ---------- 表格 ---------- */
+  table{width:100%; border-collapse:collapse; font-size:14px}
+  th{
+    text-align:left; font-family:var(--mono); font-size:11px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--muted); font-weight:400;
+    border-bottom:1px solid var(--line); padding:8px 10px 8px 0;
+  }
+  td{border-bottom:1px solid rgba(176,162,137,.4); padding:9px 10px 9px 0; vertical-align:top}
+  td:last-child,th:last-child{padding-right:0}
+  code{
+    font-family:var(--mono); font-size:12.5px; background:rgba(20,18,13,.05);
+    padding:1px 5px; border-radius:4px;
+  }
+  pre{
+    background:var(--white); border:1px solid rgba(176,162,137,.45); border-radius:10px;
+    padding:14px 16px; overflow-x:auto; margin:10px 0 14px;
+  }
+  pre code{background:none; padding:0; font-size:12.5px; line-height:1.9}
+
+  /* ---------- 图标尺寸展示 ---------- */
+  .icon-row{display:flex; align-items:flex-end; gap:22px; flex-wrap:wrap}
+  .icon-row figure{margin:0; text-align:center}
+  .icon-row img{display:block; margin:0 auto 8px; image-rendering:-webkit-optimize-contrast}
+  .icon-row figcaption{font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.06em}
+  .browser{
+    background:var(--white); border:1px solid rgba(176,162,137,.45); border-radius:10px 10px 0 0;
+    padding:9px 12px; display:flex; align-items:center; gap:9px; font-size:12px; color:var(--muted);
+  }
+  .browser__tab{
+    display:flex; align-items:center; gap:7px; background:var(--bg);
+    border:1px solid rgba(176,162,137,.45); border-bottom:0; border-radius:7px 7px 0 0;
+    padding:5px 12px; color:var(--fg); font-size:12px;
+  }
+  .browser__tab img{width:15px; height:15px}
+  .browser__bar{background:var(--white); border:1px solid rgba(176,162,137,.45); border-top:0; border-radius:0 0 10px 10px; padding:12px; font-family:var(--mono); font-size:11px; color:var(--muted)}
+
+  /* ---------- 错误用法 ---------- */
+  .bad{position:relative; background:var(--white); border:1px dashed rgba(176,162,137,.8); border-radius:12px; height:132px; display:flex; align-items:center; justify-content:center; overflow:hidden}
+  .bad::after{
+    content:"✕"; position:absolute; top:8px; right:10px;
+    font-size:12px; color:#b8391f;
+  }
+  .bad img{max-width:100%}
+
+  /* ---------- 应用示范 ---------- */
+  .demo{background:var(--white); border:1px solid rgba(176,162,137,.45); border-radius:12px; padding:18px; min-height:140px; display:flex; flex-direction:column; justify-content:center}
+  .demo-topbar{display:flex; align-items:center; gap:10px; font-family:var(--serif); font-size:19px; letter-spacing:.04em}
+  .demo-topbar img{width:22px; height:22px}
+  .demo-topbar .links{margin-left:auto; display:flex; gap:14px; font-family:"PingFang SC",system-ui,sans-serif; font-size:13px; color:var(--muted)}
+  .demo-footer{display:flex; align-items:center; gap:8px; font-size:12px; color:var(--muted); margin-top:18px; padding-top:14px; border-top:1px solid var(--line)}
+  .demo-footer img{width:16px; height:16px}
+
+  /* ---------- 收尾 ---------- */
+  .end{padding:64px 0 0; border-top:1px solid var(--line); margin-top:56px}
+  .end p{font-family:var(--serif); font-size:22px; letter-spacing:.04em}
+
+  /* ---------- 打印 ---------- */
+  @media print{
+    :root{--bg:#fff}
+    body{background:#fff; font-size:11.5pt}
+    .bb-wrap{max-width:none; padding:0}
+    section{padding:22pt 0 4pt; break-inside:avoid}
+    .cover{min-height:80vh; break-after:page}
+    .card,.logo-stage,.demo,.browser,.browser__tab,.browser__bar{break-inside:avoid}
+    pre{white-space:pre-wrap}
+  }
+  @media (max-width:640px){
+    .grid--2,.grid--3,.grid--4{grid-template-columns:1fr}
+    .cover h1{font-size:40px}
+    h2{font-size:24px}
+    .icon-row{gap:16px}
+  }
+</style>
+</head>
+<body>
+
+<!-- 复用图形（内联，不引外部文件） -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="m-mark" viewBox="0 0 100 100">
+    <circle cx="50" cy="21" r="7.5" fill="#e1462b"/>
+    <line x1="50" y1="41" x2="50" y2="78" stroke="#14120d" stroke-width="12" stroke-linecap="round"/>
+    <line x1="26" y1="90" x2="74" y2="90" stroke="#b0a289" stroke-width="3" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="m-mark-inverse" viewBox="0 0 100 100">
+    <circle cx="50" cy="21" r="7.5" fill="#fffdf8"/>
+    <line x1="50" y1="41" x2="50" y2="78" stroke="#fffdf8" stroke-width="12" stroke-linecap="round"/>
+    <line x1="26" y1="90" x2="74" y2="90" stroke="#fffdf8" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+  </symbol>
+  <symbol id="m-mark-mono" viewBox="0 0 100 100">
+    <circle cx="50" cy="21" r="7.5" fill="currentColor"/>
+    <line x1="50" y1="41" x2="50" y2="78" stroke="currentColor" stroke-width="12" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+<div class="bb-wrap">
+
+<!-- ================= 封面 ================= -->
+<header class="cover">
+  <svg class="mark-lg" aria-hidden="true"><use href="#m-mark"/></svg>
+  <p class="eyebrow">Brand Book · v1.0</p>
+  <h1>i雅俗共赏</h1>
+  <p class="sub">张诚 Chester Lee　·　chesterlee.cn</p>
+  <p class="lead" style="max-width:520px">
+    一个小写的 <b>i</b>，一句老话。<br>
+    雅的看得下去，俗的也爱得起来——这就是这个站的全部主张。
+  </p>
+  <div class="cover-meta">
+    <span>标志 / 主张 / 色彩 / 字体 / 网站图标</span>
+    <span>2026-11-13</span>
+  </div>
+</header>
+
+<!-- ================= 01 主张 ================= -->
+<section>
+  <p class="sec-num">01 — 品牌主张</p>
+  <h2>俗到极致即为雅</h2>
+  <p class="note">Slogan（主句）</p>
+
+  <div class="grid grid--2" style="margin-top:22px">
+    <div class="card">
+      <p class="card__label">主句 · 单独使用</p>
+      <p style="font-family:var(--serif); font-size:26px; letter-spacing:.05em; margin:0">俗到极致即为雅</p>
+    </div>
+    <div class="card">
+      <p class="card__label">对句 · 必须与主句同现</p>
+      <p style="font-family:var(--serif); font-size:26px; letter-spacing:.05em; margin:0">雅得过头便是俗</p>
+    </div>
+  </div>
+
+  <h3>完整版（页脚沿用，不改字）</h3>
+  <p style="font-family:var(--serif); font-size:20px; letter-spacing:.02em">
+    俗到极致即为雅，雅得过头便是俗——是谓 i雅俗共赏。
+  </p>
+
+  <h3>品牌语（对外一句话介绍）</h3>
+  <p>把生活做成一件件小作品。</p>
+
+  <h3>收尾祝语（沿用，属固定资产）</h3>
+  <p style="margin-bottom:6px">最后，祝你成为超人。</p>
+  <p class="note">可接一行小字解释：在生活中游刃有余的人。再引尼采：「人应该是被超越的某种东西。」</p>
+
+  <h3>怎么说这个品牌</h3>
+  <table>
+    <tr><th style="width:46%">要</th><th>不要</th></tr>
+    <tr>
+      <td>具体：2000 公里、1400 小时、10 场半马</td>
+      <td>形容词堆叠：热爱生活、极致追求</td>
+    </tr>
+    <tr>
+      <td>平视：把事说清楚，可以自嘲（「跑不快」）</td>
+      <td>喊口号、加感叹号、用「赋能 / 闭环 / 生态」</td>
+    </tr>
+    <tr>
+      <td>克制：一段只说一件事</td>
+      <td>一段塞十个观点，配一堆 emoji</td>
+    </tr>
+  </table>
+
+  <h3>名字怎么拆</h3>
+  <p style="margin-bottom:0">
+    <b>i</b> = 我（I），也是这个标志的本体；<b>雅俗共赏</b> = 一句老话，雅的能看，俗的也爱看。
+    合起来是「我，既雅也俗」。所以网站上不写履历，只放作品和照片——做事本身比形容更可信。
+  </p>
+</section>
+
+<!-- ================= 02 标志 ================= -->
+<section>
+  <p class="sec-num">02 — 标志</p>
+  <h2>一点朱红，一条竖线</h2>
+  <p class="note">Concept：一个点 + 一条竖线 + 一条纸线</p>
+
+  <div style="display:flex; gap:26px; align-items:center; flex-wrap:wrap; margin:26px 0 8px">
+    <svg class="mark" style="width:88px;height:88px" aria-label="标志构成"><use href="#m-mark"/></svg>
+    <div style="flex:1; min-width:240px">
+      <table style="font-size:14px">
+        <tr><td style="width:74px"><b>点</b></td><td>朱红一记落款，也是读到的一句重点、跑过的一个路标</td></tr>
+        <tr><td><b>竖线</b></td><td>小写 i 的竖；同时是一个「立着的人」</td></tr>
+        <tr><td><b>纸线</b></td><td>纸的边线，也是地平线——人站在纸上</td></tr>
+        <tr><td><b>整体</b></td><td>小写 i = 我。放进名字里，这个 i 就是「i雅俗共赏」的 i，不必再写第二遍</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid grid--2" style="margin-top:30px">
+    <div>
+      <div class="logo-stage">
+        <img src="assets/logo-primary.svg" alt="横向组合标：图形标 + 雅俗共赏" style="width:290px">
+      </div>
+      <p class="cap"><span>A · 横向组合（主用）</span><span>536 × 118</span></p>
+    </div>
+    <div>
+      <div class="logo-stage">
+        <img src="assets/logo-stacked.svg" alt="竖版组合标" style="height:162px">
+      </div>
+      <p class="cap"><span>B · 竖版组合</span><span>360 × 300</span></p>
+    </div>
+    <div>
+      <div class="logo-stage">
+        <img src="assets/logo-mark.svg" alt="图形标" style="height:76px">
+      </div>
+      <p class="cap"><span>C · 图形标（无字）</span><span>100 × 100</span></p>
+    </div>
+    <div>
+      <div class="logo-stage" style="background:var(--accent)">
+        <svg style="width:70px;height:70px" aria-label="反白图形标"><use href="#m-mark-inverse"/></svg>
+      </div>
+      <p class="cap"><span>D · 反白（朱红底）</span><span>暖白不用纯白</span></p>
+    </div>
+  </div>
+
+  <h3>尺寸与安全区</h3>
+  <p>以朱红点的直径 <b>d</b> 为单位，标志四周至少留 <b>1d</b> 的空白，不与文字、边框、图片贴边。</p>
+  <table>
+    <tr><th>场景</th><th>最小尺寸</th><th>用哪个组合</th></tr>
+    <tr><td>浏览器标签 / 手机桌面</td><td>16 px</td><td>图标（C）</td></tr>
+    <tr><td>顶栏 / 名片 / 页脚落款</td><td>横向组合 ≥ 120 px 宽</td><td>A 或 C</td></tr>
+    <tr><td>方形位（头像 / 封面 / 分享卡）</td><td>竖版 ≥ 72 px 宽</td><td>B / 朱印图标</td></tr>
+    <tr><td>必须单色（印章、钢印、单色印刷）</td><td>16 px</td><td>单色标（墨色）</td></tr>
+  </table>
+
+  <h3>六个不要</h3>
+  <div class="grid grid--4" style="margin-top:14px">
+    <div>
+      <div class="bad"><img src="assets/logo-primary.svg" alt="" style="width:104px;transform:scaleX(1.55)"></div>
+      <p class="cap"><span>不拉伸压扁</span></p>
+    </div>
+    <div>
+      <div class="bad"><svg style="width:56px;height:56px;color:#2f5fd0"><use href="#m-mark-mono"/></svg></div>
+      <p class="cap"><span>不换主色</span></p>
+    </div>
+    <div>
+      <div class="bad">
+        <svg viewBox="0 0 100 100" style="width:56px;height:56px">
+          <circle cx="50" cy="14" r="7.5" fill="#14120d"/>
+          <line x1="50" y1="56" x2="50" y2="90" stroke="#14120d" stroke-width="12" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <p class="cap"><span>不拆开点与竖线</span></p>
+    </div>
+    <div>
+      <div class="bad" style="background:#8c8272">
+        <svg style="width:56px;height:56px"><use href="#m-mark"/></svg>
+      </div>
+      <p class="cap"><span>不压在杂色上</span></p>
+    </div>
+  </div>
+  <p class="note" style="margin-top:12px">
+    另外三条：不加描边 / 阴影 / 发光；不用纯白代替暖白；小于最小尺寸时只用图形标，不硬塞文字。
+  </p>
+</section>
+
+<!-- ================= 03 色彩 ================= -->
+<section>
+  <p class="sec-num">03 — 色彩</p>
+  <h2>纸、墨、一点朱</h2>
+  <p class="note">全部取自现有网站（web/assets/css/site.css），不新增颜色</p>
+
+  <div class="grid grid--3" style="margin:22px 0 26px">
+    <div class="swatch">
+      <div class="swatch__chip" style="background:#f2eee2"></div>
+      <div class="swatch__meta"><p class="swatch__name">纸 Paper</p><p class="swatch__hex">#F2EEE2</p></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch__chip" style="background:#14120d"></div>
+      <div class="swatch__meta"><p class="swatch__name">墨 Ink</p><p class="swatch__hex">#14120D</p></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch__chip" style="background:#e1462b"></div>
+      <div class="swatch__meta"><p class="swatch__name">朱 Vermilion</p><p class="swatch__hex">#E1462B</p></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch__chip" style="background:#fffdf8;border-bottom:1px solid rgba(176,162,137,.4)"></div>
+      <div class="swatch__meta"><p class="swatch__name">暖白 White</p><p class="swatch__hex">#FFFDF8</p></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch__chip" style="background:#857d71"></div>
+      <div class="swatch__meta"><p class="swatch__name">次墨 Muted</p><p class="swatch__hex">#857D71</p></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch__chip" style="background:#b0a289"></div>
+      <div class="swatch__meta"><p class="swatch__name">纸线 Line</p><p class="swatch__hex">#B0A289</p></div>
+    </div>
+  </div>
+
+  <h3>配比</h3>
+  <div class="ratio">
+    <div style="flex:70;background:#f2eee2"></div>
+    <div style="flex:20;background:#fffdf8"></div>
+    <div style="flex:7;background:#14120d"></div>
+    <div style="flex:3;background:#e1462b"></div>
+  </div>
+  <p class="legend">
+    <span class="l-paper">纸 70%</span>
+    <span class="l-white">暖白 20%</span>
+    <span class="l-ink">墨 7%</span>
+    <span class="l-accent">朱 3%</span>
+  </p>
+  <p class="note">朱红是「一点」，不是「一片」：点在标志上、标签上、最新一条上。整块朱红底只留给作品区通栏，一页最多一处。</p>
+
+  <h3>暗色</h3>
+  <p>底 <code>#17150F</code>、字 <code>#F2EEE2</code>、线 <code>#322D24</code>，<b>朱红不变</b>。暗色下不要给朱红加亮度，会变成橘色。</p>
+
+  <h3>对比度</h3>
+  <p style="margin-bottom:0">墨在纸上约 15:1，朱红上的暖白约 4.6:1（仅用于 ≥18px 的粗体或图形），正文永远用墨色，不用朱红写长句。</p>
+</section>
+
+<!-- ================= 04 字体 ================= -->
+<section>
+  <p class="sec-num">04 — 字体</p>
+  <h2>衬线说话，等宽做标</h2>
+
+  <div class="grid grid--3" style="margin:22px 0 26px">
+    <div class="card">
+      <p class="card__label">字标 / 标题</p>
+      <p style="font-family:var(--serif); font-size:26px; letter-spacing:.06em; margin:0 0 10px">雅俗共赏</p>
+      <p class="note" style="margin:0">Georgia → Songti SC → 宋体<br>字距 +0.1em</p>
+    </div>
+    <div class="card">
+      <p class="card__label">正文</p>
+      <p style="font-size:20px; margin:0 0 10px">读、跑、做产品</p>
+      <p class="note" style="margin:0">PingFang SC / 系统无衬线<br>行高 1.75，字号 ≥15px</p>
+    </div>
+    <div class="card">
+      <p class="card__label">眉标</p>
+      <p style="font-family:var(--mono); font-size:14px; letter-spacing:.2em; margin:0 0 10px">WORKS · WRITING</p>
+      <p class="note" style="margin:0">等宽 · 全大写<br>字距 +0.2em，只用英文</p>
+    </div>
+  </div>
+
+  <table>
+    <tr><th style="width:170px">规矩</th><th>说明</th></tr>
+    <tr><td>中文不倾斜</td><td>强调用加粗或朱红，不用斜体、不用描边</td></tr>
+    <tr><td>英文少用</td><td>只做眉标、副标题、域名；不写整段英文</td></tr>
+    <tr><td>左对齐</td><td>短句一律左对齐，不居中、不两端对齐</td></tr>
+    <tr><td>不引外部字体</td><td>只用系统字体，保证零加载、零依赖（站点的硬规矩）</td></tr>
+  </table>
+</section>
+
+<!-- ================= 05 图形语言 ================= -->
+<section>
+  <p class="sec-num">05 — 图形语言</p>
+  <h2>图八分，字两分</h2>
+
+  <div class="grid grid--2" style="margin-top:22px">
+    <div class="card">
+      <p class="card__label">01 · 大图优先</p>
+      <p style="margin:0">一张图占一屏的 80%，字只做注解。照片不裁成圆角，不叠滤镜，不加边框。</p>
+    </div>
+    <div class="card">
+      <p class="card__label">02 · 一条细线</p>
+      <p style="margin:0">分隔只用 1px 纸线（#B0A289），不用色块、不用阴影、不用卡片叠卡片。</p>
+    </div>
+    <div class="card">
+      <p class="card__label">03 · 一点朱红</p>
+      <p style="margin:0">每屏最多一处朱红：一个点、一个标签、一行「最新」。</p>
+    </div>
+    <div class="card">
+      <p class="card__label">04 · 留白</p>
+      <p style="margin:0">段与段之间 ≥1.5 行高；页面左右边距手机 20px、桌面 40px 起。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 06 网站图标 ================= -->
+<section>
+  <p class="sec-num">06 — 网站图标</p>
+  <h2>朱印图标</h2>
+  <p class="note">朱红底 + 暖白的 i。尺寸再小也不加文字。</p>
+
+  <div class="icon-row" style="margin:26px 0 8px">
+    <figure><img src="assets/favicon-16.png" alt="16 像素图标" width="16" height="16"><figcaption>16px · 标签页</figcaption></figure>
+    <figure><img src="assets/favicon-32.png" alt="32 像素图标" width="32" height="32"><figcaption>32px · 标签页</figcaption></figure>
+    <figure><img src="assets/favicon-512.png" alt="512 像素图标" width="64" height="64"><figcaption>512px（缩至 64 显示）</figcaption></figure>
+    <figure><img src="assets/favicon-180.png" alt="180 像素图标" width="90" height="90" style="border-radius:18px"><figcaption>180px · 桌面 / 头像</figcaption></figure>
+  </div>
+
+  <h3>在浏览器里长这样</h3>
+  <div style="margin-top:10px">
+    <div class="browser"><span class="browser__tab"><img src="assets/favicon-32.png" alt="">i雅俗共赏 · Chester</span><span>+</span></div>
+    <div class="browser__bar">chesterlee.cn</div>
+  </div>
+
+  <h3>接进网站（三行）</h3>
+  <p class="note">把 <code>brand/assets/</code> 里的 favicon* 复制到 <code>web/assets/img/</code>，在该页 <code>&lt;head&gt;</code> 里加：</p>
+<pre><code>&lt;link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml"&gt;
+&lt;link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32"&gt;
+&lt;link rel="apple-touch-icon" href="/assets/img/favicon-180.png"&gt;
+&lt;meta name="theme-color" content="#F2EEE2"&gt;</code></pre>
+  <p class="note" style="margin-bottom:0">SVG 给新浏览器（任意缩放都清晰），32px PNG 兜底老浏览器，180px 给 iOS 加到主屏。</p>
+</section>
+
+<!-- ================= 07 应用 ================= -->
+<section>
+  <p class="sec-num">07 — 应用示范</p>
+  <h2>四个位置，够用了</h2>
+
+  <div class="grid grid--2" style="margin-top:22px">
+    <div>
+      <div class="demo">
+        <div class="demo-topbar">
+          <img src="assets/favicon-32.png" alt="">
+          <span>i雅俗共赏</span>
+          <span class="links"><span>关于我</span><span>作品</span><span>文章</span></span>
+        </div>
+      </div>
+      <p class="cap"><span>① 顶栏：22px 图标 + 名称，链接靠右</span></p>
+    </div>
+    <div>
+      <div class="demo">
+        <div style="display:flex;align-items:center;gap:12px">
+          <img src="assets/logo-stacked.svg" alt="" style="height:104px">
+          <div style="font-size:12px;color:var(--muted);line-height:1.9">
+            方形位（公众号头像、分享封面）<br>用竖版组合或朱印图标
+          </div>
+        </div>
+      </div>
+      <p class="cap"><span>② 方形位：竖版组合</span></p>
+    </div>
+    <div>
+      <div class="demo">
+        <div style="display:flex;gap:12px">
+          <div style="flex:1;background:var(--bg);border-radius:8px;padding:12px 14px;position:relative">
+            <span style="font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--muted)">WORKS</span>
+            <p style="font-family:var(--serif);font-size:19px;margin:6px 0 0">微信悦读</p>
+            <svg style="position:absolute;top:12px;right:12px;width:14px;height:14px;opacity:.35"><use href="#m-mark-mono"/></svg>
+          </div>
+        </div>
+      </div>
+      <p class="cap"><span>③ 作品卡角标：14px 单色标，透明度 35%</span></p>
+    </div>
+    <div>
+      <div class="demo">
+        <div style="display:flex;gap:10px;align-items:center;font-size:11px;color:var(--muted)">
+          <img src="assets/favicon-32.png" alt="" style="width:18px;height:18px">
+          <span>© 2026 Chester</span><span>·</span><span>陇ICP备2026009894号-2</span>
+        </div>
+        <p class="note" style="margin:10px 0 0;font-size:12px">页脚：图标做落款，不抢正文</p>
+      </div>
+      <p class="cap"><span>④ 页脚落款：18px</span></p>
+    </div>
+  </div>
+
+  <h3>分享卡（微信 / 微博 / 任意链接预览）</h3>
+  <img src="assets/og-card.png" alt="分享卡片：标志 + 雅俗共赏 + 主句" style="width:100%;height:auto;border-radius:10px;border:1px solid rgba(176,162,137,.45);display:block">
+  <p class="cap"><span>1200 × 630 · assets/og-card.png</span><span>og:image</span></p>
+</section>
+
+<!-- ================= 08 资产与落地 ================= -->
+<section>
+  <p class="sec-num">08 — 资产清单</p>
+  <h2>文件都在 <code>brand/assets/</code></h2>
+
+  <table style="margin-top:18px">
+    <tr><th>文件</th><th>用途</th><th>尺寸</th></tr>
+    <tr><td><code>logo-primary.svg</code></td><td>横向组合（主用）</td><td>536 × 118</td></tr>
+    <tr><td><code>logo-stacked.svg</code></td><td>竖版组合（方形位）</td><td>360 × 300</td></tr>
+    <tr><td><code>logo-mark.svg</code></td><td>图形标（无字）</td><td>100 × 100</td></tr>
+    <tr><td><code>logo-seal-mono.svg</code></td><td>单色标（印章 / 单色印）</td><td>100 × 100</td></tr>
+    <tr><td><code>favicon.svg</code></td><td>网站图标（矢量，首选）</td><td>64 × 64</td></tr>
+    <tr><td><code>favicon-16 / 32 / 512.png</code></td><td>浏览器标签、书签</td><td>16 / 32 / 512</td></tr>
+    <tr><td><code>favicon-180.png</code></td><td>iOS 主屏、公众号头像</td><td>180 × 180</td></tr>
+    <tr><td><code>favicon-maskable.svg / -512.png</code></td><td>安卓自适应图标（可裁切）</td><td>512 × 512</td></tr>
+    <tr><td><code>og-card.svg / .png</code></td><td>链接分享卡</td><td>1200 × 630</td></tr>
+  </table>
+
+  <h3>落地状态（2026-11-14 已完成）</h3>
+  <p style="margin-bottom:6px">1. 图标已复制到 <code>web/assets/img/</code>：<code>favicon.svg</code>、<code>favicon-16 / 32 / 180 / 512.png</code>、<code>favicon-maskable.svg / -512.png</code>、<code>og-card.png</code>。</p>
+  <p style="margin-bottom:6px">2. 已写入全站 59 个页面的 <code>&lt;head&gt;</code>：首页 / 关于我 / 作品 / 名片 / 文章列表 / 分享列表，25 篇文章页、25 个短链跳转页、3 个分享详情页。<code>tools/sync_articles.py</code> 的模板同步带上了，以后新增文章不会再漏。</p>
+  <p style="margin-bottom:0">3. 首页已加 <code>og:image</code>，分享时显示这张 1200 × 630 卡片。</p>
+
+  <h3>版本</h3>
+  <table>
+    <tr><th style="width:80px">v1.0</th><td>2026-11-13</td></tr>
+    <tr><td colspan="2">初版：确定「一点朱红」图形标、主句、色彩与字体规则、网站图标与分享卡。</td></tr>
+    <tr><th style="width:80px">落地</th><td>2026-11-14</td></tr>
+    <tr><td colspan="2">图标接入全站 59 个页面与文章生成模板；纸线光学居中微调（y 93 → 90），手册内联图形与资产文件对齐。</td></tr>
+  </table>
+
+  <div class="end">
+    <p>一个点，一条线，一句话。够了。</p>
+    <p class="note" style="font-family:inherit; font-size:13px">i雅俗共赏 · 品牌手册 v1.0 · 2026-11-13</p>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="留个点 · 地图定位与地点笔记">
+  <title>留个点 · 地图定位与地点笔记</title>
+  <g fill="none" stroke="#14120d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M92 312 C150 286 158 236 204 212 C240 194 238 164 250 136" stroke-dasharray="1 11"/>
+    <rect x="88" y="214" width="104" height="68" rx="8" fill="#f2eee2"/>
+    <path d="M106 238 H174" stroke-opacity="0.45"/>
+    <path d="M106 260 H152" stroke-opacity="0.45"/>
+  </g>
+  <path d="M250 86 C222 86 200 108 200 136 C200 176 250 224 250 224 C250 224 300 176 300 136 C300 108 278 86 250 86 Z"
+        fill="#e1462b" stroke="#14120d" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="250" cy="136" r="13" fill="#f2eee2" stroke="#14120d" stroke-width="3"/>
+  <g fill="#14120d" fill-opacity="0.3">
+    <circle cx="118" cy="148" r="4"/>
+    <circle cx="166" cy="182" r="3"/>
+    <circle cx="322" cy="252" r="4"/>
+    <circle cx="316" cy="300" r="3"/>
+  </g>
+</svg>

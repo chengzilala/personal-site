@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="三面 · 三种状态的自己">
+  <title>三面 · 三种状态的自己</title>
+  <g fill="none" stroke="#14120d" stroke-width="2" stroke-opacity="0.35" stroke-dasharray="2 10">
+    <path d="M170 176 L230 176"/>
+    <path d="M148 178 L186 230"/>
+    <path d="M252 178 L214 230"/>
+  </g>
+  <g fill="none" stroke="#14120d" stroke-width="3">
+    <circle cx="140" cy="130" r="62"/>
+    <circle cx="260" cy="130" r="62"/>
+  </g>
+  <circle cx="200" cy="258" r="62" fill="#e1462b" stroke="#14120d" stroke-width="3"/>
+  <g fill="#14120d">
+    <circle cx="122" cy="118" r="4"/>
+    <circle cx="158" cy="118" r="4"/>
+    <circle cx="242" cy="118" r="4"/>
+    <circle cx="278" cy="118" r="4"/>
+  </g>
+  <g fill="none" stroke="#14120d" stroke-width="3" stroke-linecap="round">
+    <path d="M120 152 Q140 170 160 152"/>
+    <path d="M240 156 H280"/>
+  </g>
+  <g fill="#f2eee2">
+    <circle cx="182" cy="246" r="4"/>
+    <circle cx="218" cy="246" r="4"/>
+  </g>
+  <path d="M180 280 Q200 260 220 280"
+        fill="none" stroke="#f2eee2" stroke-width="3" stroke-linecap="round"/>
+</svg>

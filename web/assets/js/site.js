@@ -179,6 +179,71 @@ function setupReveal() {
   });
 }
 
+/* ---------- 3. 页脚访问统计 ---------- */
+/* 自建匿名统计：只上报当前路径与来源域名，不带任何标识；失败静默、不占位。 */
+var PS_STATS = {
+  prod: '/stats',
+  local: 'http://localhost:8950/stats'
+};
+
+function statsApi() {
+  return isLocalHost() ? PS_STATS.local : PS_STATS.prod;
+}
+
+function hostnameOf(url) {
+  try {
+    return new URL(url).hostname;
+  } catch (err) {
+    return '';
+  }
+}
+
+function formatCount(value) {
+  return String(value).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function setupStats() {
+  var footer = document.querySelector('.ps-footer__inner');
+  if (!footer || location.protocol === 'file:' || !window.fetch) return;
+
+  var anchor = footer.querySelector('.ps-footer__beian') || footer.lastElementChild;
+  var controller = window.AbortController ? new AbortController() : null;
+  var timer = controller
+    ? setTimeout(function () { controller.abort(); }, 1500)
+    : null;
+
+  fetch(statsApi() + '/hit', {
+    method: 'POST',
+    keepalive: true,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      p: location.pathname,
+      r: document.referrer ? hostnameOf(document.referrer) : ''
+    }),
+    signal: controller ? controller.signal : undefined
+  }).then(function (res) {
+    if (!res.ok) throw new Error('bad status');
+    return res.json();
+  }).then(function (data) {
+    if (!data || typeof data.total !== 'number' || typeof data.today !== 'number') return;
+
+    var line = document.createElement('p');
+    line.className = 'ps-footer__stats';
+    line.textContent = '累计 ' + formatCount(data.total) + ' 人次 · 今日 ' + formatCount(data.today) + ' 人次';
+
+    if (anchor && anchor.parentNode === footer) footer.insertBefore(line, anchor.nextSibling);
+    else footer.appendChild(line);
+  }).catch(function () {
+    /* 统计不可用时不显示，不影响页面 */
+  }).then(function () {
+    if (timer) clearTimeout(timer);
+  });
+}
+
 renderArticles();
 setupReveal();
 setupAccountEntry();
+
+if (document.readyState === 'complete') setupStats();
+else window.addEventListener('load', setupStats);
+
