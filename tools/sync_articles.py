@@ -49,7 +49,7 @@ IMG_DIR = os.path.join(WEB_DIR, "assets", "img", "articles")
 DATA_JS = os.path.join(WEB_DIR, "assets", "js", "articles-data.js")
 
 # 站点信息（文章页会用到）
-SITE_NAME = "i雅俗共赏 · Chester"
+SITE_NAME = "i雅俗共赏"
 SITE_TAGLINE = "我想成为更好的自己。"
 SITE_BRAND = "i雅俗共赏"
 AUTHOR_NAME = "Chester"

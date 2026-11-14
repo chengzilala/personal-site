@@ -92,11 +92,30 @@ a { color: inherit; }
 }
 
 .ps-topbar__brand {
+  /* v0.93：字标改用系统衬线（Georgia → 宋体），与品牌手册 04 节一致 */
+  font-family: var(--font-serif);
   font-size: clamp(17px, 4.5vw, 21px);
-  font-weight: 800;
-  letter-spacing: -0.01em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
   text-decoration: none;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+/* 顶栏「一点朱红」图形标：竖线与纸线跟随文字色，暗色模式自动反白 */
+.ps-topbar__mark {
+  width: 1em;
+  height: 1em;
+  flex: none;
+  display: block;
+}
+
+/* 窄屏（手机）空间紧：只留字标，不塞图形 */
+@media (max-width: 420px) {
+  .ps-topbar__mark { display: none; }
+  .ps-topbar__brand { gap: 0; }
 }
 
 .ps-topbar__links {
