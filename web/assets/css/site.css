@@ -92,11 +92,12 @@ a { color: inherit; }
 }
 
 .ps-topbar__brand {
-  /* v0.93：字标改用系统衬线（Georgia → 宋体），与品牌手册 04 节一致 */
-  font-family: var(--font-serif);
+  /* v0.94：字标用系统黑体加粗（跨平台最稳），与「一点朱红」图形标搭配 */
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+               system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   font-size: clamp(17px, 4.5vw, 21px);
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.01em;
   text-decoration: none;
   white-space: nowrap;
   display: inline-flex;
@@ -104,10 +105,11 @@ a { color: inherit; }
   gap: 7px;
 }
 
-/* 顶栏「一点朱红」图形标：竖线与纸线跟随文字色，暗色模式自动反白 */
+/* 顶栏「一点朱红」图形标：竖线与纸线跟随文字色，暗色模式自动反白。
+   1.42em 是补偿——图形墨迹只占画布 60%，放大后才与汉字视觉等高 */
 .ps-topbar__mark {
-  width: 1em;
-  height: 1em;
+  width: 1.42em;
+  height: 1.42em;
   flex: none;
   display: block;
 }
